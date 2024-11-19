@@ -16,7 +16,7 @@ class Character {
 public:
     Character(int health, int speed, int damage);
 
-    Character(const Character&other);
+    Character(const Character&other) = default;
 
     virtual void hit(int damage);
 
