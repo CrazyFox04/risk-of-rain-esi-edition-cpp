@@ -7,6 +7,7 @@ project(risk-of-rain-esi-edition-cpp)
 set(SOURCES
         Game.cpp
         Level.cpp
+        Area.cpp
 )
 
 # Create the model library that public can use
