@@ -5,6 +5,7 @@
 #ifndef AREA_HPP
 #define AREA_HPP
 #include <vector>
+#include "AreaType.hpp"
 
 class Area {
     std::vector<std::vector<Fragment>> fragments;

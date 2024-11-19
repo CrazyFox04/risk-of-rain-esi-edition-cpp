@@ -5,7 +5,7 @@
 #ifndef LEVEL_HPP
 #define LEVEL_HPP
 #include <vector>
-
+#include "Area.hpp"
 class Level {
     std::vector<std::vector<Area>> areas;
 };
