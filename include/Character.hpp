@@ -14,6 +14,8 @@ class Character {
     //std::vector<Item> items; todo
 
 public:
+    virtual ~Character() = default;
+
     Character(int health, int speed, int damage);
 
     Character(const Character&other) = default;
