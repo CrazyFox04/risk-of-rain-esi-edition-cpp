@@ -4,8 +4,11 @@
 
 #ifndef GAME_HPP
 #define GAME_HPP
-#include "vector"
+#include "Level.hpp"
+
+#include <vector>
+
 class Game {
-  std::vector<Level> levels;
+    std::vector<Level> levels;
 };
 #endif //GAME_HPP
