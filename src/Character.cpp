@@ -1,7 +1,7 @@
 //
 // Created by Enzo Renard on 19/11/2024.
 //
-#include "Character.hpp";
+#include "Character.hpp"
 
 Character::Character(int health, int speed, int damage): health(health), speed(speed), damage(damage) {
 }
