@@ -9,6 +9,7 @@ set(SOURCES
         Level.cpp
         Area.cpp
         Fragment.cpp
+        Tile.cpp
 )
 
 # Create the model library that public can use
