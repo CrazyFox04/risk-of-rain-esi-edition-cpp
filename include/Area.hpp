@@ -4,6 +4,7 @@
 
 #ifndef AREA_HPP
 #define AREA_HPP
+#include <Fragment.hpp>
 #include <vector>
 #include "AreaType.hpp"
 
