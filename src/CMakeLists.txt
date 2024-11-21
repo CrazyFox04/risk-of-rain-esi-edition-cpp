@@ -10,6 +10,7 @@ set(SOURCES
         Area.cpp
         Fragment.cpp
         Tile.cpp
+        InteractiveObject.cpp
 )
 
 # Create the model library that public can use
