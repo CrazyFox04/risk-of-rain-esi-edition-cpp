@@ -9,6 +9,16 @@
 #include <vector>
 
 class Game {
+    int activeLevel;
     std::vector<Level> levels;
+
+    void add_level(const Level&level);
+
+    void next_level();
+
+public:
+    Game();
+
+    Level getActiveLevel();
 };
 #endif //GAME_HPP

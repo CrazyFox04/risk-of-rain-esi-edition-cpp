@@ -8,7 +8,6 @@ set(SOURCES
         Game.cpp
         Level.cpp
         Area.cpp
-        Fragment.cpp
         Tile.cpp
         InteractiveObject.cpp
 )
