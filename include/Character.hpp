@@ -4,28 +4,39 @@
 
 #ifndef CHARACTER_HPP
 #define CHARACTER_HPP
+
 #include <vector>
-// #include <Item.hpp> todo
+#include <memory>
+
+class Item;
 
 class Character {
+protected:
     int health;
     int speed;
     int damage;
-    //std::vector<Item> items; todo
+    std::vector<std::shared_ptr<Item>> items;
 
 public:
-    virtual ~Character() = default;
-
     Character(int health, int speed, int damage);
 
-    Character(const Character&other) = default;
+    virtual ~Character() = default;
+
+    // Getters
+    int getHealth() const { return health; }
+    int getSpeed() const { return speed; }
+    int getDamage() const { return damage; }
+    const std::vector<std::shared_ptr<Item>> &getItems() const { return items; }
+
 
     virtual void hit(int damage);
-
     virtual void kill();
+    virtual bool canHit(int damage) const;
+    virtual void attack() = 0;  // Méthode pure virtuelle
+    virtual void shoot() = 0;   // Méthode pure virtuelle
+    void addItem(std::shared_ptr<Item> item);
 
-    // virtual void canShoot(Weapon weapon); todo
-
-    virtual void canHit(int damage);
+protected:
+    void modifyStats(int healthMod, int speedMod, int damageMod);
 };
 #endif //CHARACTER_HPP
