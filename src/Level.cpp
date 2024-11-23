@@ -58,3 +58,8 @@ int Level::generateLevelSize(const int min, const int max) {
     std::uniform_int_distribution<> dis(min, max - 1);
     return dis(gen);
 }
+
+int Level::getId() const {
+    return this->id;
+}
+

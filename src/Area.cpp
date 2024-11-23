@@ -12,3 +12,15 @@ Area Area::getRandomArea() {
     std::uniform_int_distribution<> dis(0, Areas.size());
     return Areas.at(dis(gen));
 }
+
+Area::Area() : type(OUTSIDE) {
+}
+
+Area::Area(std::vector<std::vector<Tile>> tiles, std::vector<int> gatewayPositions, AreaType type) : tiles(tiles),
+    gatewayPositions(gatewayPositions), type(type) {
+}
+
+
+bool Area::isCompatible(const Area&otherArea) {
+    // todo 
+}
