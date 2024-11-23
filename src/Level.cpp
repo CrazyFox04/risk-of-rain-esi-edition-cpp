@@ -29,14 +29,30 @@ bool Level::isLoaded() const {
     return !this->areas.empty();
 }
 
-void Level::generate() {
+Level Level::generate() {
     if (this->isLoaded()) {
-        throw std::runtime_error("Cannot generate an already loaded level : void generate()");
+        throw std::runtime_error("Cannot generate an already loaded level : Level generate()");
     }
-    int size = generateLevelSize(0,0);
+    const int size_x = generateLevelSize(0,0);
+    const int size_y = generateLevelSize(0,0);
+    areas.resize(size_y);
+    areas.at(0).resize(size_x);
+    for (int i = 0; i < areas.size(); ++i) {
+        for (int j = 0; j < areas.at(0).size(); ++j) {
+            if (i == 0 && j == 0) {
+                areas.at(i).at(j) = Area::getRandomArea();
+            }
+            auto newArea = Area::getRandomArea();
+            const auto otherArea = areas.at(i).at(j);
+            while (newArea.isCompatible(otherArea)) {
+                newArea = Area::getRandomArea();
+            }
+        }
+    }
+    return std::move(*this); // todo : break the object WARNING -> need to add to docs
 }
 
-int Level::generateLevelSize(int min, int max) {
+int Level::generateLevelSize(const int min, const int max) {
     std::random_device rd;
     std::mt19937 gen(rd());
     std::uniform_int_distribution<> dis(min, max - 1);

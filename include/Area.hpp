@@ -15,5 +15,9 @@ class Area {
 
 public:
     Area(std::vector<std::vector<Tile>> fragments, std::vector<int> gatewayPositions, AreaType type);
+
+    static Area getRandomArea();
+
+    bool isCompatible(const Area& otherArea);
 };
 #endif //AREA_HPP
