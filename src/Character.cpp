@@ -17,7 +17,7 @@ void Character::hit(int damage) {
 
 void Character::kill() {
     health = 0;
-    // Implémentez ici la logique de mort du personnage
+    // todo
 }
 
 bool Character::canHit(int damage) const {
@@ -27,10 +27,3 @@ bool Character::canHit(int damage) const {
 void Character::addItem(std::shared_ptr <Item> item) {
         items.push_back(item);
 }
-
-void Character::modifyStats(int healthMod, int speedMod, int damageMod) {
-    health += healthMod;
-    speed += speedMod;
-    damage += damageMod;
-}
-

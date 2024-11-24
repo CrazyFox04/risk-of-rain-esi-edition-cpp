@@ -8,7 +8,7 @@
 #include <memory>
 #include "Character.hpp"
 
-class Weapon;
+class Weapon; // a supprimer une fois que la classe Weapon sera créée et incluse
 
 class Player : public Character {
 private:
@@ -27,11 +27,12 @@ public:
     std::shared_ptr<Weapon> getActiveWeapon() const;
     std::shared_ptr<Item> getItem(size_t index) const;
 
+    void attack() override;
+    void shoot() override;
+
+protected:
     void increaseHealth(int amount);
     void increaseSpeed(int amount);
     void increaseDamage(int amount);
-
-    void attack() override;
-    void shoot() override;
 };
 #endif //PLAYER_HPP

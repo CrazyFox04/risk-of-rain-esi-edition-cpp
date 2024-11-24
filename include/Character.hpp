@@ -8,7 +8,7 @@
 #include <vector>
 #include <memory>
 
-class Item;
+class Item; // a supprimer une fois que la classe Item sera créée et incluse
 
 class Character {
 protected:
@@ -35,8 +35,5 @@ public:
     virtual void attack() = 0;  // Méthode pure virtuelle
     virtual void shoot() = 0;   // Méthode pure virtuelle
     void addItem(std::shared_ptr<Item> item);
-
-protected:
-    void modifyStats(int healthMod, int speedMod, int damageMod);
 };
 #endif //CHARACTER_HPP

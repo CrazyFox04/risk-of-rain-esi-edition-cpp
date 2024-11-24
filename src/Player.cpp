@@ -11,9 +11,20 @@ bool Player::canShoot() const {
 }
 
 void Player::useItem(const std::shared_ptr<Item> &item) {
-    if (item) {
-        item->apply(*this);
+    if (!item) return;
+
+    switch (item->getType()) {
+        case ItemType::HEALTH_POTION:
+            modifyHealth(item->getValue());
+            break;
+        case ItemType::SPEED_BOOST:
+            modifySpeed(item->getValue());
+            break;
+        case ItemType::DAMAGE_BOOST:
+            modifyDamage(item->getValue());
+            break;
     }
+    items.push_back(item);
 }
 
 void Player::switchWeapons() {
@@ -47,21 +58,14 @@ std::shared_ptr<Item> Player::getItem(size_t index) const {
 
 void Player::increaseHealth(int amount) {
     health += amount;
-    // Vous pouvez ajouter une limite maximale si nécessaire
-    // health = std::min(health, maxHealth);
 }
 
 void Player::increaseSpeed(int amount) {
     speed += amount;
-    // Si vous voulez un multiplicateur au lieu d'une addition :
-    // speed = static_cast<int>(speed * (1.0 + amount / 100.0));
 }
 
 void Player::increaseDamage(int amount) {
     damage += amount;
-    if (activeWeapon) {
-        //activeWeapon->increaseDamage(amount);
-    }
 }
 
 void Player::attack() {
