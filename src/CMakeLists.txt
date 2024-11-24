@@ -5,7 +5,11 @@ project(risk-of-rain-esi-edition-cpp)
 
 # C++ sources files of the Flood-It-model
 set(SOURCES
-        
+        Item.cpp
+        CharacterModifier.cpp
+        Weapon.cpp
+        Item.cpp
+
 )
 
 # Create the model library that public can use
