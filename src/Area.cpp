@@ -9,8 +9,8 @@
 Area Area::getRandomArea() {
     std::random_device rd;
     std::mt19937 gen(rd());
-    std::uniform_int_distribution<> dis(0, Areas.size());
-    return Areas.at(dis(gen));
+    std::uniform_int_distribution<> dis(0, DefinedAreas::size());
+    return DefinedAreas::get(static_cast<Areas>(dis(gen))).area;
 }
 
 Area::Area() : type(OUTSIDE) {
