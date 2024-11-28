@@ -8,8 +8,6 @@
 #include <memory>
 #include "Character.hpp"
 
-class Weapon; // a supprimer une fois que la classe Weapon sera créée et incluse
-
 class Player : public Character {
 private:
     std::shared_ptr<Weapon> activeWeapon;
@@ -20,12 +18,12 @@ public:
     ~Player() override = default;
 
     bool canShoot() const;
-    void useItem(const std::shared_ptr<Item> &item);
+    void useItem(const std::shared_ptr<Buff> &item);
     void switchWeapons();
     void addWeapon(const std::shared_ptr<Weapon> &weapon);
-    void addItem(const std::shared_ptr<Item> &item);
+    void addItem(const std::shared_ptr<Buff> &item);
     std::shared_ptr<Weapon> getActiveWeapon() const;
-    std::shared_ptr<Item> getItem(size_t index) const;
+    std::shared_ptr<Buff> getItem(size_t index) const;
 
     void attack() override;
     void shoot() override;

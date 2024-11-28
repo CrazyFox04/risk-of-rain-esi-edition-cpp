@@ -10,21 +10,25 @@ bool Player::canShoot() const {
     return activeWeapon != nullptr;
 }
 
-void Player::useItem(const std::shared_ptr<Buff> &buff) {
-    if (!buff) return;
+void Player::useItem(const std::shared_ptr<Buff> &item) {
+    if (!item) return;
 
-    switch (buff->getType()) {
-        case ItemType::HEALTH_POTION:
-            modifyHealth(buff->getValue());
+    Buff buff = *item;
+    switch (buff) {
+        case Buff::HEALTH_POTION:
+            increaseHealth(BuffValue::getValue(buff));
             break;
-        case ItemType::SPEED_BOOST:
-            modifySpeed(buff->getValue());
+        case Buff::SPEED_BOOST:
+            increaseSpeed(BuffValue::getValue(buff));
             break;
-        case ItemType::DAMAGE_BOOST:
-            modifyDamage(buff->getValue());
+        case Buff::DAMAGE_BOOST:
+            increaseDamage(BuffValue::getValue(buff));
+            break;
+        default:
             break;
     }
-    items.push_back(buff);
+
+    buffs.push_back(item);
 }
 
 void Player::switchWeapons() {
@@ -40,7 +44,7 @@ void Player::switchWeapons() {
     }
 }
 
-void Player::addItem(const std::shared_ptr<Item> &item) {
+void Player::addItem(const std::shared_ptr<Buff> &item) {
     Character::addItem(item);
 }
 
@@ -48,9 +52,9 @@ std::shared_ptr<Weapon> Player::getActiveWeapon() const {
     return activeWeapon;
 }
 
-std::shared_ptr<Item> Player::getItem(size_t index) const {
-    if (index < items.size()) {
-        return items[index];
+std::shared_ptr<Buff> Player::getItem(size_t index) const {
+    if (index < buffs.size()) {
+        return buffs[index];
     }
     return nullptr;
 }
