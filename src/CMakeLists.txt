@@ -8,7 +8,6 @@ set(SOURCES
         Item.cpp
         CharacterModifier.cpp
         Weapon.cpp
-        Item.cpp
         Character.cpp
         Enemy.cpp
         Player.cpp
