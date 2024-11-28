@@ -11,8 +11,8 @@ enum class Buff {
     DAMAGE_BOOST
 };
 
-struct Buff {
-    static getValue() {
+struct BuffValue {
+    static int getValue(Buff buff) {
         switch (buff) {
             case Buff::HEALTH_POTION:
                 return 50;
@@ -20,9 +20,11 @@ struct Buff {
                 return 10;
             case Buff::DAMAGE_BOOST:
                 return 15;
+            default:
+                return 0;
         }
-        return 0;
     }
 };
+
 
 #endif //FLOOD_IT_CHARACTERMODIFIER_H
