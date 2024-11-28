@@ -5,10 +5,10 @@
 #ifndef TILE_HPP
 #define TILE_HPP
 #include "Texture.hpp"
-#include "InteractiveObject.hpp"
+#include "InterractiveObject.hpp"
 class Tile {
   Texture texture;
   bool isFloor;
-  InteractiveObject object;
+  InterractiveObject object;
 };
 #endif //TILE_HPP

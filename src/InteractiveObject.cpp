@@ -1,4 +1,4 @@
 //
 // Created by Enzo Renard on 21/11/2024.
 //
-#include "InteractiveObject.hpp"
+#include "InterractiveObject.hpp"
