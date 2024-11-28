@@ -11,5 +11,17 @@ enum class Areas {
     BIOME1
 };
 
-static const auto Areas = std::vector<Area>{{{{}}, {1}, UNDERWATER}};
+struct DefinedAreas {
+    Area area;
+
+    static DefinedAreas get(Areas areas) {
+        switch (areas) {
+            case Areas::BIOME1:
+                return {{{{}}, {1}, UNDERWATER}};
+            default:
+                return {{{{}}, {1}, UNDERWATER}};
+        }
+    }
+};
+
 #endif //AREAS_HPP
