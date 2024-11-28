@@ -5,10 +5,10 @@
 #ifndef CHARACTER_HPP
 #define CHARACTER_HPP
 
+#include "Buff.h"
+#include "Weapon.h"
 #include <vector>
 #include <memory>
-
-class Buff; // a supprimer une fois que la classe Item sera créée et incluse
 
 class Character {
 protected:

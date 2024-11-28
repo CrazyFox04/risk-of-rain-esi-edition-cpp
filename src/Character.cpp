@@ -26,6 +26,6 @@ bool Character::canHit(int damage) const {
     return health > 0 && damage > 0;
 }
 
-void Character::addItem(std::shared_ptr <Item> item) {
-        items.push_back(item);
+void Character::addItem(std::shared_ptr <Buff> item) {
+        buffs.push_back(item);
 }
