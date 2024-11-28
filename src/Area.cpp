@@ -22,5 +22,8 @@ Area::Area(std::vector<std::vector<Tile>> tiles, std::vector<int> gatewayPositio
 
 
 bool Area::isCompatible(const Area&otherArea) {
+    if (otherArea.type == OUTSIDE) {
+        return true;
+    }
     // todo 
 }
