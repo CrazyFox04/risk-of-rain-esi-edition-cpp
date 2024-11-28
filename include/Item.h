@@ -7,13 +7,11 @@
 
 #include <string>
 
-
 class Item {
 public:
     virtual ~Item() {}
 
     virtual std::string getName() const = 0;
-    virtual void
 };
 
 #endif //FLOOD_IT_ITEM_H
