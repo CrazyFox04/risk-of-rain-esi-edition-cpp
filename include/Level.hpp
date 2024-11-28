@@ -9,6 +9,8 @@
 #include "Areas.hpp"
 
 class Level {
+    static constexpr int MIN_LEVEL_SIZE = 3;
+    static constexpr int MAX_LEVEL_SIZE = 7;
     int id;
     std::vector<std::vector<Area>> areas;
 

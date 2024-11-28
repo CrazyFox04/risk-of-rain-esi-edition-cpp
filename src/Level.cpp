@@ -33,8 +33,8 @@ Level Level::generate() {
     if (this->isLoaded()) {
         throw std::runtime_error("Cannot generate an already loaded level : Level generate()");
     }
-    const int size_x = generateLevelSize(0,0);
-    const int size_y = generateLevelSize(0,0);
+    const int size_x = generateLevelSize(MIN_LEVEL_SIZE, MAX_LEVEL_SIZE);
+    const int size_y = generateLevelSize(MIN_LEVEL_SIZE, MAX_LEVEL_SIZE);
     areas.resize(size_y);
     areas.at(0).resize(size_x);
     for (int i = 0; i < areas.size(); ++i) {
@@ -43,8 +43,10 @@ Level Level::generate() {
                 areas.at(i).at(j) = Area::getRandomArea();
             }
             auto newArea = Area::getRandomArea();
-            const auto otherArea = areas.at(i).at(j);
-            while (newArea.isCompatible(otherArea)) {
+            while (newArea.isCompatible(areas.at(i - 1).at(j)) &&
+                   newArea.isCompatible(areas.at(i + 1).at(j)) &&
+                   newArea.isCompatible(areas.at(i).at(j - 1)) &&
+                   newArea.isCompatible(areas.at(i).at(j + 1))) {
                 newArea = Area::getRandomArea();
             }
         }
@@ -62,4 +64,3 @@ int Level::generateLevelSize(const int min, const int max) {
 int Level::getId() const {
     return this->id;
 }
-
