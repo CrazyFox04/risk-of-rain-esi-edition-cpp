@@ -11,7 +11,9 @@ void Enemy::attack() {
 }
 
 void Enemy::shoot() {
-    if (getCanThrow()) {
+    if (!getCanThrow()) {
+        return;
+    } else {
         // todo
     }
 }

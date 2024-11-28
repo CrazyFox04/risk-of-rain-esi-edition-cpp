@@ -36,7 +36,6 @@ void Player::switchWeapons() {
         size_t nextIndex = (currentIndex + 1) % weapons.size();
         activeWeapon = weapons[nextIndex];
     } else if (!weapons.empty()) {
-        // Si aucune arme active, prend la première
         activeWeapon = weapons[0];
     }
 }
@@ -73,7 +72,9 @@ void Player::attack() {
 }
 
 void Player::shoot() {
-    if (canShoot()) {
-        //activeWeapon->shoot();
+    if (!canShoot()) {
+        return;
+    } else {
+        // todo
     }
 }
