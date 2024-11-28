@@ -9,7 +9,6 @@ set(SOURCES
         CharacterModifier.cpp
         Weapon.cpp
         Item.cpp
-
 )
 
 # Create the model library that public can use

@@ -14,17 +14,18 @@ enum class Weapon {
 struct WeaponProperties {
     int damage;
     float fireRate;
+    float reloadTime;
 
     static WeaponProperties getProperties(Weapon weapon) {
         switch (weapon) {
             case Weapon::GUN:
-                return {10, 1.0f};
+                return {10, 1.0f, 1.0f};
             case Weapon::MACHINE_GUN:
-                return {5, 0.5f};
+                return {5, 0.5f, 2.0f};
             case Weapon::LASER_GUN:
-                return {15, 1.5f};
+                return {15, 1.5f, 0.5f};
         }
-        return {0, 0.0f};
+        return {0, 0.0f, 0.0f};
     }
 };
 

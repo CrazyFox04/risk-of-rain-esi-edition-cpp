@@ -5,7 +5,7 @@
 #ifndef FLOOD_IT_CHARACTERMODIFIER_H
 #define FLOOD_IT_CHARACTERMODIFIER_H
 
-enum class ItemType {
+enum class CharacterModifier {
     HEALTH_POTION = 50,
     SPEED_BOOST = 10,
     DAMAGE_BOOST = 15
