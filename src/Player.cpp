@@ -10,21 +10,21 @@ bool Player::canShoot() const {
     return activeWeapon != nullptr;
 }
 
-void Player::useItem(const std::shared_ptr<Item> &item) {
-    if (!item) return;
+void Player::useItem(const std::shared_ptr<Buff> &buff) {
+    if (!buff) return;
 
-    switch (item->getType()) {
+    switch (buff->getType()) {
         case ItemType::HEALTH_POTION:
-            modifyHealth(item->getValue());
+            modifyHealth(buff->getValue());
             break;
         case ItemType::SPEED_BOOST:
-            modifySpeed(item->getValue());
+            modifySpeed(buff->getValue());
             break;
         case ItemType::DAMAGE_BOOST:
-            modifyDamage(item->getValue());
+            modifyDamage(buff->getValue());
             break;
     }
-    items.push_back(item);
+    items.push_back(buff);
 }
 
 void Player::switchWeapons() {
