@@ -2,6 +2,8 @@
 // Created by Enzo Renard on 19/11/2024.
 //
 #include "Character.hpp"
+#include "Weapon.h"
+#include "Buff.h"
 
 Character::Character(int health, int speed, int damage)
         : health(health), speed(speed), damage(damage) {}
