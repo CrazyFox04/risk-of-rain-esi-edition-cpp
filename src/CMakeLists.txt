@@ -3,8 +3,11 @@
 # ===========================================
 project(risk-of-rain-esi-edition-cpp)
 
-# C++ sources files of the Flood-It-model
+# C++ sources files of the Risk of rain game
 set(SOURCES
+        Character.cpp
+        Enemy.cpp
+        Player.cpp
         Game.cpp
         Level.cpp
         Area.cpp
