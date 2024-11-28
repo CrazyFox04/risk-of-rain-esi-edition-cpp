@@ -8,6 +8,11 @@ set(SOURCES
         Character.cpp
         Enemy.cpp
         Player.cpp
+        Game.cpp
+        Level.cpp
+        Area.cpp
+        Tile.cpp
+        InteractiveObject.cpp
 )
 
 # Create the model library that public can use
