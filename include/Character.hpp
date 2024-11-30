@@ -12,6 +12,7 @@
 
 class Character {
 protected:
+    int maxHealth;
     int health;
     int speed;
     int damage;
@@ -24,6 +25,7 @@ public:
 
     // Getters
     int getHealth() const { return health; }
+    int getMaxHealth() const { return maxHealth; }
     int getSpeed() const { return speed; }
     int getDamage() const { return damage; }
     const std::vector<std::shared_ptr<Buff>> &getItems() const { return buffs; }

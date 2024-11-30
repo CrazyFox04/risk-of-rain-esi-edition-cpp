@@ -63,6 +63,10 @@ void Player::increaseHealth(int amount) {
     health += amount;
 }
 
+void Player::increaseMaxHealth(int amount) {
+    maxHealth += amount;
+}
+
 void Player::increaseSpeed(int amount) {
     speed += amount;
 }

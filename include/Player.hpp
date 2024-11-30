@@ -30,6 +30,7 @@ public:
 
 protected:
     void increaseHealth(int amount);
+    void increaseMaxHealth(int amount);
     void increaseSpeed(int amount);
     void increaseDamage(int amount);
 };
