@@ -4,13 +4,18 @@
 #include "Player.hpp"
 
 Player::Player(int health, int speed, int damage)
-        : Character(health, speed, damage), activeWeapon(nullptr) {}
+    : Character(health, speed, damage), activeWeapon(nullptr) {
+}
+
+Player::Player() : Player(DEF_HEALTH, DEF_SPEED, DEF_DAMAGE) {
+}
+
 
 bool Player::canShoot() const {
     return activeWeapon != nullptr;
 }
 
-void Player::useItem(const std::shared_ptr<Buff> &item) {
+void Player::useItem(const std::shared_ptr<Buff>&item) {
     if (!item) return;
 
     Buff buff = *item;
@@ -39,12 +44,13 @@ void Player::switchWeapons() {
         size_t currentIndex = std::distance(weapons.begin(), it);
         size_t nextIndex = (currentIndex + 1) % weapons.size();
         activeWeapon = weapons[nextIndex];
-    } else if (!weapons.empty()) {
+    }
+    else if (!weapons.empty()) {
         activeWeapon = weapons[0];
     }
 }
 
-void Player::addItem(const std::shared_ptr<Buff> &item) {
+void Player::addItem(const std::shared_ptr<Buff>&item) {
     Character::addItem(item);
 }
 
@@ -82,7 +88,8 @@ void Player::attack() {
 void Player::shoot() {
     if (!canShoot()) {
         return;
-    } else {
+    }
+    else {
         // todo
     }
 }

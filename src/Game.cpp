@@ -24,3 +24,23 @@ Level Game::getActiveLevel() {
     add_level(level);
     return level;
 }
+
+int Game::getPlayerMaxHealth() const {
+    return player.getMaxHealth();
+}
+
+int Game::getPlayerCurrentHealth() const {
+    return player.getHealth();
+}
+
+void Game::addPlayerMaxHealth(int health) {
+    player.increaseMaxHealth(health);
+}
+
+void Game::addPlayerHealth(int health) {
+    player.increaseHealth(health);
+}
+
+void Game::takePlayerDamage(int damage) {
+    player.increaseHealth(-damage);
+}

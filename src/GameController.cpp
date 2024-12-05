@@ -4,25 +4,23 @@
 #include "GameController.hpp"
 
 int GameController::getPlayerMaxHealth() const {
-    return 0; 
-    //return game_.getPlayerMaxHealth(); todo
+    return game_.getPlayerMaxHealth();
 }
 
 int GameController::getPlayerCurrentHealth() const {
-    return 0;
-    //return game_.getPlayerCurrentHealth(); todo
+    return game_.getPlayerCurrentHealth();
 }
 
 void GameController::addPlayerMaxHealth(int health) {
-     //game_.addPlayerMaxHealth(health); todo
+     game_.addPlayerMaxHealth(health);
 }
 
 void GameController::addPlayerHealth(int health) {
-    //game_.addPlayerHealth(health); todo
+    game_.addPlayerHealth(health);
 }
 
 void GameController::takePlayerDamage(int damage) {
-    //game_.takePlayerDamage(health); todo
+    game_.takePlayerDamage(damage);
 }
 
 GameController* newGame() {
