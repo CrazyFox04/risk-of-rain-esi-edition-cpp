@@ -4,6 +4,7 @@
 #include "Level.hpp"
 
 #include <random>
+#include <stdexcept>
 
 Level::Level(int id): id(id) {
 }
