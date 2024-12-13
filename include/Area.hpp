@@ -5,21 +5,24 @@
 #ifndef AREA_HPP
 #define AREA_HPP
 #include <Tile.hpp>
-#include <vector>
+#include "Direction.hpp"
+#include <set>
 #include "AreaType.hpp"
 
 class Area {
-    std::vector<std::vector<Tile>> tiles;
-    std::vector<int> gatewayPositions;
-    AreaType type;
+    static constexpr int FILLED_ID = 0;
+    int id;
+    std::set<Direction2D> gatewayPositions;
 
 public:
     Area();
 
-    Area(std::vector<std::vector<Tile>> tiles, std::vector<int> gatewayPositions, AreaType type);
+    Area(int id, std::set<Direction2D> gatewayPositions);
 
     static Area getRandomArea();
 
-    bool isCompatible(const Area&otherArea);
+    bool isCompatible(Direction2D sourceDirection, const Area&otherArea);
+
+    int getId() const;
 };
 #endif //AREA_HPP

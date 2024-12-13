@@ -2,9 +2,10 @@
 // Created by Enzo Renard on 19/11/2024.
 //
 #include <random>
-#include "Area.hpp"
-
+//#include "Area.hpp"
+#include "Direction.hpp"
 #include <Areas.hpp>
+#include <utility>
 
 Area Area::getRandomArea() {
     std::random_device rd;
@@ -13,17 +14,17 @@ Area Area::getRandomArea() {
     return DefinedAreas::get(static_cast<Areas>(dis(gen))).area;
 }
 
-Area::Area() : type(OUTSIDE) {
+Area::Area() : id(FILLED_ID) {
 }
 
-Area::Area(std::vector<std::vector<Tile>> tiles, std::vector<int> gatewayPositions, AreaType type) : tiles(tiles),
-    gatewayPositions(gatewayPositions), type(type) {
+Area::Area(int id, std::set<Direction2D> gatewayPositions) : id(id), gatewayPositions(std::move(gatewayPositions)) {
 }
 
 
-bool Area::isCompatible(const Area&otherArea) {
-    if (otherArea.type == OUTSIDE) {
-        return true;
-    }
-    // todo 
+bool Area::isCompatible(Direction2D direction, const Area&otherArea) {
+    return otherArea.gatewayPositions.contains(Direction::getOppositeDirection(direction));
+}
+
+int Area::getId() const {
+    return id;
 }

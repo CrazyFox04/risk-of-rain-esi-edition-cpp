@@ -20,5 +20,7 @@ public:
     Game();
 
     Level getActiveLevel();
+
+    int getAreaID(int x, int y) const;
 };
 #endif //GAME_HPP

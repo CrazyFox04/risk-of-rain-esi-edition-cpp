@@ -13,6 +13,7 @@ set(SOURCES
         Area.cpp
         Tile.cpp
         InteractiveObject.cpp
+        Direction.cpp
 )
 
 # Create the model library that public can use

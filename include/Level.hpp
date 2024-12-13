@@ -28,5 +28,7 @@ public:
     bool isLoaded() const;
 
     Level generate();
+
+    int getAreaID(int x, int y) const;
 };
 #endif //LEVEL_HPP
