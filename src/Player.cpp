@@ -5,12 +5,58 @@
 #include <algorithm>
 
 Player::Player(int health, int speed, int damage)
-    : Character(health, speed, damage), activeWeapon(nullptr) {
+    : Character(health, speed, damage),
+    activeWeapon(nullptr),
+    attack1Cooldown(DEF_ATTACK_COOLDOWN),
+    attack2Cooldown(DEF_ATTACK_COOLDOWN),
+    attack3Cooldown(DEF_ATTACK_COOLDOWN),
+    dashCooldown(DEF_DASH_COOLDOWN),
+    jetpackFuel(DEF_JETPACK_FUEL),
+    maxJumps(DEF_MAX_JUMPS),
+    remainingJumps(DEF_MAX_JUMPS) {
 }
 
 Player::Player() : Player(DEF_HEALTH, DEF_SPEED, DEF_DAMAGE) {
 }
 
+// Getters
+float Player::getAttack1Cooldown() const { return attack1Cooldown; }
+float Player::getAttack2Cooldown() const { return attack2Cooldown; }
+float Player::getAttack3Cooldown() const { return attack3Cooldown; }
+float Player::getDashCooldown() const { return dashCooldown; }
+float Player::getJetpackFuel() const { return jetpackFuel; }
+int Player::getMaxJumps() const { return maxJumps; }
+int Player::getRemainingJumps() const { return remainingJumps; }
+
+// Reducing cooldowns
+void Player::reduceAttackCooldowns(const std::shared_ptr<Buff> &item) {
+    if (!item) return;
+    float reduction = BuffValue::getValue(*item);
+    attack2Cooldown = std::max(0.1f, attack2Cooldown - reduction);
+    attack3Cooldown = std::max(0.1f, attack3Cooldown - reduction);
+}
+
+void Player::reduceDashCooldown(const std::shared_ptr<Buff> &item) {
+    if (!item) return;
+    float reduction = BuffValue::getValue(*item);
+    dashCooldown = std::max(0.1f, dashCooldown - reduction);
+}
+
+// Jetpack and jump methods
+void Player::increaseJetpackFuel(const std::shared_ptr<Buff> &item) {
+    if (!item) return;
+    jetpackFuel += BuffValue::getValue(*item);
+}
+
+void Player::increaseMaxJumps(const std::shared_ptr<Buff> &item) {
+    if (!item) return;
+    maxJumps += BuffValue::getValue(*item);
+    remainingJumps = maxJumps;
+}
+
+void Player::resetJumps() {
+    remainingJumps = maxJumps;
+}
 
 bool Player::canShoot() const {
     return activeWeapon != nullptr;
