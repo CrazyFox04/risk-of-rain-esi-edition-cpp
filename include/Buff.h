@@ -8,7 +8,10 @@
 enum class Buff {
     HEALTH_POTION,
     SPEED_BOOST,
-    DAMAGE_BOOST
+    DAMAGE_BOOST,
+    COOLDOWN_REDUCTION,
+    EXTRA_JUMP,
+    JETPACK_REFILL
 };
 
 struct BuffValue {
@@ -20,6 +23,12 @@ struct BuffValue {
                 return 10;
             case Buff::DAMAGE_BOOST:
                 return 15;
+            case Buff::COOLDOWN_REDUCTION:
+                return 5;
+            case Buff::EXTRA_JUMP:
+                return 1;
+            case Buff::JETPACK_REFILL:
+                return 2;
             default:
                 return 0;
         }
