@@ -13,7 +13,9 @@ Player::Player(int health, int speed, int damage)
     dashCooldown(DEF_DASH_COOLDOWN),
     jetpackFuel(DEF_JETPACK_FUEL),
     maxJumps(DEF_MAX_JUMPS),
-    remainingJumps(DEF_MAX_JUMPS) {
+    remainingJumps(DEF_MAX_JUMPS),
+    lastAttackTime(std::chrono::system_clock::now()),
+    lastShootTime(std::chrono::system_clock::now()) {
 }
 
 Player::Player() : Player(DEF_HEALTH, DEF_SPEED, DEF_DAMAGE) {
@@ -59,7 +61,12 @@ void Player::resetJumps() {
 }
 
 bool Player::canShoot() const {
-    return activeWeapon != nullptr;
+    auto now = std::chrono::system_clock::now();
+    if (!activeWeapon) return false;
+
+    WeaponProperties properties = WeaponProperties::getProperties(*activeWeapon);
+    auto elapsed = std::chrono::duration<float>(now - lastShootTime).count();
+    return elapsed >= properties.cooldown;
 }
 
 void Player::useItem(const std::shared_ptr<Buff>&item) {
@@ -133,10 +140,13 @@ void Player::attack() {
 }
 
 void Player::shoot() {
-    if (!canShoot()) {
-        return;
-    }
-    else {
-        // todo
-    }
+    if (!canShoot() || !activeWeapon) return;
+
+    WeaponProperties properties = WeaponProperties::getProperties(*activeWeapon);
+
+    // todo
+    //for (auto &enemy : getEnemiesInRange()) {
+    //    enemy->hit(properties.damage);
+    //}
+    lastShootTime = std::chrono::system_clock::now();
 }

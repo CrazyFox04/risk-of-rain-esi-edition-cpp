@@ -19,8 +19,10 @@ class Player : public Character {
 
     float jetpackFuel;
     int maxJumps;
-    int remainingJumps;
 
+    int remainingJumps;
+    std::chrono::time_point<std::chrono::system_clock> lastAttackTime;
+    std::chrono::time_point<std::chrono::system_clock> lastShootTime;
 
 public:
     static constexpr int DEF_HEALTH = 100;
