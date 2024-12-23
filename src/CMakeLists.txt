@@ -13,6 +13,7 @@ set(SOURCES
         Area.cpp
         Tile.cpp
         InteractiveObject.cpp
+        GameController.cpp
 )
 
 # Create the model library that public can use
