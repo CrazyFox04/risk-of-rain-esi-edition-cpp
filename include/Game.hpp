@@ -21,6 +21,6 @@ public:
 
     Level getActiveLevel();
 
-    int getAreaID(int x, int y) const;
+    int get_area_guid_current_level(int x, int y) const;
 };
 #endif //GAME_HPP

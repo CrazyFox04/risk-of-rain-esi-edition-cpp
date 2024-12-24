@@ -34,59 +34,97 @@ Level Level::generate() {
     if (this->isLoaded()) {
         throw std::runtime_error("Cannot generate an already loaded level : Level generate()");
     }
-    const int size_x = generateLevelSize(MIN_LEVEL_SIZE, MAX_LEVEL_SIZE);
-    const int size_y = generateLevelSize(MIN_LEVEL_SIZE, MAX_LEVEL_SIZE);
-    areas.resize(size_x);
-    for (int i = 0; i < size_x; ++i) {
-        areas[i].resize(size_y);
+    areas.resize(LENGTH);
+    for (int i = 0; i < LENGTH; ++i) {
+        areas[i].resize(HEIGHT);
     }
-    const int max_attempts = 100;
-    for (int i = 0; i < size_x; ++i) {
-        for (int j = 0; j < size_y; ++j) {
-            if (i == 0 && j == 0) {
-                areas[i][j] = Area::getRandomArea();
-                continue;
-            }
-            Area newArea;
-            bool compatible = false;
-            int attempts = 0;
-            while (!compatible && attempts < max_attempts) {
-                newArea = Area::getRandomArea();
-                compatible = true;
-                if (i + Direction::UP.first >= 0 && j + Direction::UP.second >= 0 && i + Direction::UP.first < size_x && j + Direction::UP.second < size_y) {
-                    compatible &= newArea.isCompatible(Direction::UP, areas[i + Direction::UP.first][j + Direction::UP.second]);
-                }
-                if (i + Direction::DOWN.first >= 0 && j + Direction::DOWN.second >= 0 && i + Direction::DOWN.first < size_x && j + Direction::DOWN.second < size_y) {
-                    compatible &= newArea.isCompatible(Direction::DOWN, areas[i + Direction::DOWN.first][j + Direction::DOWN.second]);
-                }
-                if (i + Direction::LEFT.first >= 0 && j + Direction::LEFT.second >= 0 && i + Direction::LEFT.first < size_x && j + Direction::LEFT.second < size_y) {
-                    compatible &= newArea.isCompatible(Direction::LEFT, areas[i + Direction::LEFT.first][j + Direction::LEFT.second]);
-                }
-                if (i + Direction::RIGHT.first >= 0 && j + Direction::RIGHT.second >= 0 && i + Direction::RIGHT.first < size_x && j + Direction::RIGHT.second < size_y) {
-                    compatible &= newArea.isCompatible(Direction::RIGHT, areas[i + Direction::RIGHT.first][j + Direction::RIGHT.second]);
-                }
-                attempts++;
-            }
-            if (!compatible) {
-                newArea = Area();
-            }
-            areas[i][j] = newArea;
-        }
-    }
-    return std::move(*this); // todo : break the object WARNING -> need to add to docs
-}
 
-int Level::generateLevelSize(const int min, const int max) {
     std::random_device rd;
     std::mt19937 gen(rd());
-    std::uniform_int_distribution<> dis(min, max - 1);
-    return dis(gen);
+    std::uniform_real_distribution<> dis(0.0, 1.0);
+
+    for (int i = 0; i < LENGTH; ++i) {
+        for (int j = 0; j < HEIGHT; ++j) {
+            if (dis(gen) < FILL_PROBABILITY) {
+                areas[i][j] = Area(0, 1, {});
+            }
+        }
+    }
+
+    std::function<bool(int, int)> backtrack = [&](int x, int y) {
+        if (x == LENGTH) return true;
+        if (y == HEIGHT) return backtrack(x + 1, 0);
+
+        if (areas[x][y].get_type() == 0) return backtrack(x, y + 1);
+
+        std::vector<Area> candidates;
+        for (int i = 0; i < DefinedAreas::size(); ++i) {
+            Area candidate = DefinedAreas::get(static_cast<Areas>(i)).area;
+            bool compatible = true;
+
+            if (x > 0 && areas[x - 1][y].get_type() != 0) {
+                compatible &= candidate.isCompatible(Direction::LEFT, areas[x - 1][y]);
+            }
+            else {
+                compatible &= candidate.isCompatible(Direction::LEFT, Area(0, 1, {}));
+            }
+            if (y > 0 && areas[x][y - 1].get_type() != 0) {
+                compatible &= candidate.isCompatible(Direction::UP, areas[x][y - 1]);
+            }
+            else {
+                compatible &= candidate.isCompatible(Direction::UP, Area(0, 1, {}));
+            }
+            if (x < LENGTH - 1 && areas[x + 1][y].get_type() != 0) {
+                compatible &= candidate.isCompatible(Direction::RIGHT, areas[x + 1][y]);
+            }
+            else {
+                compatible &= candidate.isCompatible(Direction::RIGHT, Area(0, 1, {}));
+            }
+            if (y < HEIGHT - 1 && areas[x][y + 1].get_type() != 0) {
+                compatible &= candidate.isCompatible(Direction::DOWN, areas[x][y + 1]);
+            }
+            else {
+                compatible &= candidate.isCompatible(Direction::DOWN, Area(0, 1, {}));
+            }
+
+            if (compatible) {
+                candidates.push_back(candidate);
+            }
+        }
+
+        std::ranges::shuffle(candidates, gen);
+
+        for (const auto&candidate: candidates) {
+            areas[x][y] = candidate;
+            if (backtrack(x, y + 1)) return true;
+        }
+
+        return false;
+    };
+
+    if (!backtrack(0, 0)) {
+        throw std::runtime_error("Failed to generate a valid level");
+    }
+
+    return std::move(*this);
 }
 
 int Level::getId() const {
     return this->id;
 }
 
-int Level::getAreaID(int x, int y) const {
-    return areas.at(x).at(y).getId();
+int Level::get_area_type(int x, int y) const {
+    return areas.at(x).at(y).get_type();
+}
+
+int Level::get_area_id(int x, int y) const {
+    return areas.at(x).at(y).get_id();
+}
+
+int Level::get_area_guid(int x, int y) const {
+    return areas.at(x).at(y).get_guid();
+}
+
+std::set<Direction2D> Level::get_gateway_positions(int x, int y) const {
+    return areas.at(x).at(y).get_gateway_positions();
 }

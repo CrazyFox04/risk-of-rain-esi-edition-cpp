@@ -27,6 +27,6 @@ Level Game::getActiveLevel() {
     return level;
 }
 
-int Game::getAreaID(int x, int y) const {
-    return levels.at(activeLevel).getAreaID(x, y);
+int Game::get_area_guid_current_level(int x, int y) const {
+    return levels.at(activeLevel).get_area_guid(x, y);
 }

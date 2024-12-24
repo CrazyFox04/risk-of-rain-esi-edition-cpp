@@ -9,16 +9,16 @@
 #include "Areas.hpp"
 
 class Level {
-    static constexpr int MIN_LEVEL_SIZE = 3;
-    static constexpr int MAX_LEVEL_SIZE = 7;
     int id;
     std::vector<std::vector<Area>> areas;
 
     void loadFromAreas(const std::vector<std::vector<Area>>&areas);
 
-    static int generateLevelSize(int min, int max);
-
 public:
+    static constexpr int HEIGHT = 2;
+    static constexpr int LENGTH = 3;
+    static constexpr float FILL_PROBABILITY = 0.05;
+
     Level(int id);
 
     Level(int id, const std::vector<std::vector<Area>>&areas);
@@ -29,6 +29,12 @@ public:
 
     Level generate();
 
-    int getAreaID(int x, int y) const;
+    int get_area_id(int x, int y) const;
+
+    int get_area_type(int x, int y) const;
+
+    int get_area_guid(int x, int y) const;
+
+    std::set<Direction2D> get_gateway_positions(int x, int y) const;
 };
 #endif //LEVEL_HPP
