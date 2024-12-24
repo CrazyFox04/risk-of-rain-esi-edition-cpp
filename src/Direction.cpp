@@ -5,7 +5,7 @@
 #define PCH_H
 #endif
 #include "pch.h"
-#include <Direction.hpp>
+#include "Direction.hpp"
 #include <stdexcept>
 
 const Direction2D Direction::RIGHT = std::make_pair(1,0);
