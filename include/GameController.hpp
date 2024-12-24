@@ -26,6 +26,10 @@ public:
     void addPlayerHealth(int health);
 
     void takePlayerDamage(int damage);
+
+    int get_area_guid_current_level(int, int) const;
+
+    void next_level();
 };
 
 MY_API GameController* newGame();
@@ -41,5 +45,7 @@ MY_API void addPlayerMaxHealth(GameController*, int);
 MY_API void addPlayerHealth(GameController*, int);
 
 MY_API void takePlayerDamage(GameController*, int);
+
+MY_API int get_area_guid_current_level(const GameController*, int, int);
 
 #endif
