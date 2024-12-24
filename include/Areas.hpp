@@ -30,37 +30,37 @@ struct DefinedAreas {
     static DefinedAreas get(const Areas areas) {
         switch (areas) {
             case A1U:
-                return DefinedAreas(Area(1, 1, {Direction::UP}));
+                return DefinedAreas{Area(1, 1, {Direction::UP})};
             case A1R:
-                return DefinedAreas(Area(2, 1, {Direction::RIGHT}));
+                return DefinedAreas{Area(2, 1, {Direction::RIGHT})};
             case A1D:
-                return DefinedAreas(Area(3, 1, {Direction::DOWN}));
+                return DefinedAreas{Area(3, 1, {Direction::DOWN})};
             case A1L:
-                return DefinedAreas(Area(4, 1, {Direction::LEFT}));
+                return DefinedAreas{Area(4, 1, {Direction::LEFT})};
             case A2UR:
-                return DefinedAreas(Area(5, 1, {Direction::UP, Direction::RIGHT}));
+                return DefinedAreas{Area(5, 1, {Direction::UP, Direction::RIGHT})};
             case A2LD:
-                return DefinedAreas(Area(6, 1, {Direction::LEFT, Direction::DOWN}));
+                return DefinedAreas{Area(6, 1, {Direction::LEFT, Direction::DOWN})};
             case A2UL:
-                return DefinedAreas(Area(7, 1, {Direction::UP, Direction::LEFT}));
+                return DefinedAreas{Area(7, 1, {Direction::UP, Direction::LEFT})};
             case A2DR:
-                return DefinedAreas(Area(8, 1, {Direction::DOWN, Direction::RIGHT}));
+                return DefinedAreas{Area(8, 1, {Direction::DOWN, Direction::RIGHT})};
             case A2UD:
-                return DefinedAreas(Area(9, 1, {Direction::UP, Direction::DOWN}));
+                return DefinedAreas{Area(9, 1, {Direction::UP, Direction::DOWN})};
             case A2LR:
-                return DefinedAreas(Area(10, 1, {Direction::LEFT, Direction::RIGHT}));
+                return DefinedAreas{Area(10, 1, {Direction::LEFT, Direction::RIGHT})};
             case A3LUR:
-                return DefinedAreas(Area(11, 1, {Direction::UP, Direction::LEFT, Direction::RIGHT}));
+                return DefinedAreas{Area(11, 1, {Direction::UP, Direction::LEFT, Direction::RIGHT})};
             case A3URD:
-                return DefinedAreas(Area(12, 1, {Direction::UP, Direction::RIGHT, Direction::DOWN}));
+                return DefinedAreas{Area(12, 1, {Direction::UP, Direction::RIGHT, Direction::DOWN})};
             case A3LDR:
-                return DefinedAreas(Area(13, 1, {Direction::LEFT, Direction::DOWN, Direction::RIGHT}));
+                return DefinedAreas{Area(13, 1, {Direction::LEFT, Direction::DOWN, Direction::RIGHT})};
             case A3ULD:
-                return DefinedAreas(Area(14, 1, {Direction::UP, Direction::LEFT, Direction::DOWN}));
+                return DefinedAreas{Area(14, 1, {Direction::UP, Direction::LEFT, Direction::DOWN})};
             case A4URDL:
-                return DefinedAreas(Area(15, 2, {Direction::UP, Direction::RIGHT, Direction::DOWN, Direction::LEFT}));
+                return DefinedAreas{Area(15, 2, {Direction::UP, Direction::RIGHT, Direction::DOWN, Direction::LEFT})};
             default:
-                return DefinedAreas(Area());
+                return DefinedAreas{Area()};
         }
     }
 

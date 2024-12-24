@@ -9,6 +9,7 @@
 #include "Direction.hpp"
 #include <random>
 #include <stdexcept>
+#include <functional>
 
 Level::Level(int id): id(id) {
 }
