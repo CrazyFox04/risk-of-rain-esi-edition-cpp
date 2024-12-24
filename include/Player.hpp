@@ -9,11 +9,15 @@
 #include "Character.hpp"
 
 class Player : public Character {
-private:
     std::shared_ptr<Weapon> activeWeapon;
     std::vector<std::shared_ptr<Weapon>> weapons;
 
 public:
+    static constexpr int DEF_HEALTH = 100;
+    static constexpr int DEF_SPEED = 1;
+    static constexpr int DEF_DAMAGE = 10;
+
+    Player();
     Player(int health, int speed, int damage);
     ~Player() override = default;
 
@@ -28,7 +32,6 @@ public:
     void attack() override;
     void shoot() override;
 
-protected:
     void increaseHealth(int amount);
     void increaseMaxHealth(int amount);
     void increaseSpeed(int amount);

@@ -14,6 +14,7 @@ set(SOURCES
         Tile.cpp
         InteractiveObject.cpp
         Direction.cpp
+        GameController.cpp
 )
 
 # Create the model library that public can use

@@ -4,10 +4,8 @@
 
 #ifndef AREA_HPP
 #define AREA_HPP
-#include <Tile.hpp>
 #include "Direction.hpp"
 #include <set>
-#include "AreaType.hpp"
 
 class Area {
     static constexpr int FILLED_ID = 0;

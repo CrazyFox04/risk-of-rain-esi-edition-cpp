@@ -1,10 +1,14 @@
 //
 // Created by Enzo Renard on 19/11/2024.
 //
-#include "Direction.hpp"
+#ifndef _WIN64
+#define PCH_H
+#endif
+#include "pch.h"
 #include "Level.hpp"
-
+#include "Direction.hpp"
 #include <random>
+#include <stdexcept>
 
 Level::Level(int id): id(id) {
 }

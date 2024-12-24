@@ -1,6 +1,10 @@
 //
 // Created by Enzo Renard on 19/11/2024.
 //
+#ifndef _WIN64
+#define PCH_H
+#endif
+#include "pch.h"
 #include "Game.hpp"
 
 Game::Game() : activeLevel(-1) {
@@ -29,4 +33,24 @@ Level Game::getActiveLevel() {
 
 int Game::get_area_guid_current_level(int x, int y) const {
     return levels.at(activeLevel).get_area_guid(x, y);
+}
+
+int Game::getPlayerMaxHealth() const {
+    return player.getMaxHealth();
+}
+
+int Game::getPlayerCurrentHealth() const {
+    return player.getHealth();
+}
+
+void Game::addPlayerMaxHealth(int health) {
+    player.increaseMaxHealth(health);
+}
+
+void Game::addPlayerHealth(int health) {
+    player.increaseHealth(health);
+}
+
+void Game::takePlayerDamage(int damage) {
+    player.increaseHealth(-damage);
 }

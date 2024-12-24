@@ -1,11 +1,15 @@
 //
 // Created by Enzo Renard on 19/11/2024.
 //
+#ifndef _WIN64
+#define PCH_H
+#endif
+#include "pch.h"
 #include <random>
-//#include "Area.hpp"
 #include "Direction.hpp"
-#include <Areas.hpp>
 #include <utility>
+#include "Area.hpp"
+#include "Areas.hpp"
 
 Area Area::getRandomArea() {
     std::random_device rd;
