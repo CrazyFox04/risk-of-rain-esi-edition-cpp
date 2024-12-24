@@ -27,6 +27,10 @@ void GameController::takePlayerDamage(int damage) {
     game_.takePlayerDamage(damage);
 }
 
+int GameController::get_area_guid_current_level(int x, int y) const {
+    return game_.get_area_guid_current_level(x, y);
+}
+
 GameController* newGame() {
     return new GameController();
 }
@@ -55,7 +59,6 @@ void takePlayerDamage(GameController* game_controller, int health) {
     game_controller->takePlayerDamage(health);
 }
 
-
-
-
-
+int get_area_guid_current_level(const GameController* game_controller, int x, int y) {
+    return game_controller->get_area_guid_current_level(x, y);
+}
