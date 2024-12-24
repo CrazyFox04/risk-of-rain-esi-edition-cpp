@@ -28,8 +28,6 @@ public:
     void takePlayerDamage(int damage);
 
     int get_area_guid_current_level(int, int) const;
-
-    void next_level();
 };
 
 MY_API GameController* newGame();
