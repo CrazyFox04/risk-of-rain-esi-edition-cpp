@@ -8,6 +8,8 @@ project(risk-of-rain_test)
 # Define test source files
 set(TEST_SOURCES
         testMain.cpp
+        testArea.cpp
+        testDefinedAreas.cpp
 )
 
 # Create the tests main executable

@@ -6,7 +6,7 @@
 #endif
 #include "pch.h"
 #include "Level.hpp"
-
+#include "Direction.hpp"
 #include <random>
 #include <stdexcept>
 
@@ -38,34 +38,97 @@ Level Level::generate() {
     if (this->isLoaded()) {
         throw std::runtime_error("Cannot generate an already loaded level : Level generate()");
     }
-    const int size_x = generateLevelSize(MIN_LEVEL_SIZE, MAX_LEVEL_SIZE);
-    const int size_y = generateLevelSize(MIN_LEVEL_SIZE, MAX_LEVEL_SIZE);
-    areas.resize(size_y);
-    areas.at(0).resize(size_x);
-    for (int i = 0; i < areas.size(); ++i) {
-        for (int j = 0; j < areas.at(0).size(); ++j) {
-            if (i == 0 && j == 0) {
-                areas.at(i).at(j) = Area::getRandomArea();
-            }
-            auto newArea = Area::getRandomArea();
-            while (newArea.isCompatible(areas.at(i - 1).at(j)) &&
-                   newArea.isCompatible(areas.at(i + 1).at(j)) &&
-                   newArea.isCompatible(areas.at(i).at(j - 1)) &&
-                   newArea.isCompatible(areas.at(i).at(j + 1))) {
-                newArea = Area::getRandomArea();
+    areas.resize(LENGTH);
+    for (int i = 0; i < LENGTH; ++i) {
+        areas[i].resize(HEIGHT);
+    }
+
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_real_distribution<> dis(0.0, 1.0);
+
+    for (int i = 0; i < LENGTH; ++i) {
+        for (int j = 0; j < HEIGHT; ++j) {
+            if (dis(gen) < FILL_PROBABILITY) {
+                areas[i][j] = Area(0, 1, {});
             }
         }
     }
-    return std::move(*this); // todo : break the object WARNING -> need to add to docs
-}
 
-int Level::generateLevelSize(const int min, const int max) {
-    std::random_device rd;
-    std::mt19937 gen(rd());
-    std::uniform_int_distribution<> dis(min, max - 1);
-    return dis(gen);
+    std::function<bool(int, int)> backtrack = [&](int x, int y) {
+        if (x == LENGTH) return true;
+        if (y == HEIGHT) return backtrack(x + 1, 0);
+
+        if (areas[x][y].get_type() == 0) return backtrack(x, y + 1);
+
+        std::vector<Area> candidates;
+        for (int i = 0; i < DefinedAreas::size(); ++i) {
+            Area candidate = DefinedAreas::get(static_cast<Areas>(i)).area;
+            bool compatible = true;
+
+            if (x > 0 && areas[x - 1][y].get_type() != 0) {
+                compatible &= candidate.isCompatible(Direction::LEFT, areas[x - 1][y]);
+            }
+            else {
+                compatible &= candidate.isCompatible(Direction::LEFT, Area(0, 1, {}));
+            }
+            if (y > 0 && areas[x][y - 1].get_type() != 0) {
+                compatible &= candidate.isCompatible(Direction::UP, areas[x][y - 1]);
+            }
+            else {
+                compatible &= candidate.isCompatible(Direction::UP, Area(0, 1, {}));
+            }
+            if (x < LENGTH - 1 && areas[x + 1][y].get_type() != 0) {
+                compatible &= candidate.isCompatible(Direction::RIGHT, areas[x + 1][y]);
+            }
+            else {
+                compatible &= candidate.isCompatible(Direction::RIGHT, Area(0, 1, {}));
+            }
+            if (y < HEIGHT - 1 && areas[x][y + 1].get_type() != 0) {
+                compatible &= candidate.isCompatible(Direction::DOWN, areas[x][y + 1]);
+            }
+            else {
+                compatible &= candidate.isCompatible(Direction::DOWN, Area(0, 1, {}));
+            }
+
+            if (compatible) {
+                candidates.push_back(candidate);
+            }
+        }
+
+        std::ranges::shuffle(candidates, gen);
+
+        for (const auto&candidate: candidates) {
+            areas[x][y] = candidate;
+            if (backtrack(x, y + 1)) return true;
+        }
+
+        return false;
+    };
+
+    if (!backtrack(0, 0)) {
+        throw std::runtime_error("Failed to generate a valid level");
+    }
+
+    return std::move(*this);
 }
 
 int Level::getId() const {
     return this->id;
+}
+
+int Level::get_area_type(int x, int y) const {
+    return areas.at(x).at(y).get_type();
+}
+
+int Level::get_area_id(int x, int y) const {
+    return areas.at(x).at(y).get_id();
+}
+
+int Level::get_area_guid(int x, int y) const {
+    return areas.at(x).at(y).get_guid();
+}
+
+std::set<Direction2D> Level::get_gateway_positions(int x, int y) const {
+    return areas.at(x).at(y).get_gateway_positions();
 }

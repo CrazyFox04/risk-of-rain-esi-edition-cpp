@@ -24,6 +24,8 @@ public:
 
     Level getActiveLevel();
 
+    int get_area_guid_current_level(int x, int y) const;
+
     int getPlayerMaxHealth() const;
 
     int getPlayerCurrentHealth() const;
