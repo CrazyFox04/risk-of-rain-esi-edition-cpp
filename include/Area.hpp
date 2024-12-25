@@ -15,12 +15,14 @@ class Area {
     std::set<Direction2D> gatewayPositions;
     std::vector<Spawn> spawns;
 
-    Spawn get_spawn(int spawn_id);
+    Spawn& get_spawn(int spawn_id);
 
 public:
     Area();
 
     Area(int type, int max_id, std::set<Direction2D> gatewayPositions);
+
+    Area(int type, int max_id, std::set<Direction2D> gatewayPositions, std::vector<Spawn> spawns);
 
     static Area getRandomArea();
 
