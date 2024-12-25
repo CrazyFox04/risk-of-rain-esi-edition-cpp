@@ -63,3 +63,20 @@ int Area::get_guid() const {
 std::set<Direction2D> Area::get_gateway_positions() const {
     return gatewayPositions;
 }
+
+Spawn Area::get_spawn(int spawn_id) {
+    for (auto&spawn: spawns) {
+        if (spawn.getId() == spawn_id) {
+            return spawn; // return spawn (not copy)
+        }
+    }
+    throw std::invalid_argument("No spawn with id " + std::to_string(spawn_id));
+}
+
+bool Area::can_spawn(int spawd_id) {
+    return get_spawn(spawd_id).canSpawn();
+}
+
+void Area::spawn(int spawd_id) {
+    get_spawn(spawd_id).spawn();
+}

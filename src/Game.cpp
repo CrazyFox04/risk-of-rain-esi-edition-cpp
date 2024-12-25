@@ -54,3 +54,11 @@ void Game::addPlayerHealth(int health) {
 void Game::takePlayerDamage(int damage) {
     player.increaseHealth(-damage);
 }
+
+bool Game::if_can_spawn_current_level_spawn_at(int areaX, int areaY, int spawdId) {
+    if (levels.at(activeLevel).can_spawn_at(areaX, areaY, spawdId)) {
+        levels.at(activeLevel).spawn_at(areaX, areaY, spawdId);
+        return true; // spawn
+    }
+    return false; // can't spawn
+}

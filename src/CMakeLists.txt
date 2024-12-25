@@ -15,6 +15,7 @@ set(SOURCES
         InteractiveObject.cpp
         Direction.cpp
         GameController.cpp
+        Spawn.cpp
 )
 
 # Create the model library that public can use

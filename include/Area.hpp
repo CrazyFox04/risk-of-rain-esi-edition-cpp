@@ -5,6 +5,7 @@
 #ifndef AREA_HPP
 #define AREA_HPP
 #include "Direction.hpp"
+#include "Spawn.hpp"
 #include <set>
 
 class Area {
@@ -12,6 +13,9 @@ class Area {
     int type;
     int id;
     std::set<Direction2D> gatewayPositions;
+    std::vector<Spawn> spawns;
+
+    Spawn get_spawn(int spawn_id);
 
 public:
     Area();
@@ -31,5 +35,9 @@ public:
     std::set<Direction2D> get_gateway_positions() const;
 
     static int get_random_area_id(int max_id) ;
+
+    bool can_spawn(int spawd_id);
+
+    void spawn(int spawd_id);
 };
 #endif //AREA_HPP

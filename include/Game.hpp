@@ -35,5 +35,7 @@ public:
     void addPlayerHealth(int health);
 
     void takePlayerDamage(int damage);
+
+    bool if_can_spawn_current_level_spawn_at(int areaX, int areaY, int spawdId);
 };
 #endif //GAME_HPP

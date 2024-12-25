@@ -36,5 +36,9 @@ public:
     int get_area_guid(int x, int y) const;
 
     std::set<Direction2D> get_gateway_positions(int x, int y) const;
+
+    bool can_spawn_at(int area_x, int area_y, int spawd_id);
+
+    void spawn_at(int area_x, int area_y, int spawd_id);
 };
 #endif //LEVEL_HPP

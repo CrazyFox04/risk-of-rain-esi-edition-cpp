@@ -133,3 +133,14 @@ int Level::get_area_guid(int x, int y) const {
 std::set<Direction2D> Level::get_gateway_positions(int x, int y) const {
     return areas.at(x).at(y).get_gateway_positions();
 }
+
+bool Level::can_spawn_at(int area_x, int area_y, int spawd_id) {
+    return areas.at(area_x).at(area_y).can_spawn(spawd_id);
+}
+
+void Level::spawn_at(int area_x, int area_y, int spawd_id) {
+    if (!can_spawn_at(area_x, area_y, spawd_id)) {
+        throw std::invalid_argument("Cannot spawn at area (" + std::to_string(area_x) + ", " + std::to_string(area_y) + ") with spawn id " + std::to_string(spawd_id));
+    }
+    areas.at(area_x).at(area_y).spawn(spawd_id);
+}
