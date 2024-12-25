@@ -63,7 +63,7 @@ int Area::get_id() const {
 }
 
 int Area::get_guid() const {
-    return type * 100 + id;
+    return type * 10 + id;
 }
 
 std::set<Direction2D> Area::get_gateway_positions() const {
