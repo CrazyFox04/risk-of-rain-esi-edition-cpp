@@ -1,11 +1,17 @@
 //
 // Created by Enzo Renard on 05/12/2024.
 //
-
 #ifndef GAMECONTROLLER_HPP
 #define GAMECONTROLLER_HPP
+
+#ifdef _WIN64
+#define MY_API extern "C" __declspec(dllexport)
+#else
 #define MY_API extern "C"
+#endif
+
 #include "Game.hpp"
+
 
 class GameController {
     Game game_;
@@ -20,6 +26,8 @@ public:
     void addPlayerHealth(int health);
 
     void takePlayerDamage(int damage);
+
+    int get_area_guid_current_level(int, int) const;
 };
 
 MY_API GameController* newGame();
@@ -36,4 +44,6 @@ MY_API void addPlayerHealth(GameController*, int);
 
 MY_API void takePlayerDamage(GameController*, int);
 
-#endif //GAMECONTROLLER_HPP
+MY_API int get_area_guid_current_level(const GameController*, int, int);
+
+#endif

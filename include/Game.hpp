@@ -4,7 +4,7 @@
 
 #ifndef GAME_HPP
 #define GAME_HPP
-#include <Player.hpp>
+#include "Player.hpp"
 
 #include "Level.hpp"
 
@@ -24,6 +24,8 @@ public:
 
     Level getActiveLevel();
 
+    int get_area_guid_current_level(int x, int y) const;
+
     int getPlayerMaxHealth() const;
 
     int getPlayerCurrentHealth() const;
@@ -33,5 +35,7 @@ public:
     void addPlayerHealth(int health);
 
     void takePlayerDamage(int damage);
+
+    bool if_can_spawn_current_level_spawn_at(int areaX, int areaY, int spawdId);
 };
 #endif //GAME_HPP
