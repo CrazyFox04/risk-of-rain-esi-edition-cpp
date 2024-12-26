@@ -3,30 +3,89 @@
 //
 #include "Player.hpp"
 #include <algorithm>
+#include <thread>
 
-Player::Player(int health, int speed, int damage)
-    : Character(health, speed, damage),
-    activeWeapon(nullptr),
-    attack1Cooldown(DEF_ATTACK_COOLDOWN),
-    attack2Cooldown(DEF_ATTACK_COOLDOWN),
-    attack3Cooldown(DEF_ATTACK_COOLDOWN),
-    dashCooldown(DEF_DASH_COOLDOWN),
-    jetpackFuel(DEF_JETPACK_FUEL),
-    maxJumps(DEF_MAX_JUMPS),
-    remainingJumps(DEF_MAX_JUMPS),
-    lastAttackTime(std::chrono::system_clock::now()),
-    lastShootTime(std::chrono::system_clock::now()) {
+Player::Player(const std::string& playerId)
+    : Character(DEF_HEALTH, DEF_SPEED, 0),
+      attackDamages{10.0f, 20.0f, 30.0f, 40.0f, 50.0f},
+      attackCooldowns{0.42f, 1.5f, 5.0f, 2.0f, 5.0f},
+      attackAnimTimes{0.42f, 0.4f, 1.0f, 1.0f, 1.0f},
+      moveSpeed(DEF_SPEED),
+      jumpForce(DEF_JUMP_FORCE),
+      dashForce(DEF_DASH_FORCE),
+      jetPackSpeed(DEF_JETPACK_SPEED),
+      jetpackFuel(DEF_JETPACK_TIME),
+      maxJumps(1),
+      isDashing(false),
+      isJetPacking(false),
+      isBusy(false),
+      maxHealth(DEF_HEALTH),
+      currentHealth(DEF_HEALTH),
+      id(playerId),
+      lastDashTime(std::chrono::steady_clock::now()),
+      lastAttackTime(std::chrono::steady_clock::now()) {}
+
+void Player::selectAttacks(const std::vector<int> &attackIndices) {
+    selectedAttacks.clear();
+    for (int index : attackIndices) {
+        if (index >= 0 && index < 5) {
+            selectedAttacks.push_back(index);
+        }
+    }
 }
 
-Player::Player() : Player(DEF_HEALTH, DEF_SPEED, DEF_DAMAGE) {
+bool canAttack(int attackIndex) const {
+    if (attackIndex < 0 || attackIndex >= 5) return false;
+
+    auto now = std::chrono::steady_clock::now();
+    auto elapsed = std::chrono::duration<float>(now - lastAttackTime).count();
+    return elapsed >= attackCooldowns[selectedAttacks[attackIndex]] && !isBusy;
+}
+
+void Player::attack(int attackIndex) {
+    if (!canAttack(attackIndex)) return;
+
+    int selectedAttack = selectedAttacks[attackIndex];
+    setIsBusy(true);
+    lastAttackTime = std::chrono::system_clock::now();
+    std::this_thread::sleep_for(std::chrono::milliseconds(static_cast<int>(attackAnimTimes[selectedAttack] * 1000)));
+    setIsBusy(false);
+}
+
+bool Player::canDash() const {
+    auto now = std::chrono::system_clock::now();
+    auto elapsed = std::chrono::duration<float>(now - lastDashTime).count();
+    return elapsed >= dashAnimTime && !isBusy;
+}
+
+void Player::dash() {
+    if (!canDash()) return;
+
+    setIsDashing(true);
+    lastDashTime = std::chrono::system_clock::now();
+    std::this_thread::sleep_for(std::chrono::milliseconds(static_cast<int>(dashAnimTime * 1000)));
+    setIsDashing(false);
+}
+
+void Player::setIsBusy(bool value) {
+    isBusy = value;
+}
+
+void Player::setIsDashing(bool value) {
+    isDashing = value;
 }
 
 // Getters
-float Player::getAttack1Cooldown() const { return attack1Cooldown; }
-float Player::getAttack2Cooldown() const { return attack2Cooldown; }
-float Player::getAttack3Cooldown() const { return attack3Cooldown; }
-float Player::getDashCooldown() const { return dashCooldown; }
-float Player::getJetpackFuel() const { return jetpackFuel; }
+bool Player::getIsBusy() const { return isBusy; }
+bool Player::getIsDashing() const { return isDashing; }
+bool Player::getIsJetPacking() const { return isJetPacking; }
+
+float Player::getMoveSpeed() const { return moveSpeed; }
+float Player::getJumpForce() const { return jumpForce; }
+float Player::getDashForce() const { return dashForce; }
+float Player::getJetPackSpeed() const { return jetPackSpeed; }
+float Player::getJetpackFlightTime() const { return jetpackFuel; }
+
 int Player::getMaxJumps() const { return maxJumps; }
 int Player::getRemainingJumps() const { return remainingJumps; }
 
@@ -60,15 +119,6 @@ void Player::resetJumps() {
     remainingJumps = maxJumps;
 }
 
-bool Player::canShoot() const {
-    auto now = std::chrono::system_clock::now();
-    if (!activeWeapon) return false;
-
-    WeaponProperties properties = WeaponProperties::getProperties(*activeWeapon);
-    auto elapsed = std::chrono::duration<float>(now - lastShootTime).count();
-    return elapsed >= properties.cooldown;
-}
-
 void Player::useItem(const std::shared_ptr<Buff>&item) {
     if (!item) return;
 
@@ -90,26 +140,8 @@ void Player::useItem(const std::shared_ptr<Buff>&item) {
     buffs.push_back(item);
 }
 
-void Player::switchWeapons() {
-    if (weapons.size() < 2) return;
-
-    auto it = std::find(weapons.begin(), weapons.end(), activeWeapon);
-    if (it != weapons.end()) {
-        size_t currentIndex = std::distance(weapons.begin(), it);
-        size_t nextIndex = (currentIndex + 1) % weapons.size();
-        activeWeapon = weapons[nextIndex];
-    }
-    else if (!weapons.empty()) {
-        activeWeapon = weapons[0];
-    }
-}
-
 void Player::addItem(const std::shared_ptr<Buff>&item) {
     Character::addItem(item);
-}
-
-std::shared_ptr<Weapon> Player::getActiveWeapon() const {
-    return activeWeapon;
 }
 
 std::shared_ptr<Buff> Player::getItem(size_t index) const {
@@ -133,20 +165,4 @@ void Player::increaseSpeed(int amount) {
 
 void Player::increaseDamage(int amount) {
     damage += amount;
-}
-
-void Player::attack() {
-    //todo
-}
-
-void Player::shoot() {
-    if (!canShoot() || !activeWeapon) return;
-
-    WeaponProperties properties = WeaponProperties::getProperties(*activeWeapon);
-
-    // todo
-    //for (auto &enemy : getEnemiesInRange()) {
-    //    enemy->hit(properties.damage);
-    //}
-    lastShootTime = std::chrono::system_clock::now();
 }

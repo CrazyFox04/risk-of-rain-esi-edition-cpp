@@ -5,71 +5,118 @@
 #ifndef PLAYER_HPP
 #define PLAYER_HPP
 
-#include <memory>
+#include <chrono>
+#include <string>
+#include <array>
 #include "Character.hpp"
 
 class Player : public Character {
-    std::shared_ptr<Weapon> activeWeapon;
-    std::vector<std::shared_ptr<Weapon>> weapons;
+    std::array<float, 5> attackDamages;
+    std::array<float, 5> attackCooldowns;
+    std::array<float, 5> attackAnimTimes;
+    std::vector<int> selectedAttacks;
+    std::vector<std::shared_ptr<Buff>> items;
 
-    float attack1Cooldown;
-    float attack2Cooldown;
-    float attack3Cooldown;
-    float dashCooldown;
+    // Movement properties
+    float moveSpeed;
+    float jumpForce;
+    float dashForce;
+    float jetPackSpeed;
 
+    // Jetpack flight time and jump properties
     float jetpackFuel;
+    float maxJetpackFuel;
+    float jetpackCooldown;
+    std::chrono::time_point<std::chrono::steady_clock> lastJetpackUse;
+    std::chrono::time_point<std::chrono::steady_clock> jetpackRechargeStart;
     int maxJumps;
 
+    // Animation times
+    float hurtAnimTime;
+    float landingAnimTime;
+    float dashAnimTime;
+
+    // Player states
+    bool isDashing;
+    bool isJetPacking;
+    bool isBusy;
+    bool isJetpackRecharging;
+
+    // Health
+    int maxHealth;
+    int currentHealth;
+
+    // Current state
     int remainingJumps;
-    std::chrono::time_point<std::chrono::system_clock> lastAttackTime;
-    std::chrono::time_point<std::chrono::system_clock> lastShootTime;
+    std::chrono::time_point<std::chrono::steady_clock> lastDashTime;
+    std::chrono::time_point<std::chrono::steady_clock> lastAttackTime;
+
+    std::string id;
 
 public:
     static constexpr int DEF_HEALTH = 100;
-    static constexpr int DEF_SPEED = 1;
-    static constexpr int DEF_DAMAGE = 10;
-    static constexpr float DEF_ATTACK_COOLDOWN = 1.0f;
-    static constexpr float DEF_DASH_COOLDOWN = 3.0f;
-    static constexpr float DEF_JETPACK_FUEL = 5.0f;
-    static constexpr int DEF_MAX_JUMPS = 1;
+    static constexpr int DEF_SPEED = 4;
+    static constexpr float DEF_JUMP_FORCE = 5.0f;
+    static constexpr float DEF_DASH_FORCE = 1000.0f;
+    static constexpr float DEF_JETPACK_SPEED = 5.0f;
+    static constexpr float DEF_JETPACK_TIME = 5.0f;
+    static constexpr float DEF_JETPACK_COOLDOWN = 3.0f;
 
-    Player();
-    Player(int health, int speed, int damage);
+    Player(const std::string& playerId);
     ~Player() override = default;
 
+    // Attack methods
+    void selectAttacks(const std::vector<int> &attackIndices);
+    bool canAttack(int attackIndex) const;
+    void attack(int attackIndex);
+
+    // Dash
+    bool canDash() const;
+    void dash();
+
+    // Jetpack
+    bool canUseJetpack() const;
+    void useJetpack();
+    void rechargeJetpack();
+
+    // State setters and getters
+    bool getIsDashing() const;
+    bool getIsJetPacking() const;
+    bool getIsBusy() const;
+    bool getIsJetpackRecharging() const;
+    void setIsBusy(bool state);
+
+    // Movement and jetpack
+    float getMoveSpeed() const;
+    float getJumpForce() const;
+    float getDashForce() const;
+    float getJetPackSpeed() const;
+    float getJetpackFuel() const;
+    float getMaxJetpackFuel() const;
+    float getJetpackCooldown() const;
+
+    // Health
+    int getMaxHealth() const;
+    int getCurrentHealth() const;
+    void increaseHealth(int amount);
+    void increaseMaxHealth(int amount);
+
+
+    std::shared_ptr<Buff> getItem(size_t index) const;
+
+    const std::string& getId() const;
+
     // Cooldown-related methods
-    float getAttack1Cooldown() const;
-    float getAttack2Cooldown() const;
-    float getAttack3Cooldown() const;
     float getDashCooldown() const;
 
     void reduceAttackCooldowns(const std::shared_ptr<Buff> &item);
     void reduceDashCooldown(const std::shared_ptr<Buff> &item);
 
-    // Jetpack and jump methods
-    float getJetpackFuel() const;
-    int getMaxJumps() const;
-    int getRemainingJumps() const;
-
     void increaseJetpackFuel(const std::shared_ptr<Buff> &item);
     void increaseMaxJumps(const std::shared_ptr<Buff> &item);
     void resetJumps();
 
-    // Combat methods
-    bool canShoot() const;
     void useItem(const std::shared_ptr<Buff> &item);
-    void switchWeapons();
     void addItem(const std::shared_ptr<Buff> &item);
-
-    std::shared_ptr<Weapon> getActiveWeapon() const;
-    std::shared_ptr<Buff> getItem(size_t index) const;
-
-    void attack() override;
-    void shoot() override;
-
-    void increaseHealth(int amount);
-    void increaseMaxHealth(int amount);
-    void increaseSpeed(int amount);
-    void increaseDamage(int amount);
 };
 #endif //PLAYER_HPP
