@@ -7,24 +7,34 @@
 #include "pch.h"
 #include "JetPack.hpp"
 
-JetPack::JetPack(double force, double maxFuel, double cooldown, double landingAnimationTime) : force(force), maxFuel(maxFuel), cooldown(cooldown), landingAnimationTime(landingAnimationTime) {
+JetPack::JetPack(double force, double maxTime, double cooldown, double landingAnimationTime) : force(force),
+    maxTime(maxTime), cooldown(cooldown), landingAnimationTime(landingAnimationTime) {
 }
 
-void JetPack::use() {
-    if (canUse()) {
-        lastJetpackUse = std::chrono::steady_clock::now();
+void JetPack::activate() {
+    if (!canActivate()) {
+        throw std::runtime_error("Cannot use jetpack");
     }
+    lastJetpackUse = std::chrono::steady_clock::now();
 }
 
-double JetPack::getFuel() const {
-    std::chrono::duration<double> timeSinceLastUse = std::chrono::steady_clock::now() - lastJetpackUse;
-    return std::max(0.0, maxFuel - timeSinceLastUse.count() * force);
-}
-
-bool JetPack::canUse() const {
-    
+bool JetPack::canActivate() const {
+    return std::chrono::steady_clock::now() - lastJetpackUse < std::chrono::duration<double>(maxTime) +
+           std::chrono::duration<double>(cooldown) + std::chrono::duration<double>(landingAnimationTime);
 }
 
 bool JetPack::isUsing() const {
-    return 
+    return std::chrono::steady_clock::now() - lastJetpackUse < std::chrono::duration<double>(maxTime);
+}
+
+double JetPack::getForce() const {
+    return force;
+}
+
+double JetPack::getLandAnimationTime() const {
+    return landingAnimationTime;
+}
+
+double JetPack::getMaxTime() const {
+    return maxTime;
 }

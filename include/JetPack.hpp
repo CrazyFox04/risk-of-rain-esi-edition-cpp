@@ -8,12 +8,10 @@
 
 class JetPack {
     double force;
-    double maxFuel;
+    double maxTime;
     double cooldown;
     double landingAnimationTime;
-    double currentFuel;
     std::chrono::time_point<std::chrono::steady_clock> lastJetpackUse;
-    std::chrono::time_point<std::chrono::steady_clock> jetpackRechargeStart;
 
 public:
     static constexpr double DEF_FORCE = 5.0;
@@ -21,16 +19,18 @@ public:
     static constexpr double DEF_COOLDOWN = 10.0;
     static constexpr double DEF_LANDING_ANIMATION_TIME = 0.2;
 
-    JetPack(double force, double maxFuel, double cooldown, double landingAnimationTime);
+    JetPack(double force, double maxTime, double cooldown, double landingAnimationTime);
 
-    void use();
+    void activate();
 
-    double getFuel() const;
-
-    bool canUse() const;
+    bool canActivate() const;
 
     bool isUsing() const;
 
-    bool isRecharging() const;
+    double getForce() const;
+
+    double getLandAnimationTime() const;
+
+    double getMaxTime() const;
 };
 #endif //JETPACK_HPP

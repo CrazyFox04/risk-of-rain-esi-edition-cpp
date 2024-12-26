@@ -4,13 +4,17 @@
 
 #ifndef LEVEL_HPP
 #define LEVEL_HPP
+#include <unordered_set>
 #include <vector>
+#include <map>
+#include  "Enemy.hpp"
 #include "Area.hpp"
 #include "Areas.hpp"
 
 class Level {
     int id;
     std::vector<std::vector<Area>> areas;
+    std::map<int, Enemy> enemies;
 
     void loadFromAreas(const std::vector<std::vector<Area>>&areas);
 
@@ -40,5 +44,7 @@ public:
     bool can_spawn_at(int area_x, int area_y, int spawd_id);
 
     void spawn_at(int area_x, int area_y, int spawd_id);
+
+    Enemy getEnemy(int enemyId) const;
 };
 #endif //LEVEL_HPP

@@ -7,6 +7,7 @@
 
 #include <chrono>
 #include <string>
+#include <set>
 #include <array>
 #include "Dash.hpp"
 #include "Jump.hpp"
@@ -22,18 +23,14 @@ public:
     static constexpr double DEF_RUN_FORCE = 4.0;
     static constexpr double DEF_JUMP_FORCE = 5.0;
     static constexpr double DEF_HURT_TIME = 0.5;
-    static constexpr std::set<std::shared_ptr<Movement>> DEF_MOVEMENTS{
-        std::make_shared<Run>(DEF_RUN_FORCE), std::make_shared<Jump>(DEF_JUMP_FORCE, 1),
-        std::make_shared<Dash>()
-    };
-    static constexpr std::set<Attack> DEF_ATTACKS = {
-        DefinedAttacks::get(ATTACK1).attack, DefinedAttacks::get(ATTACK2).attack, DefinedAttacks::get(ATTACK3).attack
-    };
+    static const std::set<std::shared_ptr<Movement>> DEF_MOVEMENTS_PLAYER;
+    static const std::set<Attack> DEF_ATTACKS_PLAYER;
 
     Player();
 
     ~Player() override = default;
 
-    void addItem(const std::shared_ptr<Buff>&item);
+    void addItem(std::shared_ptr<Buff> item) override;
 };
+
 #endif //PLAYER_HPP

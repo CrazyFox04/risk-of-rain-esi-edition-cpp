@@ -41,7 +41,7 @@ bool Capabilities::hasThisMovement(std::string&name) const {
 
 bool Capabilities::canUse(std::string name) const {
     if (name == "JETPACK") {
-        return jetPack.canUse();
+        return jetPack.canActivate();
     }
     if (hasThisAttack(name)) {
         return attacks.at(name).canUse();
@@ -64,4 +64,8 @@ Movement Capabilities::getMovement(std::string name) const {
         throw std::invalid_argument("This movement does not exist");
     }
     return movements.at(name);
+}
+
+JetPack Capabilities::getJetPack() const {
+    return jetPack;
 }

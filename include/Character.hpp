@@ -4,6 +4,8 @@
 
 #ifndef CHARACTER_HPP
 #define CHARACTER_HPP
+#include "Animation.hpp"
+
 #include "Capabilities.hpp"
 #include "Health.hpp"
 #include "Buff.h"
@@ -13,21 +15,28 @@
 class Character {
     bool canUse(Attack attack) const;
 
+    void increaseHealth(int amount);
+
+    void increaseMaxHealth(int amount);
+
 protected:
     static int nextId;
+    std::string type;
     int id;
     std::vector<std::shared_ptr<Buff>> items;
     Health health;
     Capabilities capabilities;
     bool onGround;
+    Animation hurtAnimation;
 
 public:
     static constexpr double DEF_HURT_TIME = 0.5;
     static constexpr double DEF_RUN_FORCE = 4.0;
     static constexpr double DEF_JUMP_FORCE = 5.0;
-    Character(int max_health, double hurtTime, Capabilities capabilities);
 
-    Character(int max_health);
+    Character(const std::string& type, int max_health, double hurtTime, Capabilities capabilities);
+
+    Character(const std::string& type, int max_health);
 
     virtual ~Character() = default;
 
@@ -42,18 +51,16 @@ public:
     int getId() const;
 
     bool hasJetPack() const;
-    
+
     const std::vector<std::shared_ptr<Buff>>& getItems() const;
-    
-    void attack(std::string attackName, int targetId);
+
+    int attack(std::string attackName);
 
     void move(std::string movementName);
 
     bool canUseJetpack() const;
 
     void useJetpack();
-
-    void unusedJetpack();
 
     bool canUse(std::string attackName) const;
 
@@ -62,15 +69,17 @@ public:
     void land();
 
     bool isLanded() const;
-    
+
     virtual void addItem(std::shared_ptr<Buff> buff) = 0;
 
-    void useItem(const std::shared_ptr<Buff> &item);
+    void useItem(const std::shared_ptr<Buff>&item);
 
     bool isBusy() const;
 
-    void increaseHealth(int amount);
+    void hurt(int damage);
 
-    void increaseMaxHealth(int amount);
+    std::string getType() const;
+
+    Animation getHurtAnimation() const;
 };
 #endif //CHARACTER_HPP

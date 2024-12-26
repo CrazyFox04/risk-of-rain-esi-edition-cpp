@@ -34,3 +34,15 @@ std::string Movement::getName() const {
 std::chrono::time_point<std::chrono::steady_clock> Movement::getLastUsageTime() const {
     return lastUsageTime;
 }
+
+double Movement::getForce() const {
+    return force;
+}
+
+double Movement::getAnimationTime() const {
+    return animationTime;
+}
+
+double Movement::getCooldown() const {
+    return cooldown;
+}

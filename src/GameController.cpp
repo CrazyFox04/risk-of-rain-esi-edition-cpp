@@ -15,14 +15,6 @@ int GameController::getPlayerCurrentHealth() const {
     return game_.getPlayerCurrentHealth();
 }
 
-void GameController::addPlayerMaxHealth(int health) {
-     game_.addPlayerMaxHealth(health);
-}
-
-void GameController::addPlayerHealth(int health) {
-    game_.addPlayerHealth(health);
-}
-
 void GameController::takePlayerDamage(int damage) {
     game_.takePlayerDamage(damage);
 }
@@ -45,14 +37,6 @@ int getPlayerMaxHealth(const GameController* game_controller) {
 
 int getPlayerCurrentHealth(GameController* game_controller) {
     return game_controller->getPlayerCurrentHealth();
-}
-
-void addPlayerMaxHealth(GameController* game_controller, int health) {
-    game_controller->addPlayerMaxHealth(health);
-}
-
-void addPlayerHealth(GameController* game_controller, int health) {
-    game_controller->addPlayerHealth(health);
 }
 
 void takePlayerDamage(GameController* game_controller, int health) {

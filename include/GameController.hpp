@@ -21,10 +21,6 @@ public:
 
     int getPlayerCurrentHealth() const;
 
-    void addPlayerMaxHealth(int health);
-
-    void addPlayerHealth(int health);
-
     void takePlayerDamage(int damage);
 
     int get_area_guid_current_level(int, int) const;

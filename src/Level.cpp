@@ -144,3 +144,10 @@ void Level::spawn_at(int area_x, int area_y, int spawd_id) {
     }
     areas.at(area_x).at(area_y).spawn(spawd_id);
 }
+
+Enemy Level::getEnemy(int enemyId) const {
+    if (!enemies.contains(enemyId)) {
+        throw std::invalid_argument("No enemy with id " + std::to_string(enemyId));
+    }
+    return enemies.at(enemyId);
+}

@@ -17,7 +17,7 @@ class Attack {
 public:
     Attack(const std::string&name, int damage, double cooldown, double chargeTime, double animationTime);
 
-    void use();
+    int use();
 
     bool isUsing() const;
 
@@ -34,5 +34,9 @@ public:
     double getAnimationTime() const;
 
     std::chrono::time_point<std::chrono::steady_clock> getLastUsageTime() const;
+
+    bool operator<(const Attack&rhs) const {
+        return name < rhs.name;
+    }
 };
 #endif //ATTACK_HPP

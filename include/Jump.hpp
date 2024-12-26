@@ -13,7 +13,7 @@ class Jump : public Movement {
 public:
     Jump(double force, int maxUsage);
 
-    bool canUse() const;
+    bool canUse() const override;
     
     void use() override;
 

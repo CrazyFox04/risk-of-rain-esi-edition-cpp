@@ -23,6 +23,8 @@ set(SOURCES
         Jump.cpp
         Dash.cpp
         Run.cpp
+        Animation.cpp
+        Enemies.cpp
 )
 
 # Create the model library that public can use

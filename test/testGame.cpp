@@ -26,20 +26,6 @@ TEST(GameTest, GetPlayerCurrentHealthReturnsCorrectValue) {
     EXPECT_EQ(game.getPlayerCurrentHealth(), game.getPlayerCurrentHealth());
 }
 
-TEST(GameTest, AddPlayerMaxHealthIncreasesMaxHealth) {
-    Game game;
-    int initialMaxHealth = game.getPlayerMaxHealth();
-    game.addPlayerMaxHealth(10);
-    EXPECT_EQ(game.getPlayerMaxHealth(), initialMaxHealth + 10);
-}
-
-TEST(GameTest, AddPlayerHealthIncreasesCurrentHealth) {
-    Game game;
-    int initialHealth = game.getPlayerCurrentHealth();
-    game.addPlayerHealth(10);
-    EXPECT_EQ(game.getPlayerCurrentHealth(), initialHealth + 10);
-}
-
 TEST(GameTest, TakePlayerDamageDecreasesCurrentHealth) {
     Game game;
     int initialHealth = game.getPlayerCurrentHealth();
