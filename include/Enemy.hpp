@@ -7,18 +7,17 @@
 #include "Character.hpp"
 
 class Enemy : public Character {
-private:
-    bool canThrow;
+    bool isBoss;
+    double followRange;
+    double attackRange;
+    
 
 public:
-    Enemy(int health, int speed, int damage, bool canThrow);
+    Enemy(int maxHealth, double followRange, double attackRange, double hurtTime,
+          Capabilities capabilities, bool isBoss);
 
     ~Enemy() override = default;
 
-    bool getCanThrow() const { return canThrow; }
-    void setCanThrow(bool value) { canThrow = value; }
-
-    void attack() override;
-    void shoot() override;
+    void addItem(std::shared_ptr<Buff> buff) override;
 };
 #endif //ENEMY_HPP

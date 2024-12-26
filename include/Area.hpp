@@ -4,6 +4,7 @@
 
 #ifndef AREA_HPP
 #define AREA_HPP
+#include "Enemies.hpp" // todo
 #include "Direction.hpp"
 #include "Spawn.hpp"
 #include <set>

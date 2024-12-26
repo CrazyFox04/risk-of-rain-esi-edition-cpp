@@ -6,30 +6,33 @@
 #endif
 #include "pch.h"
 #include "Character.hpp"
-#include "Weapon.h"
-#include "Buff.h"
 
-Character::Character(int health, int speed, int damage)
-        : health(health), speed(speed), damage(damage) {}
+#include <Jump.hpp>
+#include <Run.hpp>
 
-void Character::hit(int damage) {
-    if (canHit(damage)) {
-        health -= damage;
-        if (health <= 0) {
-            kill();
-        }
-    }
+Character::Character(int max_health, double hurtTime, Capabilities capabilities) : id(nextId++),
+    health(max_health, max_health), capabilities(capabilities) {
+    onGround = true;
 }
 
-void Character::kill() {
-    health = 0;
-    // todo
+Character::Character(int max_health) : Character(max_health, DEF_HURT_TIME, {
+                                                     {},
+                                                     {
+                                                         std::make_shared<Run>(DEF_RUN_FORCE),
+                                                         std::make_shared<Jump>(DEF_JUMP_FORCE, 1)
+                                                     },
+                                                     false
+                                                 }) {
 }
 
-bool Character::canHit(int damage) const {
-    return health > 0 && damage > 0;
+Health Character::getHealth() const {
+    return health;
 }
 
-void Character::addItem(std::shared_ptr <Buff> item) {
-        buffs.push_back(item);
+Attack Character::getAttack(std::string name) const {
+    return capabilities.getAttack(name);
+}
+
+Movement Character::getMovement(std::string name) const {
+    return capabilities.getMovement(name);
 }
