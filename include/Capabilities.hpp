@@ -27,6 +27,8 @@ public:
     Attack getAttack(std::string) const;
 
     Movement getMovement(std::string) const;
+
+    JetPack getJetPack() const;
     
     std::chrono::time_point<std::chrono::steady_clock> getLastAttackTime() const;
 };

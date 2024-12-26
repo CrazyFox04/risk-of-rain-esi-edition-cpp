@@ -36,3 +36,31 @@ Attack Character::getAttack(std::string name) const {
 Movement Character::getMovement(std::string name) const {
     return capabilities.getMovement(name);
 }
+
+JetPack Character::getJetPack() const {
+    return capabilities.getJetPack();
+}
+
+int Character::getId() const {
+    return id;
+}
+
+const std::vector<std::shared_ptr<Buff>>& Character::getItems() const {
+    return items;
+}
+
+void Character::land() {
+    onGround = true;
+}
+
+bool Character::isLanded() const {
+    return onGround;
+}
+
+void Character::increaseHealth(int amount) {
+    health.current += amount;
+}
+
+void Character::increaseMaxHealth(int amount) {
+    health.max += amount;
+}
