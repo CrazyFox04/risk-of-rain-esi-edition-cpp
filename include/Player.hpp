@@ -85,6 +85,7 @@ public:
     bool getIsBusy() const;
     bool getIsJetpackRecharging() const;
     void setIsBusy(bool state);
+    void setIsDashing(bool state);
 
     // Movement and jetpack
     float getMoveSpeed() const;

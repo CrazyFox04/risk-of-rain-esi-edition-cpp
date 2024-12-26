@@ -15,15 +15,19 @@ Player::Player(const std::string& playerId)
       dashForce(DEF_DASH_FORCE),
       jetPackSpeed(DEF_JETPACK_SPEED),
       jetpackFuel(DEF_JETPACK_TIME),
+      jetpackCooldown(DEF_JETPACK_COOLDOWN),
       maxJumps(1),
       isDashing(false),
       isJetPacking(false),
       isBusy(false),
+      isJetpackRecharging(false),
       maxHealth(DEF_HEALTH),
       currentHealth(DEF_HEALTH),
       id(playerId),
       lastDashTime(std::chrono::steady_clock::now()),
-      lastAttackTime(std::chrono::steady_clock::now()) {}
+      lastAttackTime(std::chrono::steady_clock::now()),
+      lastJetpackUse(std::chrono::steady_clock::now()),
+      jetpackRechargeStart(std::chrono::steady_clock::now()) {}
 
 void Player::selectAttacks(const std::vector<int> &attackIndices) {
     selectedAttacks.clear();
@@ -67,6 +71,55 @@ void Player::dash() {
     setIsDashing(false);
 }
 
+bool canUseJetpack() const {
+    auto now = std::chrono::steady_clock::now();
+    if (isJetPackRecharging) {
+        float elapsed = std::chrono::duration<float>(now - jetpackRechargeStart).count();
+        return elapsed >= jetpackCooldown;
+    }
+    return jetpackFuel > 0 && !isBusy;
+}
+
+void Player::useJetpack() {
+    if (!canUseJetpack()) return;
+
+    isJetPacking = true;
+    auto now = std::chrono::steady_clock::now();
+    float elapsed = std::chrono::duration<float>(now - lastJetpackUse).count();
+
+    jetpackFuel = std::max(0.0f, jetpackFuel - elapsed);
+
+    if (jetpackFuel == 0.0f) {
+        isJetPacking = false;
+        isJetpackRecharging = true;
+        jetpackRechargeStart = std::chrono::steady_clock::now();
+    }
+
+    lastJetpackUse = now;
+}
+
+void Player::rechargeJetpack() {
+    if (!isJetpackRecharging) {
+        auto now = std::chrono::steady_clock::now();
+        float elapsed = std::chrono::duration<float>(now - lastJetpackUse).count();
+
+        if (elapsed >= 2.0f) { // Add 1 second of fuel every 2 seconds
+            jetpackFuel = std::min(maxJetpackFuel, jetpackFuel + 1.0f);
+            lastJetpackUse = now;
+        }
+
+        if (jetpackFuel == maxJetpackFuel) {
+            isJetpackRecharging = false;
+        }
+    } else {
+        auto now = std::chrono::steady_clock::now();
+        float elapsedCooldown = std::chrono::duration<float>(now - jetpackRechargeStart).count();
+        if (elapsedCooldown >= jetpackCooldown) {
+            isJetpackRecharging = false;
+        }
+    }
+}
+
 void Player::setIsBusy(bool value) {
     isBusy = value;
 }
@@ -76,18 +129,24 @@ void Player::setIsDashing(bool value) {
 }
 
 // Getters
-bool Player::getIsBusy() const { return isBusy; }
-bool Player::getIsDashing() const { return isDashing; }
 bool Player::getIsJetPacking() const { return isJetPacking; }
+bool Player::getIsJetpackRecharging() const { return isJetpackRecharging; }
+float Player::getJetpackFuel() const { return jetpackFuel; }
+float Player::getMaxJetpackFuel() const { return maxJetpackFuel; }
+float Player::getJetpackCooldown() const { return jetpackCooldown; }
+
+bool Player::getIsDashing() const { return isDashing; }
+bool Player::getIsBusy() const { return isBusy; }
 
 float Player::getMoveSpeed() const { return moveSpeed; }
 float Player::getJumpForce() const { return jumpForce; }
 float Player::getDashForce() const { return dashForce; }
 float Player::getJetPackSpeed() const { return jetPackSpeed; }
-float Player::getJetpackFlightTime() const { return jetpackFuel; }
 
-int Player::getMaxJumps() const { return maxJumps; }
-int Player::getRemainingJumps() const { return remainingJumps; }
+int Player::getMaxHealth() const { return maxHealth; }
+int Player::getCurrentHealth() const { return currentHealth; }
+
+const std::string &Player::getId() const { return id; }
 
 // Reducing cooldowns
 void Player::reduceAttackCooldowns(const std::shared_ptr<Buff> &item) {
