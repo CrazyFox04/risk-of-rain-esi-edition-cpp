@@ -20,12 +20,14 @@ TEST(GameTest, GetAreaGuidCurrentLevelReturnsCorrectGuid) {
 
 TEST(GameTest, GetPlayerMaxHealthReturnsCorrectValue) {
     Game game;
-    EXPECT_EQ(game.getPlayerMaxHealth(), game.getPlayerMaxHealth());
+    EXPECT_EQ(Player::DEF_MAX_HEALTH, game.getPlayerMaxHealth());
 }
 
 TEST(GameTest, GetPlayerCurrentHealthReturnsCorrectValue) {
     Game game;
-    EXPECT_EQ(game.getPlayerCurrentHealth(), game.getPlayerCurrentHealth());
+    EXPECT_EQ(Player::DEF_MAX_HEALTH, game.getPlayerCurrentHealth());
+    game.takePlayerDamage(10);
+    EXPECT_EQ(Player::DEF_MAX_HEALTH - 10, game.getPlayerCurrentHealth());
 }
 
 TEST(GameTest, TakePlayerDamageDecreasesCurrentHealth) {
@@ -70,6 +72,7 @@ TEST(GameTest, IfSpawnReturnId_isInThisLevel) {
 TEST(GameTest, noThrowWhenGetCharacterSpeed) {
     Game game = Game();
     int id = game.getPlayerId();
+    EXPECT_NO_THROW(game.getCharacterSpeed(9988989));
     EXPECT_NO_THROW(game.getCharacterSpeed(id));
 }
 
@@ -77,6 +80,7 @@ TEST(GameTest, noThrowWhenGetCharacterJumpForce) {
     Game game = Game();
     int id = game.getPlayerId();
     EXPECT_NO_THROW(game.getCharacterJumpForce(id));
+    EXPECT_NO_THROW(game.getCharacterJumpForce(9898989));
 }
 
 TEST(GameTest, noThrowWhenGetEnemyFollowRange) {
@@ -87,6 +91,7 @@ TEST(GameTest, noThrowWhenGetEnemyFollowRange) {
     int spawnId = std::get<1>(existingSpawn);
     int id = game.if_can_spawn_current_level_spawn_at(areaX, areaY, spawnId);
     EXPECT_NO_THROW(game.getEnemyFollowRange(id));
+    EXPECT_NO_THROW(game.getEnemyFollowRange(9898989));
 }
 
 TEST(GameTest, noThrowWhenGetEnemyAttackRange) {
@@ -97,6 +102,7 @@ TEST(GameTest, noThrowWhenGetEnemyAttackRange) {
     int spawnId = std::get<1>(existingSpawn);
     int id = game.if_can_spawn_current_level_spawn_at(areaX, areaY, spawnId);
     EXPECT_NO_THROW(game.getEnemyAttackRange(id));
+    EXPECT_NO_THROW(game.getEnemyAttackRange(9898989));
 }
 
 TEST(GameTest, noThrowWhenCanCharacterAttack) {
@@ -104,6 +110,8 @@ TEST(GameTest, noThrowWhenCanCharacterAttack) {
     int id = game.getPlayerId();
     std::string attackName = "ATTACK1";
     EXPECT_NO_THROW(game.canCharacterAttack(id, attackName));
+    EXPECT_NO_THROW(game.canCharacterAttack(9898989, attackName));
+    EXPECT_NO_THROW(game.canCharacterAttack(id, "ATTACK09876578"));
 }
 
 TEST(GameTest, noThrowWhenGetDamage) {

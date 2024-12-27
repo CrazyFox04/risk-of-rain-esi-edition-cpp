@@ -54,7 +54,7 @@ public:
 
     double getCharacterHurtTime(int id) const;
 
-    bool isCharacterBusy(int id);
+    bool isCharacterBusy(int id) const;
 
     int getCharacterHealth(int id) const;
 
@@ -85,5 +85,9 @@ public:
     int getPlayerId() const;
 
     std::tuple<std::tuple<int,int>, int> getExistingSpawn() const;
+
+    static std::set<std::string> getCharacterAttacksName();
+
+    static bool isAValidAttackName(std::string attackName) ;
 };
 #endif //GAME_HPP

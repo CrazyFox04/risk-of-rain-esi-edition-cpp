@@ -43,6 +43,27 @@ struct DefinedAttacks {
         }
     }
 
+    static std::set<Attack> getAllAttacks() {
+        std::set<Attack> attacks;
+        for (int i = 0; i < size(); ++i) {
+            attacks.insert(get(static_cast<Attacks>(i)).attack);
+        }
+        return attacks;
+    }
+
+    static std::set<std::string> getCharacterAttacksName() {
+        auto attacks = getAllAttacks();
+        auto names = std::set<std::string>();
+        for (const auto&attack: attacks) {
+            names.insert(attack.getName());
+        }
+        return names;
+    }
+
+    static bool isAValidAttackName(const std::string&attackName) {
+        return getCharacterAttacksName().contains(attackName);
+    }
+
     static int size() {
         return magic_enum::enum_count<Attacks>();
     }
