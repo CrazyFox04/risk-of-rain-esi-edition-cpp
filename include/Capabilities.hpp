@@ -54,7 +54,7 @@ public:
      * @return True if the capability can be used, otherwise false.
      * @throws std::invalid_argument If the capability does not exist.
      */
-    bool canUse(std::string) const;
+    [[nodiscard]] bool canUse(std::string) const;
 
     /**
      * @brief Retrieves an attack by its name.
@@ -62,7 +62,7 @@ public:
      * @return The corresponding Attack object.
      * @throws std::invalid_argument If the attack does not exist.
      */
-    Attack getAttack(std::string) const;
+    [[nodiscard]] Attack getAttack(std::string) const;
 
     /**
      * @brief Retrieves a movement by its name.
@@ -70,19 +70,19 @@ public:
      * @return The corresponding Movement object.
      * @throws std::invalid_argument If the movement does not exist.
      */
-    Movement getMovement(std::string) const;
+    [[nodiscard]] Movement getMovement(std::string) const;
 
     /**
      * @brief Retrieves the JetPack capability.
      * @return The JetPack object.
      */
-    JetPack getJetPack() const;
+    [[nodiscard]] JetPack getJetPack() const;
 
     /**
      * @brief Retrieves the last time any attack was used.
      * @return The time point of the most recent attack usage.
      */
-    std::chrono::time_point<std::chrono::steady_clock> getLastAttackTime() const;
+    [[nodiscard]] std::chrono::time_point<std::chrono::steady_clock> getLastAttackTime() const;
 
     /**
      * @brief Uses a specific capability (attack, movement, or JetPack).
@@ -96,6 +96,6 @@ public:
      * @brief Checks if any capability is currently in use.
      * @return True if any attack, movement, or the JetPack is in use, otherwise false.
      */
-    bool isBusy() const;
+    [[nodiscard]] bool isBusy() const;
 };
 #endif //CAPABILITIES_HPP

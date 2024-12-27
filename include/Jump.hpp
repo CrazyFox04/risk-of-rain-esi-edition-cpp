@@ -37,7 +37,7 @@ public:
      * @brief Checks if the character can perform a jump.
      * @return True if jumps are allowed, otherwise false.
      */
-    bool canUse() const override;
+    [[nodiscard]] bool canUse() const override;
 
     /**
      * @brief Executes a jump, incrementing the current jump counter.

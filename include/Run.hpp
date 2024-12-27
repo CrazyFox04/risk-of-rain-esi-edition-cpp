@@ -25,7 +25,7 @@ public:
      * @brief Constructs a Run object with a specified force.
      * @param force The force applied during the running movement.
      */
-    Run(double force);
+    explicit Run(double force);
 };
 
 #endif //RUN_HPP

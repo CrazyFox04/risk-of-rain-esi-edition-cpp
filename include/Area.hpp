@@ -73,25 +73,25 @@ public:
      * @brief Retrieves the type of the area.
      * @return The type of the area.
      */
-    int get_type() const;
+    [[nodiscard]] int get_type() const;
 
     /**
      * @brief Retrieves the ID of the area.
      * @return The ID of the area.
      */
-    int get_id() const;
+    [[nodiscard]] int get_id() const;
 
     /**
      * @brief Retrieves a globally unique identifier for the area.
      * @return The globally unique identifier.
      */
-    int get_guid() const;
+    [[nodiscard]] int get_guid() const;
 
     /**
      * @brief Retrieves the gateway positions for the area.
      * @return A set of gateway positions.
      */
-    std::set<Direction2D> get_gateway_positions() const;
+    [[nodiscard]] std::set<Direction2D> get_gateway_positions() const;
 
     /**
      * @brief Generates a random area ID within a maximum range.
@@ -117,6 +117,6 @@ public:
      * @brief Retrieves the IDs of all spawns in the area.
      * @return A vector containing all spawn IDs.
      */
-    std::vector<int> get_spawn_ids() const;
+    [[nodiscard]] std::vector<int> get_spawn_ids() const;
 };
 #endif //AREA_HPP

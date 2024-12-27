@@ -29,7 +29,7 @@ class Character {
      * @param attack The attack to check.
      * @return True if the attack can be used, otherwise false.
      */
-    bool canUse(Attack attack) const;
+    bool canUse(Attack attack) const; // TODO implement in .cpp
 
     /**
      * @brief Increases the character's current health.
@@ -80,46 +80,46 @@ public:
      * @brief Retrieves the character's health.
      * @return The Health object.
      */
-    Health getHealth() const;
+    [[nodiscard]] Health getHealth() const;
 
     /**
      * @brief Retrieves a specific attack by its name.
      * @param name The name of the attack.
      * @return The corresponding Attack object.
      */
-    Attack getAttack(std::string) const;
+    [[nodiscard]] Attack getAttack(std::string) const;
 
     /**
      * @brief Retrieves a specific movement by its name.
      * @param name The name of the movement.
      * @return The corresponding Movement object.
      */
-    Movement getMovement(std::string) const;
+    [[nodiscard]] Movement getMovement(std::string) const;
 
     /**
      * @brief Retrieves the JetPack assigned to the character.
      * @return The JetPack object.
      */
 
-    JetPack getJetPack() const;
+    [[nodiscard]] JetPack getJetPack() const;
 
     /**
      * @brief Retrieves the character's unique ID.
      * @return The ID of the character.
      */
-    int getId() const;
+    [[nodiscard]] int getId() const;
 
     /**
      * @brief Checks if the character has a JetPack.
      * @return True if the character has a JetPack, otherwise false.
      */
-    bool hasJetPack() const;
+    [[nodiscard]] bool hasJetPack() const;
 
     /**
      * @brief Retrieves the items (buffs) assigned to the character.
      * @return A vector of shared pointers to Buff objects.
      */
-    const std::vector<std::shared_ptr<Buff>>& getItems() const;
+    [[nodiscard]] const std::vector<std::shared_ptr<Buff>>& getItems() const;
 
     /**
      * @brief Executes an attack by its name.
@@ -140,7 +140,7 @@ public:
      * @brief Checks if the JetPack can be used.
      * @return True if the JetPack can be activated, otherwise false.
      */
-    bool canUseJetpack() const;
+    [[nodiscard]] bool canUseJetpack() const;
 
     /**
      * @brief Activates the JetPack.
@@ -153,14 +153,14 @@ public:
      * @param attackName The name of the attack.
      * @return True if the attack can be used, otherwise false.
      */
-    bool canUse(std::string attackName) const;
+    [[nodiscard]] bool canUse(std::string attackName) const;
 
     /**
      * @brief Checks if a movement can be used by its name.
      * @param movementName The name of the movement.
      * @return True if the movement can be used, otherwise false.
      */
-    bool canMove(std::string movementName) const;
+    [[nodiscard]] bool canMove(std::string movementName) const;
 
     /**
      * @brief Marks the character as landed.
@@ -171,7 +171,7 @@ public:
      * @brief Checks if the character is on the ground.
      * @return True if the character is landed, otherwise false.
      */
-    bool isLanded() const;
+    [[nodiscard]] bool isLanded() const;
 
     /**
      * @brief Adds a buff to the character's inventory.
@@ -189,7 +189,7 @@ public:
      * @brief Checks if the character is currently busy.
      * @return True if the character is busy, otherwise false.
      */
-    bool isBusy() const;
+    [[nodiscard]] bool isBusy() const;
 
     /**
      * @brief Applies damage to the character.
@@ -201,12 +201,12 @@ public:
      * @brief Retrieves the type or class of the character.
      * @return The type as a string.
      */
-    std::string getType() const;
+    [[nodiscard]] std::string getType() const;
 
     /**
      * @brief Retrieves the hurt animation object.
      * @return The Animation object representing the hurt animation.
      */
-    Animation getHurtAnimation() const;
+    [[nodiscard]] Animation getHurtAnimation() const;
 };
 #endif //CHARACTER_HPP
