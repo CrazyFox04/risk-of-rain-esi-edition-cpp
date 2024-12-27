@@ -158,7 +158,7 @@ void Game::takePlayerDamage(int damage) {
     player.hurt(damage);
 }
 
-int Game::if_can_spawn_current_level_spawn_at(int areaX, int areaY, int spawdId) {
+int Game::ifCanSpawnCurrentLevelSpawnAt(int areaX, int areaY, int spawdId) {
     if (levels.at(activeLevel).can_spawn_at(areaX, areaY, spawdId)) {
         return levels.at(activeLevel).spawn_at(areaX, areaY, spawdId);
     }
@@ -226,7 +226,7 @@ bool Game::isPlayerUsingJetpack() const {
     return player.getJetPack().isUsing();
 }
 
-bool Game::canCaracterMove(int id, std::string movementName) const {
+bool Game::canCharacterMove(int id, std::string movementName) const {
     if (!isAValidId(id)) {
         return false;
     }

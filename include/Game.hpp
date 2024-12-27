@@ -34,7 +34,7 @@ public:
 
     void takePlayerDamage(int damage);
 
-    int if_can_spawn_current_level_spawn_at(int areaX, int areaY, int spawdId);
+    int ifCanSpawnCurrentLevelSpawnAt(int areaX, int areaY, int spawdId);
 
     std::string getType(int id) const;
 
@@ -76,7 +76,7 @@ public:
 
     bool isPlayerUsingJetpack() const;
 
-    bool canCaracterMove(int id, std::string movementName) const;
+    bool canCharacterMove(int id, std::string movementName) const;
 
     double getCharacterCoolDownAttack(int id, std::string attackName) const;
 

@@ -43,8 +43,8 @@ TEST(GameTest, IfCanSpawnCurrentLevelSpawnAtReturnsTrueWhenSpawned) {
     int areaX = std::get<0>(std::get<0>(existingSpawn));
     int areaY = std::get<1>(std::get<0>(existingSpawn));
     int spawnId = std::get<1>(existingSpawn);
-    EXPECT_NE(-1, game.if_can_spawn_current_level_spawn_at(areaX, areaY, spawnId));
-    EXPECT_EQ(-1, game.if_can_spawn_current_level_spawn_at(areaX, areaY, spawnId));
+    EXPECT_NE(-1, game.ifCanSpawnCurrentLevelSpawnAt(areaX, areaY, spawnId));
+    EXPECT_EQ(-1, game.ifCanSpawnCurrentLevelSpawnAt(areaX, areaY, spawnId));
 }
 
 TEST(GameTest, IfCanSpawnCurrentLevelSpawnAtReturnsFalseWhenNotSpawned) {
@@ -53,8 +53,8 @@ TEST(GameTest, IfCanSpawnCurrentLevelSpawnAtReturnsFalseWhenNotSpawned) {
     int areaX = std::get<0>(std::get<0>(existingSpawn));
     int areaY = std::get<1>(std::get<0>(existingSpawn));
     int spawnId = std::get<1>(existingSpawn);
-    EXPECT_NE(-1, game.if_can_spawn_current_level_spawn_at(areaX, areaY, spawnId));
-    EXPECT_EQ(-1, game.if_can_spawn_current_level_spawn_at(areaX, areaY, spawnId));
+    EXPECT_NE(-1, game.ifCanSpawnCurrentLevelSpawnAt(areaX, areaY, spawnId));
+    EXPECT_EQ(-1, game.ifCanSpawnCurrentLevelSpawnAt(areaX, areaY, spawnId));
 }
 
 TEST(GameTest, IfSpawnReturnId_isInThisLevel) {
@@ -63,7 +63,7 @@ TEST(GameTest, IfSpawnReturnId_isInThisLevel) {
     int areaX = std::get<0>(std::get<0>(existingSpawn));
     int areaY = std::get<1>(std::get<0>(existingSpawn));
     int spawnId = std::get<1>(existingSpawn);
-    int id = game.if_can_spawn_current_level_spawn_at(areaX, areaY, spawnId);
+    int id = game.ifCanSpawnCurrentLevelSpawnAt(areaX, areaY, spawnId);
     EXPECT_NO_THROW(game.getType(98765678987));
     EXPECT_EQ("", game.getType(98765678987));
     EXPECT_NO_THROW(game.getType(id));
@@ -89,7 +89,7 @@ TEST(GameTest, noThrowWhenGetEnemyFollowRange) {
     int areaX = std::get<0>(std::get<0>(existingSpawn));
     int areaY = std::get<1>(std::get<0>(existingSpawn));
     int spawnId = std::get<1>(existingSpawn);
-    int id = game.if_can_spawn_current_level_spawn_at(areaX, areaY, spawnId);
+    int id = game.ifCanSpawnCurrentLevelSpawnAt(areaX, areaY, spawnId);
     EXPECT_NO_THROW(game.getEnemyFollowRange(id));
     EXPECT_NO_THROW(game.getEnemyFollowRange(9898989));
 }
@@ -100,7 +100,7 @@ TEST(GameTest, noThrowWhenGetEnemyAttackRange) {
     int areaX = std::get<0>(std::get<0>(existingSpawn));
     int areaY = std::get<1>(std::get<0>(existingSpawn));
     int spawnId = std::get<1>(existingSpawn);
-    int id = game.if_can_spawn_current_level_spawn_at(areaX, areaY, spawnId);
+    int id = game.ifCanSpawnCurrentLevelSpawnAt(areaX, areaY, spawnId);
     EXPECT_NO_THROW(game.getEnemyAttackRange(id));
     EXPECT_NO_THROW(game.getEnemyAttackRange(9898989));
 }
@@ -227,7 +227,7 @@ TEST(GameTest, noThrowWhenIfCanSpawnCurrentLevelSpawnAt) {
     int areaX = std::get<0>(std::get<0>(existingSpawn));
     int areaY = std::get<1>(std::get<0>(existingSpawn));
     int spawnId = std::get<1>(existingSpawn);
-    EXPECT_NO_THROW(game.if_can_spawn_current_level_spawn_at(areaX, areaY, spawnId));
+    EXPECT_NO_THROW(game.ifCanSpawnCurrentLevelSpawnAt(areaX, areaY, spawnId));
 }
 
 TEST(GameTest, noThrowWhenGetType) {
@@ -239,21 +239,21 @@ TEST(GameTest, noThrowWhenGetType) {
 TEST(GameTest, playerJump) {
     Game game = Game();
     int id = game.getPlayerId();
-    EXPECT_TRUE(game.canCaracterMove(id, "JUMP"));
+    EXPECT_TRUE(game.canCharacterMove(id, "JUMP"));
     EXPECT_NO_THROW(game.move(id, "JUMP"));
 }
 
 TEST(GameTest, playerNotKnownMove) {
     Game game = Game();
     int id = game.getPlayerId();
-    EXPECT_FALSE(game.canCaracterMove(id, "JUMPJUMP"));
+    EXPECT_FALSE(game.canCharacterMove(id, "JUMPJUMP"));
     EXPECT_NO_THROW(game.move(id, "JUMPJUMPRUN"));
 }
 
 TEST(GameTest, playerDashCooldown) {
     Game game = Game();
     int id = game.getPlayerId();
-    EXPECT_TRUE(game.canCaracterMove(id, "DASH"));
+    EXPECT_TRUE(game.canCharacterMove(id, "DASH"));
     EXPECT_NO_THROW(game.move(id, "DASH"));
-    EXPECT_FALSE(game.canCaracterMove(id, "DASH"));
+    EXPECT_FALSE(game.canCharacterMove(id, "DASH"));
 }
