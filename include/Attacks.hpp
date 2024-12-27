@@ -10,7 +10,7 @@
  */
 #ifndef ATTACKS_HPP
 #define ATTACKS_HPP
-#include <magic_enum/magic_enum.hpp>
+#include "magic_enum/magic_enum.hpp"
 
 #include "Attack.hpp"
 
