@@ -25,21 +25,21 @@ struct DefinedAttacks {
     static DefinedAttacks get(const Attacks attack) {
         switch (attack) {
             case ATTACK1:
-                return DefinedAttacks{Attack("Attack1", 10, 0.42, 0.0, 0.42)};
+                return DefinedAttacks{Attack("ATTACK1", 10, 0.42, 0.0, 0.42)};
             case ATTACK2:
-                return DefinedAttacks{Attack("Attack2", 20, 1.5, 0.0, 0.4)};
+                return DefinedAttacks{Attack("ATTACK2", 20, 1.5, 0.0, 0.4)};
             case ATTACK3:
-                return DefinedAttacks{Attack("Attack3", 30, 5.0, 0.0, 1.0)};
+                return DefinedAttacks{Attack("ATTACK3", 30, 5.0, 0.0, 1.0)};
             case ATTACK4:
-                return DefinedAttacks{Attack("Attack4", 40, 2.0, 0.0, 1.0)};
+                return DefinedAttacks{Attack("ATTACK4", 40, 2.0, 0.0, 1.0)};
             case ATTACK5:
-                return DefinedAttacks{Attack("Attack5", 50, 5.0, 0.0, 1.0)};
+                return DefinedAttacks{Attack("ATTACK5", 50, 5.0, 0.0, 1.0)};
             case ATTACK_SPECTRUM:
-                return DefinedAttacks{Attack("AttackSpectrum", 75, 2.5, 1.0, 2.1)};
+                return DefinedAttacks{Attack("ATTACK_SPECTRUM", 75, 2.5, 1.0, 2.1)};
             case ATTACK_MONSTER:
-                return DefinedAttacks{Attack("AttackMonster", 25, 1.0, 0.3, 0.8)};
+                return DefinedAttacks{Attack("ATTACK_MONSTER", 25, 1.0, 0.3, 0.8)};
             case ATTACK_DROID:
-                return DefinedAttacks{Attack("AttackDroid", 50, 1.5, 1.0, 1.0)};
+                return DefinedAttacks{Attack("ATTACK_DROID", 50, 1.5, 1.0, 1.0)};
         }
     }
 

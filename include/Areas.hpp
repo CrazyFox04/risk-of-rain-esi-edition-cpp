@@ -42,23 +42,23 @@ struct DefinedAreas {
             case A2LD:
                 return DefinedAreas{Area(22, 1, {Direction::LEFT, Direction::DOWN}, {{1, 10000, 100000}})};
             case A2UL:
-                return DefinedAreas{Area(23, 1, {Direction::UP, Direction::LEFT}, {{1, 10000, 100000}})};
+                return DefinedAreas{Area(23, 1, {Direction::UP, Direction::LEFT}, {{1, 1, 10}})};
             case A2DR:
-                return DefinedAreas{Area(24, 1, {Direction::DOWN, Direction::RIGHT}, {{1, 10000, 100000}})};
+                return DefinedAreas{Area(24, 1, {Direction::DOWN, Direction::RIGHT}, {{1, 1, 10}})};
             case A2UD:
-                return DefinedAreas{Area(25, 1, {Direction::UP, Direction::DOWN}, {{1, 10000, 100000}})};
+                return DefinedAreas{Area(25, 1, {Direction::UP, Direction::DOWN}, {{1, 1, 10}})};
             case A2LR:
-                return DefinedAreas{Area(26, 1, {Direction::LEFT, Direction::RIGHT}, {{1, 10000, 100000}})};
+                return DefinedAreas{Area(26, 1, {Direction::LEFT, Direction::RIGHT}, {{1, 1, 10}})};
             case A3LUR:
-                return DefinedAreas{Area(31, 1, {Direction::UP, Direction::LEFT, Direction::RIGHT}, {{1, 10000, 100000}})};
+                return DefinedAreas{Area(31, 1, {Direction::UP, Direction::LEFT, Direction::RIGHT}, {{1, 1, 10}})};
             case A3URD:
-                return DefinedAreas{Area(32, 1, {Direction::UP, Direction::RIGHT, Direction::DOWN}, {{1, 10000, 100000}})};
+                return DefinedAreas{Area(32, 1, {Direction::UP, Direction::RIGHT, Direction::DOWN}, {{1, 1, 10}})};
             case A3LDR:
-                return DefinedAreas{Area(33, 1, {Direction::LEFT, Direction::DOWN, Direction::RIGHT}, {{1, 10000, 100000}})};
+                return DefinedAreas{Area(33, 1, {Direction::LEFT, Direction::DOWN, Direction::RIGHT}, {{1, 1, 10}})};
             case A3ULD:
-                return DefinedAreas{Area(34, 1, {Direction::UP, Direction::LEFT, Direction::DOWN}, {{1, 10000, 1000001}})};
+                return DefinedAreas{Area(34, 1, {Direction::UP, Direction::LEFT, Direction::DOWN}, {{1, 1, 10}})};
             case A4URDL:
-                return DefinedAreas{Area(40, 2, {Direction::UP, Direction::RIGHT, Direction::DOWN, Direction::LEFT}, {{1, 10000, 100000}})};
+                return DefinedAreas{Area(40, 2, {Direction::UP, Direction::RIGHT, Direction::DOWN, Direction::LEFT}, {{1, 1, 10}})};
         }
     }
 

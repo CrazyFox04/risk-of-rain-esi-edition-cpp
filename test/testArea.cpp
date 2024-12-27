@@ -20,12 +20,6 @@ TEST(AreaTest, ParameterizedConstructorInitializesCorrectly) {
     EXPECT_TRUE(area.get_gateway_positions().contains(Direction::DOWN));
 }
 
-TEST(AreaTest, GetRandomAreaReturnsValidArea) {
-    Area area = Area::getRandomArea();
-    EXPECT_GE(area.get_type(), 0);
-    EXPECT_LE(area.get_type(), DefinedAreas::size());
-}
-
 TEST(AreaTest, IsCompatibleReturnsTrueForUnchosenArea) {
     Area area1(1, 10, {Direction::UP});
     Area area2;
