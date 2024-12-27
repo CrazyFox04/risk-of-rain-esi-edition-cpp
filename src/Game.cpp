@@ -252,9 +252,49 @@ std::tuple<std::tuple<int, int>, int> Game::getExistingSpawn() const {
 }
 
 std::set<std::string> Game::getCharacterAttacksName() {
-    return DefinedAttacks::getCharacterAttacksName(); 
+    return DefinedAttacks::getCharacterAttacksName();
 }
 
 bool Game::isAValidAttackName(std::string attackName) {
     return DefinedAttacks::isAValidAttackName(attackName);
+}
+
+void Game::attack(int id, std::string attackName, int targetId) {
+    if (!isAValidId(id)) {
+        throw std::invalid_argument("Invalid id");
+    }
+    if (!isAValidId(targetId)) {
+        throw std::invalid_argument("Invalid target id");
+    }
+    if (!isAValidAttackName(attackName)) {
+        throw std::invalid_argument("Invalid attack name");
+    }
+    if (player.getId() == id) {
+        if (player.canUse(attackName)) {
+            int damage = player.attack(attackName);
+            levels.at(activeLevel).getEnemy(targetId).hurt(damage);
+        }
+    }
+    else {
+        if (levels.at(activeLevel).getEnemy(id).canUse(attackName)) {
+            int damage = levels.at(activeLevel).getEnemy(id).attack(attackName);
+            player.hurt(damage);
+        }
+    }
+}
+
+void Game::move(int id, std::string movementName) {
+    if (!isAValidId(id)) {
+        throw std::invalid_argument("Invalid id");
+    }
+    if (player.getId() == id) {
+        if (player.canMove(movementName)) {
+            player.move(movementName);
+        }
+    }
+    else {
+        if (levels.at(activeLevel).getEnemy(id).canMove(movementName)) {
+            levels.at(activeLevel).getEnemy(id).move(movementName);
+        }
+    }
 }

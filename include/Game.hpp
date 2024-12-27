@@ -89,5 +89,9 @@ public:
     static std::set<std::string> getCharacterAttacksName();
 
     static bool isAValidAttackName(std::string attackName) ;
+
+    void attack(int id, std::string attackName, int targetId);
+
+    void move(int id, std::string movementName);
 };
 #endif //GAME_HPP

@@ -31,5 +31,7 @@ public:
     JetPack getJetPack() const;
     
     std::chrono::time_point<std::chrono::steady_clock> getLastAttackTime() const;
+
+    void use(std::string);
 };
 #endif //CAPABILITIES_HPP

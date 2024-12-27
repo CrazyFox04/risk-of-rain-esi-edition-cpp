@@ -78,16 +78,14 @@ int Character::attack(std::string attackName) {
     if (!canUse(attackName)) {
         throw std::invalid_argument("This attack cannot be used");
     }
-    Attack attack = capabilities.getAttack(attackName);
-    return attack.use();
+    capabilities.use(attackName);
 }
 
 void Character::move(std::string movementName) {
     if (!canMove(movementName)) {
         throw std::invalid_argument("This movement cannot be used");
     }
-    Movement movement = capabilities.getMovement(movementName);
-    movement.use();
+    capabilities.use(movementName);
 }
 
 bool Character::canUseJetpack() const {
@@ -109,6 +107,11 @@ bool Character::canUse(std::string attackName) const {
 }
 
 bool Character::canMove(std::string movementName) const {
+    try {
+        capabilities.getMovement(movementName);
+    } catch (std::invalid_argument&e) {
+        return false;
+    }
     return capabilities.canUse(movementName);
 }
 

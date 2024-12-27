@@ -235,3 +235,25 @@ TEST(GameTest, noThrowWhenGetType) {
     int id = 0;
     EXPECT_NO_THROW(game.getType(id));
 }
+
+TEST(GameTest, playerJump) {
+    Game game = Game();
+    int id = game.getPlayerId();
+    EXPECT_TRUE(game.canCaracterMove(id, "JUMP"));
+    EXPECT_NO_THROW(game.move(id, "JUMP"));
+}
+
+TEST(GameTest, playerNotKnownMove) {
+    Game game = Game();
+    int id = game.getPlayerId();
+    EXPECT_FALSE(game.canCaracterMove(id, "JUMPJUMP"));
+    EXPECT_NO_THROW(game.move(id, "JUMPJUMPRUN"));
+}
+
+TEST(GameTest, playerDashCooldown) {
+    Game game = Game();
+    int id = game.getPlayerId();
+    EXPECT_TRUE(game.canCaracterMove(id, "DASH"));
+    EXPECT_NO_THROW(game.move(id, "DASH"));
+    EXPECT_FALSE(game.canCaracterMove(id, "DASH"));
+}
