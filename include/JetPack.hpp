@@ -16,7 +16,7 @@ class JetPack {
 public:
     static constexpr double DEF_FORCE = 5.0;
     static constexpr double DEF_TIME = 5.0;
-    static constexpr double DEF_COOLDOWN = 10.0;
+    static constexpr double DEF_COOLDOWN = 15.0;
     static constexpr double DEF_LANDING_ANIMATION_TIME = 0.2;
 
     JetPack(double force, double maxTime, double cooldown, double landingAnimationTime);

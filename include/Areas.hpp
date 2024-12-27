@@ -1,5 +1,11 @@
 // include/Areas.hpp
-
+/**
+ * @file Areas.hpp
+ * @brief Defines the Areas enum and the DefinedAreas struct for managing predefined game regions.
+ *
+ * The Areas enum lists predefined area configurations, while the DefinedAreas struct provides
+ * functionality to retrieve specific Area objects based on the enum values.
+ */
 #ifndef AREAS_HPP
 #define AREAS_HPP
 #include "Direction.hpp"
@@ -24,9 +30,18 @@ enum Areas {
     A4URDL
 };
 
+/**
+ * @struct DefinedAreas
+ * @brief Provides functionality to retrieve predefined Area objects.
+ */
 struct DefinedAreas {
     Area area;
 
+    /**
+     * @brief Retrieves a predefined Area object based on the specified Areas enum.
+     * @param areas The Areas enum value representing the desired configuration.
+     * @return A DefinedAreas object containing the corresponding Area.
+     */
     static DefinedAreas get(const Areas areas) {
         switch (areas) {
             case A1U:
@@ -62,6 +77,10 @@ struct DefinedAreas {
         }
     }
 
+    /**
+     * @brief Retrieves the number of predefined Areas.
+     * @return The number of elements in the Areas enum.
+     */
     static int size() {
         return magic_enum::enum_count<Areas>();
     }
