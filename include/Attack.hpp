@@ -11,6 +11,7 @@
 #ifndef ATTACK_HPP
 #define ATTACK_HPP
 #include <string>
+#include <chrono>
 
 /**
  * @class Attack
