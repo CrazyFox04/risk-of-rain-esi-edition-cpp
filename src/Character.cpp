@@ -13,7 +13,7 @@
 int Character::nextId = 0;
 
 Character::Character(const std::string&type, int max_health, double hurtTime,
-                     Capabilities capabilities) : hurtAnimation(hurtAnimation), type(type),
+                     Capabilities capabilities) : hurtAnimation(hurtTime), type(type),
                                                   id(nextId++),
                                                   health(max_health, max_health), capabilities(capabilities) {
     onGround = true;
