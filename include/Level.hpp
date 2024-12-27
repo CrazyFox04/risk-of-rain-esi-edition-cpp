@@ -19,7 +19,7 @@ class Level {
     void loadFromAreas(const std::vector<std::vector<Area>>&areas);
 
 public:
-    static constexpr int HEIGHT = 2;
+    static constexpr int HEIGHT = 3;
     static constexpr int LENGTH = 3;
     static constexpr float FILL_PROBABILITY = 0.05;
 

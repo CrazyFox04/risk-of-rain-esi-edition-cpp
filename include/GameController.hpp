@@ -130,7 +130,7 @@ MY_API bool isPlayerDashing(const GameController*);
 
 MY_API bool isPlayerUsingJetpack(const GameController*);
 
-MY_API bool canCharatcerMove(const GameController*, int, const char*);
+MY_API bool canCharacterMove(const GameController*, int, const char*);
 
 MY_API double getCharacterCoolDownAttackTime(const GameController*, int, const char*);
 

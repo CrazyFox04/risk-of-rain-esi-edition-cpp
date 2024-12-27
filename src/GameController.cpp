@@ -219,7 +219,7 @@ bool isPlayerUsingJetpack(const GameController* game_controller) {
     return game_controller->isPlayerUsingJetpack();
 }
 
-bool canCharatcerMove(const GameController* game_controller, int id, const char* movement_name) {
+bool canCharacterMove(const GameController* game_controller, int id, const char* movement_name) {
     return game_controller->canCharacterMove(id, movement_name);
 }
 

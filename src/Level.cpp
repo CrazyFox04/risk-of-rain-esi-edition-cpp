@@ -59,11 +59,13 @@ Level Level::generate() {
         }
     }
 
+    areas[1][1] = DefinedAreas::get(A4URDL).area;
+
     std::function<bool(int, int)> backtrack = [&](int x, int y) {
         if (x == LENGTH) return true;
         if (y == HEIGHT) return backtrack(x + 1, 0);
 
-        if (areas[x][y].get_type() == 0) return backtrack(x, y + 1);
+        if (areas[x][y].get_type() == 0 || areas[x][y].get_type() == 40) return backtrack(x, y + 1);
 
         std::vector<Area> candidates;
         for (int i = 0; i < DefinedAreas::size(); ++i) {
@@ -76,8 +78,8 @@ Level Level::generate() {
             else {
                 compatible &= candidate.isCompatible(Direction::LEFT, Area(0, 1, {}));
             }
-            if (y > 0 && areas[x][y - 1].get_type() != 0) {
-                compatible &= candidate.isCompatible(Direction::UP, areas[x][y - 1]);
+            if (y < HEIGHT - 1 && areas[x][y + 1].get_type() != 0) {
+                compatible &= candidate.isCompatible(Direction::UP, areas[x][y + 1]);
             }
             else {
                 compatible &= candidate.isCompatible(Direction::UP, Area(0, 1, {}));
@@ -88,8 +90,8 @@ Level Level::generate() {
             else {
                 compatible &= candidate.isCompatible(Direction::RIGHT, Area(0, 1, {}));
             }
-            if (y < HEIGHT - 1 && areas[x][y + 1].get_type() != 0) {
-                compatible &= candidate.isCompatible(Direction::DOWN, areas[x][y + 1]);
+            if (y > 0 && areas[x][y - 1].get_type() != 0) {
+                compatible &= candidate.isCompatible(Direction::DOWN, areas[x][y - 1]);
             }
             else {
                 compatible &= candidate.isCompatible(Direction::DOWN, Area(0, 1, {}));
