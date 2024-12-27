@@ -4,20 +4,21 @@
 
 #ifndef SPAWN_HPP
 #define SPAWN_HPP
+#include <chrono>
 
 class Spawn {
     int id;
-    int lastTimeSpawned;
-    int spawn_cool_down;
+    std::chrono::time_point<std::chrono::steady_clock> lastTimeSpawned;
+    double spawnCoolDown;
 
-    int get_random_spawn_cool_down(int min_spawn_cool_down, int max_spawn_cool_down);
+    double get_random_spawn_cool_down(int min_spawn_cool_down, int max_spawn_cool_down);
 
 public:
     Spawn(int id, int min_spawn_cool_down, int max_spawn_cool_down);
 
     int getId() const;
 
-    int getLastTimeSpawned() const;
+    std::chrono::time_point<std::chrono::steady_clock> getLastTimeSpawned() const;
 
     bool canSpawn() const;
 

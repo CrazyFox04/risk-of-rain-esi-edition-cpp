@@ -6,6 +6,9 @@
 #endif
 #include "pch.h"
 #include "Level.hpp"
+
+#include <Enemies.hpp>
+
 #include "Direction.hpp"
 #include <random>
 #include <stdexcept>
@@ -138,11 +141,14 @@ bool Level::can_spawn_at(int area_x, int area_y, int spawd_id) {
     return areas.at(area_x).at(area_y).can_spawn(spawd_id);
 }
 
-void Level::spawn_at(int area_x, int area_y, int spawd_id) {
+int Level::spawn_at(int area_x, int area_y, int spawd_id) {
     if (!can_spawn_at(area_x, area_y, spawd_id)) {
         throw std::invalid_argument("Cannot spawn at area (" + std::to_string(area_x) + ", " + std::to_string(area_y) + ") with spawn id " + std::to_string(spawd_id));
     }
     areas.at(area_x).at(area_y).spawn(spawd_id);
+    Enemy enemy = DefinedEnemies::getRandomEnemy(false);
+    enemies.emplace(enemy.getId(), enemy);
+    return enemy.getId();
 }
 
 Enemy Level::getEnemy(int enemyId) const {

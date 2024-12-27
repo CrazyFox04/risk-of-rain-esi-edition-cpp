@@ -34,7 +34,7 @@ public:
 
     void takePlayerDamage(int damage);
 
-    bool if_can_spawn_current_level_spawn_at(int areaX, int areaY, int spawdId);
+    int if_can_spawn_current_level_spawn_at(int areaX, int areaY, int spawdId);
 
     std::string getType(int id) const;
 

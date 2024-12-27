@@ -18,5 +18,6 @@ struct DefinedEnemies {
     static DefinedEnemies get(const Enemies enemies);
     static int size();
     static std::unordered_set<Enemies> getAllEnemies();
+    static Enemy getRandomEnemy(bool isBoss);
 };
 #endif //ENEMIES_HPP

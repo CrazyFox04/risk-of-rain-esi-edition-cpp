@@ -21,6 +21,8 @@ public:
 
     double getAttackRange() const;
 
+    bool getIsBoss() const;
+
     void addItem(std::shared_ptr<Buff> buff) override;
 };
 #endif //ENEMY_HPP

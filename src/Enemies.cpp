@@ -11,6 +11,7 @@
 #include "Jump.hpp"
 #include "Attacks.hpp"
 #include <memory>
+#include <random>
 
 DefinedEnemies DefinedEnemies::get(const Enemies enemies) {
     switch (enemies) {
@@ -75,4 +76,21 @@ std::unordered_set<Enemies> DefinedEnemies::getAllEnemies() {
             allEnemies.insert(enemy);
     }
     return allEnemies;
+}
+
+Enemy DefinedEnemies::getRandomEnemy(bool isBoss) {
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<> dis(0, size() - 1);
+    int max_tries = 100;
+    while (max_tries-- > 0) {
+        auto enemy = static_cast<Enemies>(dis(gen));
+        if (isBoss && get(enemy).enemy.getIsBoss()) {
+            return get(enemy).enemy;
+        }
+        if (!isBoss && !get(enemy).enemy.getIsBoss()) {
+            return get(enemy).enemy;
+        }
+    }
+    throw std::runtime_error("Failed to find a suitable enemy");
 }

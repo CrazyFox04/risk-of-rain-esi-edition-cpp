@@ -25,3 +25,7 @@ double Enemy::getFollowRange() const {
 double Enemy::getAttackRange() const {
     return attackRange;
 }
+
+bool Enemy::getIsBoss() const {
+    return isBoss;
+}

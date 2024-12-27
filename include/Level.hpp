@@ -43,7 +43,7 @@ public:
 
     bool can_spawn_at(int area_x, int area_y, int spawd_id);
 
-    void spawn_at(int area_x, int area_y, int spawd_id);
+    int spawn_at(int area_x, int area_y, int spawd_id);
 
     Enemy getEnemy(int enemyId) const;
 };
