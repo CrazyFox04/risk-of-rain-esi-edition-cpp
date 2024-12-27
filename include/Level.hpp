@@ -27,6 +27,8 @@ public:
 
     Level(int id, const std::vector<std::vector<Area>>&areas);
 
+    bool isValidCoordinates(int x, int y) const;
+
     int getId() const;
 
     bool isLoaded() const;
@@ -48,5 +50,7 @@ public:
     Enemy getEnemy(int enemyId) const;
 
     bool isAValidEnemyId(int id) const;
+
+    std::tuple<std::tuple<int,int>, int> getAnExistingSpawn() const;
 };
 #endif //LEVEL_HPP

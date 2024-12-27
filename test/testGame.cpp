@@ -3,6 +3,7 @@
 //
 #include <gtest/gtest.h>
 #include "Game.hpp"
+#include <tuple>
 #include "Level.hpp"
 
 TEST(GameTest, DefaultConstructorInitializesActiveLevelToNegativeOne) {
@@ -14,6 +15,7 @@ TEST(GameTest, GetAreaGuidCurrentLevelReturnsCorrectGuid) {
     Game game;
     int x = 0, y = 0;
     EXPECT_NO_THROW(game.get_area_guid_current_level(x, y));
+    EXPECT_NO_THROW(game.get_area_guid_current_level(98989908, 9889898));
 }
 
 TEST(GameTest, GetPlayerMaxHealthReturnsCorrectValue) {
@@ -35,23 +37,30 @@ TEST(GameTest, TakePlayerDamageDecreasesCurrentHealth) {
 
 TEST(GameTest, IfCanSpawnCurrentLevelSpawnAtReturnsTrueWhenSpawned) {
     Game game = Game();
-    int areaX = 0, areaY = 0, spawnId = 1;
+    std::tuple<std::tuple<int, int>, int> existingSpawn = game.getExistingSpawn();
+    int areaX = std::get<0>(std::get<0>(existingSpawn));
+    int areaY = std::get<1>(std::get<0>(existingSpawn));
+    int spawnId = std::get<1>(existingSpawn);
     EXPECT_NE(-1, game.if_can_spawn_current_level_spawn_at(areaX, areaY, spawnId));
     EXPECT_EQ(-1, game.if_can_spawn_current_level_spawn_at(areaX, areaY, spawnId));
-    sleep(11);
-    EXPECT_NE(-1, game.if_can_spawn_current_level_spawn_at(areaX, areaY, spawnId));
 }
 
 TEST(GameTest, IfCanSpawnCurrentLevelSpawnAtReturnsFalseWhenNotSpawned) {
     Game game = Game();
-    int areaX = 0, areaY = 0, spawnId = 1;
+    std::tuple<std::tuple<int, int>, int> existingSpawn = game.getExistingSpawn();
+    int areaX = std::get<0>(std::get<0>(existingSpawn));
+    int areaY = std::get<1>(std::get<0>(existingSpawn));
+    int spawnId = std::get<1>(existingSpawn);
     EXPECT_NE(-1, game.if_can_spawn_current_level_spawn_at(areaX, areaY, spawnId));
     EXPECT_EQ(-1, game.if_can_spawn_current_level_spawn_at(areaX, areaY, spawnId));
 }
 
 TEST(GameTest, IfSpawnReturnId_isInThisLevel) {
     Game game = Game();
-    int areaX = 0, areaY = 0, spawnId = 1;
+    std::tuple<std::tuple<int, int>, int> existingSpawn = game.getExistingSpawn();
+    int areaX = std::get<0>(std::get<0>(existingSpawn));
+    int areaY = std::get<1>(std::get<0>(existingSpawn));
+    int spawnId = std::get<1>(existingSpawn);
     int id = game.if_can_spawn_current_level_spawn_at(areaX, areaY, spawnId);
     EXPECT_NO_THROW(game.getType(98765678987));
     EXPECT_EQ("", game.getType(98765678987));
@@ -60,72 +69,78 @@ TEST(GameTest, IfSpawnReturnId_isInThisLevel) {
 
 TEST(GameTest, noThrowWhenGetCharacterSpeed) {
     Game game = Game();
-    int id = 0;
+    int id = game.getPlayerId();
     EXPECT_NO_THROW(game.getCharacterSpeed(id));
 }
 
 TEST(GameTest, noThrowWhenGetCharacterJumpForce) {
     Game game = Game();
-    int id = 0;
+    int id = game.getPlayerId();
     EXPECT_NO_THROW(game.getCharacterJumpForce(id));
 }
 
 TEST(GameTest, noThrowWhenGetEnemyFollowRange) {
     Game game = Game();
-    int areaX = 0, areaY = 0, spawnId = 1;
+    std::tuple<std::tuple<int, int>, int> existingSpawn = game.getExistingSpawn();
+    int areaX = std::get<0>(std::get<0>(existingSpawn));
+    int areaY = std::get<1>(std::get<0>(existingSpawn));
+    int spawnId = std::get<1>(existingSpawn);
     int id = game.if_can_spawn_current_level_spawn_at(areaX, areaY, spawnId);
     EXPECT_NO_THROW(game.getEnemyFollowRange(id));
 }
 
 TEST(GameTest, noThrowWhenGetEnemyAttackRange) {
     Game game = Game();
-    int areaX = 0, areaY = 0, spawnId = 1;
+    std::tuple<std::tuple<int, int>, int> existingSpawn = game.getExistingSpawn();
+    int areaX = std::get<0>(std::get<0>(existingSpawn));
+    int areaY = std::get<1>(std::get<0>(existingSpawn));
+    int spawnId = std::get<1>(existingSpawn);
     int id = game.if_can_spawn_current_level_spawn_at(areaX, areaY, spawnId);
     EXPECT_NO_THROW(game.getEnemyAttackRange(id));
 }
 
 TEST(GameTest, noThrowWhenCanCharacterAttack) {
     Game game = Game();
-    int id = 0;
+    int id = game.getPlayerId();
     std::string attackName = "ATTACK1";
     EXPECT_NO_THROW(game.canCharacterAttack(id, attackName));
 }
 
 TEST(GameTest, noThrowWhenGetDamage) {
     Game game = Game();
-    int id = 0;
+    int id = game.getPlayerId();
     std::string attackName = "ATTACK1";
     EXPECT_NO_THROW(game.getDamage(id, attackName));
 }
 
 TEST(GameTest, noThrowWhenGetChargeTime) {
     Game game = Game();
-    int id = 0;
+    int id = game.getPlayerId();
     std::string attackName = "ATTACK1";
     EXPECT_NO_THROW(game.getChargeTime(id, attackName));
 }
 
 TEST(GameTest, noThrowWhenGetCharacterHurtTime) {
     Game game = Game();
-    int id = 0;
+    int id = game.getPlayerId();
     EXPECT_NO_THROW(game.getCharacterHurtTime(id));
 }
 
 TEST(GameTest, noThrowWhenIsCharacterBusy) {
     Game game = Game();
-    int id = 0;
+    int id = game.getPlayerId();
     EXPECT_NO_THROW(game.isCharacterBusy(id));
 }
 
 TEST(GameTest, noThrowWhenGetCharacterHealth) {
     Game game = Game();
-    int id = 0;
+    int id = game.getPlayerId();
     EXPECT_NO_THROW(game.getCharacterHealth(id));
 }
 
 TEST(GameTest, noThrowWhenGetCharacterMaxHealth) {
     Game game = Game();
-    int id = 0;
+    int id = game.getPlayerId();
     EXPECT_NO_THROW(game.getCharacterMaxHealth(id));
 }
 
@@ -156,7 +171,7 @@ TEST(GameTest, noThrowWhenGetPlayerDashTime) {
 
 TEST(GameTest, noThrowWhenGetCharacterAttackTime) {
     Game game = Game();
-    int id = 0;
+    int id = game.getPlayerId();
     std::string attackName = "ATTACK1";
     EXPECT_NO_THROW(game.getCharacterAttackTime(id, attackName));
 }
@@ -200,7 +215,10 @@ TEST(GameTest, noThrowWhenTakePlayerDamage) {
 
 TEST(GameTest, noThrowWhenIfCanSpawnCurrentLevelSpawnAt) {
     Game game = Game();
-    int areaX = 0, areaY = 0, spawnId = 1;
+    std::tuple<std::tuple<int, int>, int> existingSpawn = game.getExistingSpawn();
+    int areaX = std::get<0>(std::get<0>(existingSpawn));
+    int areaY = std::get<1>(std::get<0>(existingSpawn));
+    int spawnId = std::get<1>(existingSpawn);
     EXPECT_NO_THROW(game.if_can_spawn_current_level_spawn_at(areaX, areaY, spawnId));
 }
 

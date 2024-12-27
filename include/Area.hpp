@@ -41,5 +41,7 @@ public:
     bool can_spawn(int spawd_id);
 
     void spawn(int spawd_id);
+
+    std::vector<int> get_spawn_ids() const;
 };
 #endif //AREA_HPP

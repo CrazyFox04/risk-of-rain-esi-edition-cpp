@@ -33,6 +33,12 @@ Level Game::getActiveLevel() {
 }
 
 int Game::get_area_guid_current_level(int x, int y) const {
+    if (!levels.at(activeLevel).isValidCoordinates(x,y)) {
+        return -1;
+    }
+    if (!levels.at(activeLevel).isLoaded()) {
+        return -1;
+    }
     return levels.at(activeLevel).get_area_guid(x, y);
 }
 
@@ -190,4 +196,12 @@ bool Game::isAValidId(int id) const {
         return true;
     }
     return levels.at(activeLevel).isAValidEnemyId(id);
+}
+
+int Game::getPlayerId() const {
+    return player.getId();
+}
+
+std::tuple<std::tuple<int, int>, int> Game::getExistingSpawn() const{
+    return levels.at(activeLevel).getAnExistingSpawn();
 }

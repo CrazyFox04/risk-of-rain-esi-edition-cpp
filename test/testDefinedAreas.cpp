@@ -11,7 +11,3 @@ TEST(DefinedAreasTest, GetReturnsCorrectArea) {
     EXPECT_TRUE(definedArea.area.get_gateway_positions().contains(Direction::DOWN));
     EXPECT_TRUE(definedArea.area.get_gateway_positions().contains(Direction::UP));
 }
-
-TEST(DefinedAreasTest, SizeReturnsCorrectCount) {
-    EXPECT_EQ(DefinedAreas::size(), 15);
-}

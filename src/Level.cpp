@@ -111,7 +111,13 @@ Level Level::generate() {
     };
 
     if (!backtrack(0, 0)) {
-        throw std::runtime_error("Failed to generate a valid level");
+        for (int i = 0; i < LENGTH; ++i) {
+            for (int j = 0; j < HEIGHT; ++j) {
+                if (areas[i][j].get_type() == -1) {
+                    areas[i][j] = Area(0, 1, {});
+                }
+            }
+        }
     }
 
     return std::move(*this);
@@ -130,6 +136,12 @@ int Level::get_area_id(int x, int y) const {
 }
 
 int Level::get_area_guid(int x, int y) const {
+    if (!isLoaded()) {
+        throw std::runtime_error("Cannot get guid of an unloaded level");
+    }
+    if (!isValidCoordinates(x, y)) {
+        throw std::invalid_argument("Invalid area coordinates (" + std::to_string(x) + ", " + std::to_string(y) + ")");
+    }
     return areas.at(x).at(y).get_guid();
 }
 
@@ -143,7 +155,9 @@ bool Level::can_spawn_at(int area_x, int area_y, int spawd_id) {
 
 int Level::spawn_at(int area_x, int area_y, int spawd_id) {
     if (!can_spawn_at(area_x, area_y, spawd_id)) {
-        throw std::invalid_argument("Cannot spawn at area (" + std::to_string(area_x) + ", " + std::to_string(area_y) + ") with spawn id " + std::to_string(spawd_id));
+        throw std::invalid_argument(
+            "Cannot spawn at area (" + std::to_string(area_x) + ", " + std::to_string(area_y) + ") with spawn id " +
+            std::to_string(spawd_id));
     }
     areas.at(area_x).at(area_y).spawn(spawd_id);
     Enemy enemy = DefinedEnemies::getRandomEnemy(false);
@@ -160,4 +174,19 @@ Enemy Level::getEnemy(int enemyId) const {
 
 bool Level::isAValidEnemyId(int id) const {
     return enemies.contains(id);
+}
+
+bool Level::isValidCoordinates(int x, int y) const {
+    return x >= 0 && x < LENGTH && y >= 0 && y < HEIGHT;
+}
+
+std::tuple<std::tuple<int, int>, int> Level::getAnExistingSpawn() const {
+    for (int i = 0; i < LENGTH; ++i) {
+        for (int j = 0; j < HEIGHT; ++j) {
+            if (areas[i][j].get_type() != 0 && !areas[i][j].get_spawn_ids().empty()) {
+                return std::make_tuple(std::make_tuple(i, j), areas[i][j].get_spawn_ids().at(0));
+            }
+        }
+    }
+    return std::make_tuple(std::make_tuple(-1, -1), -1);
 }

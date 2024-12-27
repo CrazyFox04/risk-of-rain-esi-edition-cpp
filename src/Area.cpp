@@ -86,3 +86,11 @@ bool Area::can_spawn(int spawd_id) {
 void Area::spawn(int spawd_id) {
     get_spawn(spawd_id).spawn();
 }
+
+std::vector<int> Area::get_spawn_ids() const {
+    std::vector<int> ids;
+    for (const Spawn& spawn: spawns) {
+        ids.push_back(spawn.getId());
+    }
+    return ids;
+}

@@ -5,7 +5,7 @@
 #ifndef GAME_HPP
 #define GAME_HPP
 #include <unordered_set>
-
+#include <tuple>
 #include "Player.hpp"
 
 #include "Level.hpp"
@@ -81,5 +81,9 @@ public:
     double getCharacterCoolDownAttack(int id, std::string attackName) const;
 
     bool isAValidId(int id) const;
+
+    int getPlayerId() const;
+
+    std::tuple<std::tuple<int,int>, int> getExistingSpawn() const;
 };
 #endif //GAME_HPP
