@@ -79,5 +79,7 @@ public:
     bool canCaracterMove(int id, std::string movementName) const;
 
     double getCharacterCoolDownAttack(int id, std::string attackName) const;
+
+    bool isAValidId(int id) const;
 };
 #endif //GAME_HPP

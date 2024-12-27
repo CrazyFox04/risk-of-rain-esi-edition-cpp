@@ -46,5 +46,7 @@ public:
     int spawn_at(int area_x, int area_y, int spawd_id);
 
     Enemy getEnemy(int enemyId) const;
+
+    bool isAValidEnemyId(int id) const;
 };
 #endif //LEVEL_HPP

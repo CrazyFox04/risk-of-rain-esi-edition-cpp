@@ -56,6 +56,9 @@ int Game::if_can_spawn_current_level_spawn_at(int areaX, int areaY, int spawdId)
 }
 
 std::string Game::getType(int id) const {
+    if (!isAValidId(id)) {
+        return {};
+    }
     if (player.getId() == id) {
         return player.getType();
     }
@@ -182,3 +185,9 @@ double Game::getCharacterCoolDownAttack(int id, std::string attackName) const {
     return levels.at(activeLevel).getEnemy(id).getAttack(attackName).getCooldown();
 }
 
+bool Game::isAValidId(int id) const {
+    if (player.getId() == id) {
+        return true;
+    }
+    return levels.at(activeLevel).isAValidEnemyId(id);
+}

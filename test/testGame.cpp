@@ -46,3 +46,12 @@ TEST(GameTest, IfCanSpawnCurrentLevelSpawnAtReturnsFalseWhenNotSpawned) {
     EXPECT_NE(-1, game.if_can_spawn_current_level_spawn_at(areaX, areaY, spawnId));
     EXPECT_EQ(-1, game.if_can_spawn_current_level_spawn_at(areaX, areaY, spawnId));
 }
+
+TEST(GameTest, IfSpawnReturnId_isInThisLevel) {
+    Game game = Game();
+    int areaX = 0, areaY = 0, spawnId = 1;
+    int id = game.if_can_spawn_current_level_spawn_at(areaX, areaY, spawnId);
+    EXPECT_NO_THROW(game.getType(98765678987));
+    EXPECT_EQ("", game.getType(98765678987));
+    EXPECT_NO_THROW(game.getType(id));
+}

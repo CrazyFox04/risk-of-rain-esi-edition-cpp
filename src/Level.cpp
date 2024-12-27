@@ -157,3 +157,7 @@ Enemy Level::getEnemy(int enemyId) const {
     }
     return enemies.at(enemyId);
 }
+
+bool Level::isAValidEnemyId(int id) const {
+    return enemies.contains(id);
+}
