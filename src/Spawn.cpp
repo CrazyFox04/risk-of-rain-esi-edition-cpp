@@ -37,6 +37,9 @@ std::chrono::time_point<std::chrono::steady_clock> Spawn::getLastTimeSpawned() c
 }
 
 bool Spawn::canSpawn() const {
+    if (lastTimeSpawned.time_since_epoch().count() == 0) {
+        return true;
+    }
     return std::chrono::steady_clock::now() - lastTimeSpawned >= std::chrono::duration<double>(spawnCoolDown);
 }
 
