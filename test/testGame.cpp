@@ -268,3 +268,23 @@ TEST(GameTest, playerMoveMultipleTimes) {
     EXPECT_TRUE(game.canCharacterMove(id, "RUN"));
     EXPECT_NO_THROW(game.move(id, "RUN"));
 }
+
+TEST(GameTest, hurtAnimationIsBusy) {
+    Game game = Game();
+    int id = game.getPlayerId();
+    EXPECT_FALSE(game.isCharacterBusy(id));
+    EXPECT_NO_THROW(game.move(id, "RUN"));
+    EXPECT_NO_THROW(game.move(id, "DASH"));
+    EXPECT_TRUE(game.isCharacterBusy(id));
+}
+
+TEST(GameTest, hurtAnimationIsBusy2) {
+    Game game = Game();
+    int id = game.getPlayerId();
+        EXPECT_FALSE(game.isCharacterBusy(id));
+        EXPECT_NO_THROW(game.move(id, "RUN"));
+        EXPECT_NO_THROW(game.move(id, "DASH"));
+        EXPECT_TRUE(game.isCharacterBusy(id));
+        usleep(Dash::DEF_ANIMATION_TIME * 1000000);
+        EXPECT_FALSE(game.isCharacterBusy(id));
+}
