@@ -12,6 +12,8 @@ set(TEST_SOURCES
         testDefinedAreas.cpp
         testGame.cpp
         testSpawn.cpp
+        testAttack.cpp
+        testMovement.cpp
 )
 
 # Create the tests main executable
