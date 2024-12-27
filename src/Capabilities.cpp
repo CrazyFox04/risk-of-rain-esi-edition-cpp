@@ -87,3 +87,17 @@ void Capabilities::use(std::string name) {
         return;
     }
 }
+
+bool Capabilities::isBusy() const {
+    for (const auto&[name, attack]: attacks) {
+        if (attack.isUsing()) {
+            return true;
+        }
+    }
+    for (const auto&[name, movement]: movements) {
+        if (movement.isUsing()) {
+            return true;
+        }
+    }
+    return jetPack.isUsing();
+}

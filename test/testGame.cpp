@@ -257,3 +257,14 @@ TEST(GameTest, playerDashCooldown) {
     EXPECT_NO_THROW(game.move(id, "DASH"));
     EXPECT_FALSE(game.canCharacterMove(id, "DASH"));
 }
+
+TEST(GameTest, playerMoveMultipleTimes) {
+    Game game = Game();
+    int id = game.getPlayerId();
+    EXPECT_TRUE(game.canCharacterMove(id, "RUN"));
+    EXPECT_NO_THROW(game.move(id, "RUN"));
+    EXPECT_TRUE(game.canCharacterMove(id, "RUN"));
+    EXPECT_NO_THROW(game.move(id, "RUN"));
+    EXPECT_TRUE(game.canCharacterMove(id, "RUN"));
+    EXPECT_NO_THROW(game.move(id, "RUN"));
+}

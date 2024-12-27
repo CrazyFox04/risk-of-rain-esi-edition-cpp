@@ -22,11 +22,12 @@ int Attack::use() {
 
 bool Attack::isUsing() const {
     return std::chrono::steady_clock::now() - lastUsageTime < std::chrono::duration<double>(animationTime) +
-           std::chrono::duration<double>(chargeTime) + std::chrono::duration<double>(cooldown);
+           std::chrono::duration<double>(chargeTime);
 }
 
 bool Attack::canUse() const {
-    return !isUsing();
+    return std::chrono::steady_clock::now() - lastUsageTime < std::chrono::duration<double>(animationTime) +
+           std::chrono::duration<double>(chargeTime) + std::chrono::duration<double>(cooldown);
 }
 
 int Attack::getDamage() const {

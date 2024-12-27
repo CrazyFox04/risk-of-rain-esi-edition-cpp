@@ -6,8 +6,8 @@
 #endif
 #include "pch.h"
 #include "Character.hpp"
-#include <Jump.hpp>
-#include <Run.hpp>
+#include "Jump.hpp"
+#include "Run.hpp"
 #include <utility>
 
 int Character::nextId = 0;
@@ -120,6 +120,7 @@ void Character::useItem(const std::shared_ptr<Buff>&item) {
 }
 
 bool Character::isBusy() const {
+    return capabilities.isBusy() || hurtAnimation.isPlaying();
 }
 
 void Character::hurt(int damage) {
