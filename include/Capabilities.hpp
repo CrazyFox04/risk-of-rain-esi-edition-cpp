@@ -48,18 +48,54 @@ public:
      */
     Capabilities(std::set<Attack> attacks, std::set<std::shared_ptr<Movement>> movements, bool hasJetPack);
 
+    /**
+     * @brief Checks if a capability (attack, movement, or JetPack) can be used.
+     * @param name The name of the capability.
+     * @return True if the capability can be used, otherwise false.
+     * @throws std::invalid_argument If the capability does not exist.
+     */
     bool canUse(std::string) const;
 
+    /**
+     * @brief Retrieves an attack by its name.
+     * @param name The name of the attack.
+     * @return The corresponding Attack object.
+     * @throws std::invalid_argument If the attack does not exist.
+     */
     Attack getAttack(std::string) const;
 
+    /**
+     * @brief Retrieves a movement by its name.
+     * @param name The name of the movement.
+     * @return The corresponding Movement object.
+     * @throws std::invalid_argument If the movement does not exist.
+     */
     Movement getMovement(std::string) const;
 
+    /**
+     * @brief Retrieves the JetPack capability.
+     * @return The JetPack object.
+     */
     JetPack getJetPack() const;
-    
+
+    /**
+     * @brief Retrieves the last time any attack was used.
+     * @return The time point of the most recent attack usage.
+     */
     std::chrono::time_point<std::chrono::steady_clock> getLastAttackTime() const;
 
+    /**
+     * @brief Uses a specific capability (attack, movement, or JetPack).
+     * @param name The name of the capability to use.
+     * @return The damage dealt if the capability is an attack, otherwise 0.
+     * @throws std::invalid_argument If the capability cannot be used or does not exist.
+     */
     int use(std::string);
 
+    /**
+     * @brief Checks if any capability is currently in use.
+     * @return True if any attack, movement, or the JetPack is in use, otherwise false.
+     */
     bool isBusy() const;
 };
 #endif //CAPABILITIES_HPP
