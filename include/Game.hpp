@@ -138,7 +138,7 @@ public:
      * @param attackName The name of the attack.
      * @return The damage dealt by the attack.
      */
-    double getDamage(int id, std::string attackName) const;
+    int getDamage(int id, std::string attackName) const;
 
     double getChargeTime(int id, std::string attackName) const;
 

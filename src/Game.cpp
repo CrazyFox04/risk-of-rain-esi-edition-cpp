@@ -42,7 +42,7 @@ double Game::getEnemyAttackRange(int id) const {
     return levels.at(activeLevel).getEnemy(id).getAttackRange();
 }
 
-double Game::getDamage(int id, std::string attackName) const {
+int Game::getDamage(int id, std::string attackName) const {
     if (!isAValidId(id)) {
         return -1;
     }
