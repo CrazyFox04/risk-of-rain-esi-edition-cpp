@@ -12,10 +12,16 @@ Movement::Movement(std::string name, double force, double animationTime, double 
 }
 
 bool Movement::isUsing() const {
+    if (lastUsageTime.time_since_epoch().count() == 0) {
+        return false;
+    }
     return std::chrono::steady_clock::now() - lastUsageTime < std::chrono::duration<double>(animationTime);
 }
 
 bool Movement::canUse() const {
+    if (lastUsageTime.time_since_epoch().count() == 0) {
+        return true;
+    }
     return std::chrono::steady_clock::now() - lastUsageTime > std::chrono::duration<double>(cooldown) +
            std::chrono::duration<double>(animationTime);
 }

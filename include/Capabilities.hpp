@@ -32,7 +32,7 @@ public:
     
     std::chrono::time_point<std::chrono::steady_clock> getLastAttackTime() const;
 
-    void use(std::string);
+    int use(std::string);
 
     bool isBusy() const;
 };

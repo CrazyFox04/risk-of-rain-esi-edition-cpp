@@ -78,7 +78,7 @@ int Character::attack(std::string attackName) {
     if (!canUse(attackName)) {
         throw std::invalid_argument("This attack cannot be used");
     }
-    capabilities.use(attackName);
+    return capabilities.use(attackName);
 }
 
 void Character::move(std::string movementName) {

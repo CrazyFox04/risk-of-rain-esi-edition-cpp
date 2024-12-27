@@ -35,7 +35,7 @@ DefinedEnemies DefinedEnemies::get(const Enemies enemies) {
             return DefinedEnemies{
                 {
                     "SMALL_MONSTER",75, 10.0, 3.0, 0.5, {
-                        {DefinedAttacks::get(ATTACK_SPECTRUM).attack}, {
+                        {DefinedAttacks::get(ATTACK_MONSTER).attack}, {
                             std::make_shared<Run>(3), std::make_shared<Jump>(5.0, 1)
                         },
                         false

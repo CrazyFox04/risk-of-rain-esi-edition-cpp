@@ -70,21 +70,21 @@ JetPack Capabilities::getJetPack() const {
     return jetPack;
 }
 
-void Capabilities::use(std::string name) {
+int Capabilities::use(std::string name) {
     if (!canUse(name)) {
         throw std::invalid_argument("This capability cannot be used");
     }
     if (name == "JETPACK") {
         jetPack.activate();
-        return;
+        return 0;
     }
     if (hasThisAttack(name)) {
         attacks.at(name).use();
-        return;
+        return attacks.at(name).getDamage();
     }
     if (hasThisMovement(name)) {
         movements.at(name).use();
-        return;
+        return 0;
     }
 }
 

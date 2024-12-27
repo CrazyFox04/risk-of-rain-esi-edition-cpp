@@ -269,7 +269,7 @@ TEST(GameTest, playerMoveMultipleTimes) {
     EXPECT_NO_THROW(game.move(id, "RUN"));
 }
 
-TEST(GameTest, hurtAnimationIsBusy) {
+TEST(GameTest, dashIsBusy) {
     Game game = Game();
     int id = game.getPlayerId();
     EXPECT_FALSE(game.isCharacterBusy(id));
@@ -278,13 +278,32 @@ TEST(GameTest, hurtAnimationIsBusy) {
     EXPECT_TRUE(game.isCharacterBusy(id));
 }
 
-TEST(GameTest, hurtAnimationIsBusy2) {
+TEST(GameTest, dashIsBusyAnimationTime) {
     Game game = Game();
     int id = game.getPlayerId();
-        EXPECT_FALSE(game.isCharacterBusy(id));
-        EXPECT_NO_THROW(game.move(id, "RUN"));
-        EXPECT_NO_THROW(game.move(id, "DASH"));
-        EXPECT_TRUE(game.isCharacterBusy(id));
-        usleep(Dash::DEF_ANIMATION_TIME * 1000000);
-        EXPECT_FALSE(game.isCharacterBusy(id));
+    EXPECT_FALSE(game.isCharacterBusy(id));
+    EXPECT_NO_THROW(game.move(id, "RUN"));
+    EXPECT_NO_THROW(game.move(id, "DASH"));
+    EXPECT_TRUE(game.isCharacterBusy(id));
+    usleep(Dash::DEF_ANIMATION_TIME * 1000000);
+    EXPECT_FALSE(game.isCharacterBusy(id));
+}
+
+TEST(GameTest, playerIsHurtBusy) {
+    Game game = Game();
+    int id = game.getPlayerId();
+    std::tuple<std::tuple<int, int>, int> existingSpawn = game.getExistingSpawn();
+    int areaX = std::get<0>(std::get<0>(existingSpawn));
+    int areaY = std::get<1>(std::get<0>(existingSpawn));
+    int spawnId = std::get<1>(existingSpawn);
+    int enemyId = 0;
+    do {
+        enemyId = game.ifCanSpawnCurrentLevelSpawnAt(areaX, areaY, spawnId);
+    } while (game.getType(enemyId) != "SPECTRUM");
+    EXPECT_FALSE(game.isCharacterBusy(id));
+    EXPECT_NO_THROW(game.attack(enemyId, "ATTACK_SPECTRUM", id));
+    EXPECT_EQ(game.getPlayerCurrentHealth(), Player::DEF_MAX_HEALTH - 75);
+    EXPECT_TRUE(game.isCharacterBusy(id));
+    usleep(Player::DEF_HURT_TIME * 1000000);
+    EXPECT_FALSE(game.isCharacterBusy(id));
 }

@@ -21,11 +21,17 @@ int Attack::use() {
 }
 
 bool Attack::isUsing() const {
+    if (lastUsageTime.time_since_epoch().count() == 0) {
+        return false;
+    } 
     return std::chrono::steady_clock::now() - lastUsageTime < std::chrono::duration<double>(animationTime) +
            std::chrono::duration<double>(chargeTime);
 }
 
 bool Attack::canUse() const {
+    if (lastUsageTime.time_since_epoch().count() == 0) {
+        return true;
+    }
     return std::chrono::steady_clock::now() - lastUsageTime < std::chrono::duration<double>(animationTime) +
            std::chrono::duration<double>(chargeTime) + std::chrono::duration<double>(cooldown);
 }
