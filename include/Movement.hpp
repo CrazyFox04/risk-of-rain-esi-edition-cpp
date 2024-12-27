@@ -5,6 +5,7 @@
 #ifndef MOVEMENT_HPP
 #define MOVEMENT_HPP
 #include <string>
+#include <chrono>
 
 class Movement {
 protected:

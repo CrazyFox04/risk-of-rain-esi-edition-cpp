@@ -1,27 +1,46 @@
 //
 // Created by Enzo Renard on 26/12/2024.
 //
-
+/**
+ * @file Attacks.hpp
+ * @brief Defines the Attacks enum and the DefinedAttacks struct for managing predefined attacks.
+ *
+ * The Attacks enum lists predefined attack configurations, while the DefinedAttacks struct provides
+ * functionality to retrieve specific Attack objects and perform operations on them.
+ */
 #ifndef ATTACKS_HPP
 #define ATTACKS_HPP
 #include <magic_enum/magic_enum.hpp>
 
 #include "Attack.hpp"
 
+/**
+ * @enum Attacks
+ * @brief Represents predefined attack configurations.
+ */
 enum Attacks {
-    ATTACK1,
-    ATTACK2,
-    ATTACK3,
-    ATTACK4,
-    ATTACK5,
-    ATTACK_SPECTRUM,
-    ATTACK_MONSTER,
-    ATTACK_DROID
+    ATTACK1,          ///< Basic attack with low damage and short cooldown.
+    ATTACK2,          ///< Medium damage attack with a moderate cooldown.
+    ATTACK3,          ///< High damage attack with a long cooldown.
+    ATTACK4,          ///< Strong attack with a balanced cooldown.
+    ATTACK5,          ///< Very high damage attack with a long cooldown.
+    ATTACK_SPECTRUM,  ///< A special spectrum attack with unique properties.
+    ATTACK_MONSTER,   ///< Monster-themed attack with moderate damage and cooldown.
+    ATTACK_DROID      ///< Droid-specific attack with high damage and a short charge time.
 };
 
+/**
+ * @struct DefinedAttacks
+ * @brief Provides functionality to retrieve predefined Attack objects and perform operations on them.
+ */
 struct DefinedAttacks {
     Attack attack;
 
+    /**
+     * @brief Retrieves a predefined Attack object based on the specified Attacks enum.
+     * @param attack The Attacks enum value representing the desired configuration.
+     * @return A DefinedAttacks object containing the corresponding Attack.
+     */
     static DefinedAttacks get(const Attacks attack) {
         switch (attack) {
             case ATTACK1:
@@ -43,6 +62,10 @@ struct DefinedAttacks {
         }
     }
 
+    /**
+     * @brief Retrieves all predefined Attack objects.
+     * @return A set of all predefined Attack objects.
+     */
     static std::set<Attack> getAllAttacks() {
         std::set<Attack> attacks;
         for (int i = 0; i < size(); ++i) {
@@ -51,6 +74,10 @@ struct DefinedAttacks {
         return attacks;
     }
 
+    /**
+     * @brief Retrieves the names of all predefined character attacks.
+     * @return A set of strings representing the names of all character attacks.
+     */
     static std::set<std::string> getCharacterAttacksName() {
         auto attacks = getAllAttacks();
         auto names = std::set<std::string>();
@@ -60,10 +87,19 @@ struct DefinedAttacks {
         return names;
     }
 
+    /**
+     * @brief Checks if a given attack name is valid.
+     * @param attackName The name of the attack to validate.
+     * @return True if the attack name is valid, otherwise false.
+     */
     static bool isAValidAttackName(const std::string&attackName) {
         return getCharacterAttacksName().contains(attackName);
     }
 
+    /**
+     * @brief Retrieves the number of predefined Attacks.
+     * @return The number of elements in the Attacks enum.
+     */
     static int size() {
         return magic_enum::enum_count<Attacks>();
     }

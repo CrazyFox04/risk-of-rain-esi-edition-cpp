@@ -4,6 +4,7 @@
 #ifndef _WIN64
 #define PCH_H
 #endif
+#include "pch.h"
 #include "Run.hpp"
 
 Run::Run(double force) : Movement("RUN", force, 0, 0) {
