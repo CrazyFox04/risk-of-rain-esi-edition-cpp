@@ -140,48 +140,155 @@ public:
      */
     int getDamage(int id, std::string attackName) const;
 
+    /**
+     * @brief Retrieves the charge time of a character's attack.
+     * @param id The ID of the character performing the attack.
+     * @param attackName The name of the
+     * @return The charge time of the attack.
+     */
     double getChargeTime(int id, std::string attackName) const;
 
+    /**
+     * @brief Retrieves the hurt animation time of a character.
+     * @param id The character's ID.
+     * @return The character's hurt animation time.
+     */
     double getCharacterHurtTime(int id) const;
 
+    /**
+     * @brief Checks if a character is currently busy performing an action.
+     * @param id The character's ID.
+     * @return True if the character is busy, otherwise false.
+     */
     bool isCharacterBusy(int id) const;
 
+    /**
+     * @brief Retrieves the current health of a character by ID.
+     * @param id The character's ID.
+     * @return The character's current health.
+     */
     int getCharacterHealth(int id) const;
 
+    /**
+     * @brief Retrieves the maximum health of a character by ID.
+     * @param id The character's ID.
+     * @return The character's maximum health.
+     */
     int getCharacterMaxHealth(int id) const;
 
+    /**
+     * @brief Retrieves the dash force of the player.
+     * @return The player's dash force.
+     */
     double getPlayerDashForce() const;
 
+    /**
+     * @brief Retrieves the jetpack force of the player.
+     * @return The player's jetpack force.
+     */
     double getJetPackForce() const;
 
+    /**
+     * @brief Retrieves the maximum time the jetpack can be used.
+     * @return The jetpack's maximum usage time.
+     */
     double getJetPackMaxTime() const;
 
+    /**
+     * @brief Retrieves the time taken for the player to land after using the jetpack.
+     * @return The player's landing time.
+     */
     double getPlayerLandingTime() const;
 
+    /**
+     * @brief Retrieves the time taken for the player to dash.
+     * @return The player's dash time.
+     */
     double getPlayerDashTime() const;
 
+    /**
+     * @brief Retrieves the entire time it take to a character to attack.
+     * @param id The ID of the character performing the attack.
+     * @param attackName The name of the attack.
+     * @return The time of the attack.
+     */
     double getCharacterAttackTime(int id, std::string attackName) const;
 
+    /**
+     * @brief Checks if the player is currently dashing.
+     * @return True if the player is dashing, otherwise false.
+     */
     bool isPlayerDashing() const;
 
+    /**
+     * @brief Checks if the player is currently using the jetpack.
+     * @return True if the player is using the jetpack, otherwise false.
+     */
     bool isPlayerUsingJetpack() const;
 
+    /**
+     * @brief Checks if a character is not not performing any action that would prevent movement.
+     * @param id The character's ID.
+     * @param movementName The name of the movement.
+     * @return True if the character can move, otherwise false.
+     */
     bool canCharacterMove(int id, std::string movementName) const;
 
+    /**
+     * @brief Retrieves the cooldown time of a character's attack.
+     * @param id The ID of the character performing the attack.
+     * @param attackName The name of the attack.
+     * @return The cooldown time of the attack.
+     */
     double getCharacterCoolDownAttack(int id, std::string attackName) const;
 
+    /**
+     * @brief Checks if a given ID is valid.
+     * @param id The ID to check.
+     * @return True if the ID is valid, otherwise false.
+     */
     bool isAValidId(int id) const;
 
+    /**
+     * @brief Retrieves the player's ID.
+     * @return The player's ID.
+     */
     int getPlayerId() const;
 
+    /**
+     * @brief Retrieves an existing spawn point in the current level.
+     * @return The spawn point as a tuple of area coordinates and spawn ID.
+     */
     std::tuple<std::tuple<int,int>, int> getExistingSpawn() const;
 
+    /**
+     * @brief Retrieves the names of all character attacks.
+     * @return A set of attack names.
+     */
     static std::set<std::string> getCharacterAttacksName();
 
+    /**
+     * @brief Checks if a given attack name is valid.
+     * @param attackName The name of the attack.
+     * @return True if the attack name is valid, otherwise false.
+     */
     static bool isAValidAttackName(std::string attackName) ;
 
+    /**
+     * @brief Attacks a target character with a specific attack.
+     * @param id The ID of the attacking character.
+     * @param attackName The name of the attack.
+     * @param targetId The ID of the target character.
+     * @throws std::invalid_argument If the attack is invalid or the ids are not valid.
+     */
     void attack(int id, std::string attackName, int targetId);
 
+    /**
+     * @brief Moves a character using a specific movement.
+     * @param id The ID of the character to move.
+     * @param movementName The name of the movement.
+     * @throws std::invalid_argument If the movement is invalid or the ID is not valid.
+     */
     void move(int id, std::string movementName);
 };
 #endif //GAME_HPP
