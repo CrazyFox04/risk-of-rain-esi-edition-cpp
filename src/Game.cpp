@@ -181,14 +181,18 @@ int Game::ifCanSpawnCurrentLevelSpawnAt(int areaX, int areaY, int spawdId) {
     return -1; // can't spawn
 }
 
-std::string Game::getType(int id) const {
+int Game::getCharacterType(int id) const {
     if (!isAValidId(id)) {
-        return {};
+        return -1;
     }
     if (player.getId() == id) {
-        return player.getType();
+        return 0;
     }
-    return levels.at(activeLevel).getEnemy(id).getType();
+    try {
+        return DefinedEnemies::getId(levels.at(activeLevel).getEnemy(id).getType())+1;
+    } catch (std::invalid_argument&e) {
+        return -1;
+    }
 }
 
 bool Game::canCharacterAttack(int id, const std::string& attackName) const {
