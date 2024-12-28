@@ -23,8 +23,8 @@ int GameController::getAreaGuidCurrentLevel(int x, int y) const {
     return game_.get_area_guid_current_level(x, y);
 }
 
-int GameController::ifCanSpawnCurrentLevelSpawnAt(int x, int y, int z) {
-    return game_.ifCanSpawnCurrentLevelSpawnAt(x, y, z);
+int GameController::ifCanSpawnCurrentLevelSpawnAt(int x, int y, int id) {
+    return game_.ifCanSpawnCurrentLevelSpawnAt(x, y, id);
 }
 
 std::string GameController::getType(int id) const {
@@ -151,8 +151,8 @@ int getAreaGuidCurrentLevel(const GameController* game_controller, int x, int y)
     return game_controller->getAreaGuidCurrentLevel(x, y);
 }
 
-int ifCanSpawnCurrentLevelSpawnAt(GameController* game_controller, int x, int y, int z) {
-    return game_controller->ifCanSpawnCurrentLevelSpawnAt(x, y, z);
+int ifCanSpawnCurrentLevelSpawnAt(GameController* game_controller, int x, int y, int id) {
+    return game_controller->ifCanSpawnCurrentLevelSpawnAt(x, y, id);
 }
 
 const char* getType(const GameController* game_controller, int id) {
@@ -175,8 +175,36 @@ double getEnemyAttackRange(const GameController* game_controller, int id) {
     return game_controller->getEnemyAttackRange(id);
 }
 
-bool canCharacterAttack(const GameController* game_controller, int id, const char* attack_name) {
-    return game_controller->canCharacterAttack(id, attack_name);
+bool canCharacterAttack_ATTACK1(const GameController* game_controller, int id) {
+    return game_controller->canCharacterAttack(id, "ATTACK1");
+}
+
+bool canCharacterAttack_ATTACK2(const GameController* game_controller, int id) {
+    return game_controller->canCharacterAttack(id, "ATTACK2");
+}
+
+bool canCharacterAttack_ATTACK3(const GameController* game_controller, int id) {
+    return game_controller->canCharacterAttack(id, "ATTACK3");
+}
+
+bool canCharacterAttack_ATTACK4(const GameController* game_controller, int id) {
+    return game_controller->canCharacterAttack(id, "ATTACK4");
+}
+
+bool canCharacterAttack_ATTACK5(const GameController* game_controller, int id) {
+    return game_controller->canCharacterAttack(id, "ATTACK5");
+}
+
+bool canCharacterAttack_ATTACK_SPECTRUM(const GameController* game_controller, int id) {
+    return game_controller->canCharacterAttack(id, "ATTACK_SPECTRUM");
+}
+
+bool canCharacterAttack_ATTACK_MONSTER(const GameController* game_controller, int id) {
+    return game_controller->canCharacterAttack(id, "ATTACK_MONSTER");
+}
+
+bool canCharacterAttack_ATTACK_DROID(const GameController* game_controller, int id) {
+    return game_controller->canCharacterAttack(id, "ATTACK_DROID");
 }
 
 int getCharacterHealth(const GameController* game_controller, int id) {
@@ -207,8 +235,36 @@ double getPlayerDashTime(const GameController* game_controller) {
     return game_controller->getPlayerDashTime();
 }
 
-double getCharacterAttackTime(const GameController* game_controller, int id, const char* attack_name) {
-    return game_controller->getCharacterAttackTime(id, attack_name);
+double getCharacterAttackTime_ATTACK1(const GameController* game_controller, int id) {
+    return game_controller->getCharacterAttackTime(id, "ATTACK1");
+}
+
+double getCharacterAttackTime_ATTACK2(const GameController* game_controller, int id) {
+    return game_controller->getCharacterAttackTime(id, "ATTACK2");
+}
+
+double getCharacterAttackTime_ATTACK3(const GameController* game_controller, int id) {
+    return game_controller->getCharacterAttackTime(id, "ATTACK3");
+}
+
+double getCharacterAttackTime_ATTACK4(const GameController* game_controller, int id) {
+    return game_controller->getCharacterAttackTime(id, "ATTACK4");
+}
+
+double getCharacterAttackTime_ATTACK5(const GameController* game_controller, int id) {
+    return game_controller->getCharacterAttackTime(id, "ATTACK5");
+}
+
+double getCharacterAttackTime_ATTACK_SPECTRUM(const GameController* game_controller, int id) {
+    return game_controller->getCharacterAttackTime(id, "ATTACK_SPECTRUM");
+}
+
+double getCharacterAttackTime_ATTACK_MONSTER(const GameController* game_controller, int id) {
+    return game_controller->getCharacterAttackTime(id, "ATTACK_MONSTER");
+}
+
+double getCharacterAttackTime_ATTACK_DROID(const GameController* game_controller, int id) {
+    return game_controller->getCharacterAttackTime(id, "ATTACK_DROID");
 }
 
 bool isPlayerDashing(const GameController* game_controller) {
@@ -219,12 +275,48 @@ bool isPlayerUsingJetpack(const GameController* game_controller) {
     return game_controller->isPlayerUsingJetpack();
 }
 
-bool canCharacterMove(const GameController* game_controller, int id, const char* movement_name) {
-    return game_controller->canCharacterMove(id, movement_name);
+bool canCharacterMove_RUN(const GameController* game_controller, int id) {
+    return game_controller->canCharacterMove(id, "RUN");
 }
 
-double getCharacterCoolDownAttackTime(const GameController* game_controller, int id, const char* attack_name) {
-    return game_controller->getCharacterCoolDownAttackTime(id, attack_name);
+bool canCharacterMove_JUMP(const GameController* game_controller, int id) {
+    return game_controller->canCharacterMove(id, "JUMP");
+}
+
+bool canCharacterMove_DASH(const GameController* game_controller, int id) {
+    return game_controller->canCharacterMove(id, "DASH");
+}
+
+double getCharacterCoolDownAttackTime_ATTACK1(const GameController* game_controller, int id) {
+    return game_controller->getCharacterCoolDownAttackTime(id, "ATTACK1");
+}
+
+double getCharacterCoolDownAttackTime_ATTACK2(const GameController* game_controller, int id) {
+    return game_controller->getCharacterCoolDownAttackTime(id, "ATTACK2");
+}
+
+double getCharacterCoolDownAttackTime_ATTACK3(const GameController* game_controller, int id) {
+    return game_controller->getCharacterCoolDownAttackTime(id, "ATTACK3");
+}
+
+double getCharacterCoolDownAttackTime_ATTACK4(const GameController* game_controller, int id) {
+    return game_controller->getCharacterCoolDownAttackTime(id, "ATTACK4");
+}
+
+double getCharacterCoolDownAttackTime_ATTACK5(const GameController* game_controller, int id) {
+    return game_controller->getCharacterCoolDownAttackTime(id, "ATTACK5");
+}
+
+double getCharacterCoolDownAttackTime_ATTACK_SPECTRUM(const GameController* game_controller, int id) {
+    return game_controller->getCharacterCoolDownAttackTime(id, "ATTACK_SPECTRUM");
+}
+
+double getCharacterCoolDownAttackTime_ATTACK_MONSTER(const GameController* game_controller, int id) {
+    return game_controller->getCharacterCoolDownAttackTime(id, "ATTACK_MONSTER");
+}
+
+double getCharacterCoolDownAttackTime_ATTACK_DROID(const GameController* game_controller, int id) {
+    return game_controller->getCharacterCoolDownAttackTime(id, "ATTACK_DROID");
 }
 
 bool isAValidId(const GameController* game_controller, int id) {
@@ -235,20 +327,112 @@ int getPlayerId(const GameController* game_controller) {
     return game_controller->getPlayerId();
 }
 
-void attack(GameController* game_controller, int id, const char* attack_name, int targetId) {
-    game_controller->attack(id, attack_name, targetId);
+void attack_ATTACK1(GameController* game_controller, int id, int targetId) {
+    game_controller->attack(id, "ATTACK1", targetId);
 }
 
-void move(GameController* game_controller, int id, const char* movement_name) {
-    game_controller->move(id, movement_name);
+void attack_ATTACK2(GameController* game_controller, int id, int targetId) {
+    game_controller->attack(id, "ATTACK2", targetId);
 }
 
-double getDamage(const GameController* game_controller, int id, const char* attack_name) {
-    return game_controller->getDamage(id, attack_name);
+void attack_ATTACK3(GameController* game_controller, int id, int targetId) {
+    game_controller->attack(id, "ATTACK3", targetId);
 }
 
-double getChargeTime(const GameController* game_controller, int id, const char* attack_name) {
-    return game_controller->getChargeTime(id, attack_name);
+void attack_ATTACK4(GameController* game_controller, int id, int targetId) {
+    game_controller->attack(id, "ATTACK4", targetId);
+}
+
+void attack_ATTACK5(GameController* game_controller, int id, int targetId) {
+    game_controller->attack(id, "ATTACK5", targetId);
+}
+
+void attack_ATTACK_SPECTRUM(GameController* game_controller, int id, int targetId) {
+    game_controller->attack(id, "ATTACK_SPECTRUM", targetId);
+}
+
+void attack_ATTACK_MONSTER(GameController* game_controller, int id, int targetId) {
+    game_controller->attack(id, "ATTACK_MONSTER", targetId);
+}
+
+void attack_ATTACK_DROID(GameController* game_controller, int id, int targetId) {
+    game_controller->attack(id, "ATTACK_DROID", targetId);
+}
+
+void move_RUN(GameController* game_controller, int id) {
+    game_controller->move(id, "RUN");
+}
+
+void move_JUMP(GameController* game_controller, int id) {
+    game_controller->move(id, "JUMP");
+}
+
+void move_DASH(GameController* game_controller, int id) {
+    game_controller->move(id, "DASH");
+}
+
+double getDamage_ATTACK1(const GameController* game_controller, int id) {
+    return game_controller->getDamage(id, "ATTACK1");
+}
+
+double getDamage_ATTACK2(const GameController* game_controller, int id) {
+    return game_controller->getDamage(id, "ATTACK2");
+}
+
+double getDamage_ATTACK3(const GameController* game_controller, int id) {
+    return game_controller->getDamage(id, "ATTACK3");
+}
+
+double getDamage_ATTACK4(const GameController* game_controller, int id) {
+    return game_controller->getDamage(id, "ATTACK4");
+}
+
+double getDamage_ATTACK5(const GameController* game_controller, int id) {
+    return game_controller->getDamage(id, "ATTACK5");
+}
+
+double getDamage_ATTACK_SPECTRUM(const GameController* game_controller, int id) {
+    return game_controller->getDamage(id, "ATTACK_SPECTRUM");
+}
+
+double getDamage_ATTACK_MONSTER(const GameController* game_controller, int id) {
+    return game_controller->getDamage(id, "ATTACK_MONSTER");
+}
+
+double getDamage_ATTACK_DROID(const GameController* game_controller, int id) {
+    return game_controller->getDamage(id, "ATTACK_DROID");
+}
+
+double getChargeTime_ATTACK1(const GameController* game_controller, int id) {
+    return game_controller->getChargeTime(id, "ATTACK1");
+}
+
+double getChargeTime_ATTACK2(const GameController* game_controller, int id) {
+    return game_controller->getChargeTime(id, "ATTACK2");
+}
+
+double getChargeTime_ATTACK3(const GameController* game_controller, int id) {
+    return game_controller->getChargeTime(id, "ATTACK3");
+}
+
+double getChargeTime_ATTACK4(const GameController* game_controller, int id) {
+    return game_controller->getChargeTime(id, "ATTACK4");
+}
+
+double getChargeTime_ATTACK5(const GameController* game_controller, int id) {
+    return game_controller->getChargeTime(id, "ATTACK5");
+}
+
+double getChargeTime_ATTACK_SPECTRUM(const GameController* game_controller, int id) {
+    return game_controller->getChargeTime(id, "ATTACK_SPECTRUM");
+}
+
+double getChargeTime_ATTACK_MONSTER(const GameController* game_controller, int id) {
+    return game_controller->getChargeTime(id, "ATTACK_MONSTER");
+}
+
+double getChargeTime_ATTACK_DROID(const GameController* game_controller, int id) {
+    return game_controller->getChargeTime(id, "ATTACK_DROID");
 }
 
 double getCharacterHurtTime(const GameController* game_controller, int id) {

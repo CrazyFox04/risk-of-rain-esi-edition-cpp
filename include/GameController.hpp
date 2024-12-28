@@ -102,11 +102,33 @@ MY_API double getEnemyFollowRange(const GameController*, int);
 
 MY_API double getEnemyAttackRange(const GameController*, int);
 
-MY_API bool canCharacterAttack(const GameController*, int, const char*);
+MY_API bool canCharacterAttack_ATTACK1(const GameController*, int);
+MY_API bool canCharacterAttack_ATTACK2(const GameController*, int);
+MY_API bool canCharacterAttack_ATTACK3(const GameController*, int);
+MY_API bool canCharacterAttack_ATTACK4(const GameController*, int);
+MY_API bool canCharacterAttack_ATTACK5(const GameController*, int);
+MY_API bool canCharacterAttack_ATTACK_SPECTRUM(const GameController*, int);
+MY_API bool canCharacterAttack_ATTACK_MONSTER(const GameController*, int);
+MY_API bool canCharacterAttack_ATTACK_DROID(const GameController*, int);
 
-MY_API double getDamage(const GameController*, int, const char*);
+MY_API double getDamage_ATTACK1(const GameController*, int);
+MY_API double getDamage_ATTACK2(const GameController*, int);
+MY_API double getDamage_ATTACK3(const GameController*, int);
+MY_API double getDamage_ATTACK4(const GameController*, int);
+MY_API double getDamage_ATTACK5(const GameController*, int);
+MY_API double getDamage_ATTACK_SPECTRUM(const GameController*, int);
+MY_API double getDamage_ATTACK_MONSTER(const GameController*, int);
+MY_API double getDamage_ATTACK_DROID(const GameController*, int);
 
-MY_API double getChargeTime(const GameController*, int, const char*);
+MY_API double getChargeTime_ATTACK1(const GameController*, int);
+MY_API double getChargeTime_ATTACK2(const GameController*, int);
+MY_API double getChargeTime_ATTACK3(const GameController*, int);
+MY_API double getChargeTime_ATTACK4(const GameController*, int);
+MY_API double getChargeTime_ATTACK5(const GameController*, int);
+MY_API double getChargeTime_ATTACK_SPECTRUM(const GameController*, int);
+MY_API double getChargeTime_ATTACK_MONSTER(const GameController*, int);
+MY_API double getChargeTime_ATTACK_DROID(const GameController*, int);
+
 
 MY_API double getCharacterHurtTime(const GameController*, int);
 
@@ -124,22 +146,49 @@ MY_API double getPlayerLandingTime(const GameController*);
 
 MY_API double getPlayerDashTime(const GameController*);
 
-MY_API double getCharacterAttackTime(const GameController*, int, const char*);
+MY_API double getCharacterAttackTime_ATTACK1(const GameController*, int);
+MY_API double getCharacterAttackTime_ATTACK2(const GameController*, int);
+MY_API double getCharacterAttackTime_ATTACK3(const GameController*, int);
+MY_API double getCharacterAttackTime_ATTACK4(const GameController*, int);
+MY_API double getCharacterAttackTime_ATTACK5(const GameController*, int);
+MY_API double getCharacterAttackTime_ATTACK_SPECTRUM(const GameController*, int);
+MY_API double getCharacterAttackTime_ATTACK_MONSTER(const GameController*, int);
+MY_API double getCharacterAttackTime_ATTACK_DROID(const GameController*, int);
+
 
 MY_API bool isPlayerDashing(const GameController*);
 
 MY_API bool isPlayerUsingJetpack(const GameController*);
 
-MY_API bool canCharacterMove(const GameController*, int, const char*);
+MY_API bool canCharacterMove_RUN(const GameController*, int);
+MY_API bool canCharacterMove_JUMP(const GameController*, int);
+MY_API bool canCharacterMove_DASH(const GameController*, int);
 
-MY_API double getCharacterCoolDownAttackTime(const GameController*, int, const char*);
+MY_API double getCharacterCoolDownAttackTime_ATTACK1(const GameController*, int);
+MY_API double getCharacterCoolDownAttackTime_ATTACK2(const GameController*, int);
+MY_API double getCharacterCoolDownAttackTime_ATTACK3(const GameController*, int);
+MY_API double getCharacterCoolDownAttackTime_ATTACK4(const GameController*, int);
+MY_API double getCharacterCoolDownAttackTime_ATTACK5(const GameController*, int);
+MY_API double getCharacterCoolDownAttackTime_ATTACK_SPECTRUM(const GameController*, int);
+MY_API double getCharacterCoolDownAttackTime_ATTACK_MONSTER(const GameController*, int);
+MY_API double getCharacterCoolDownAttackTime_ATTACK_DROID(const GameController*, int);
+
 
 MY_API bool isAValidId(const GameController*, int);
 
 MY_API int getPlayerId(const GameController*);
 
-MY_API void attack(GameController*, int, const char*, int);
+MY_API void attack_ATTACK1(GameController*, int, int);
+MY_API void attack_ATTACK2(GameController*, int, int);
+MY_API void attack_ATTACK3(GameController*, int, int);
+MY_API void attack_ATTACK4(GameController*, int, int);
+MY_API void attack_ATTACK5(GameController*, int, int);
+MY_API void attack_ATTACK_SPECTRUM(GameController*, int, int);
+MY_API void attack_ATTACK_MONSTER(GameController*, int, int);
+MY_API void attack_ATTACK_DROID(GameController*, int, int);
 
-MY_API void move(GameController*, int, const char*);
+MY_API void move_RUN(GameController*, int);
+MY_API void move_JUMP(GameController*, int);
+MY_API void move_DASH(GameController*, int);
 
 #endif
