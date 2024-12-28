@@ -104,8 +104,8 @@ bool GameController::isPlayerUsingJetpack() const {
     return game_.isPlayerUsingJetpack();
 }
 
-bool GameController::canCharacterMove(int id, std::string movement_name) const {
-    return game_.canCharacterMove(id, movement_name);
+bool GameController::canCharacterMove(int id, int movementIndex) const {
+    return game_.canCharacterMove(id, getMovementName(movementIndex));
 }
 
 double GameController::getCharacterCoolDownAttackTime(int id, int attackIndex) const {
@@ -232,16 +232,8 @@ bool isPlayerUsingJetpack(const GameController* game_controller) {
     return game_controller->isPlayerUsingJetpack();
 }
 
-bool canCharacterMove_RUN(const GameController* game_controller, int id) {
-    return game_controller->canCharacterMove(id, "RUN");
-}
-
-bool canCharacterMove_JUMP(const GameController* game_controller, int id) {
-    return game_controller->canCharacterMove(id, "JUMP");
-}
-
-bool canCharacterMove_DASH(const GameController* game_controller, int id) {
-    return game_controller->canCharacterMove(id, "DASH");
+bool canCharacterMove(const GameController* game_controller, int id, int attackIndex) {
+    return game_controller->canCharacterMove(id, attackIndex);
 }
 
 double getCharacterCoolDownAttackTime(const GameController* game_controller, int id, int attackIndex) {
@@ -287,7 +279,8 @@ bool isCharacterBusy(GameController* game_controller, int id) {
 std::string GameController::getAttackName(int attackIndex) {
     try {
         return DefinedAttacks::getAttackName(attackIndex);
-    } catch (std::out_of_range&e) {
+    }
+    catch (std::out_of_range&e) {
         return {};
     }
 }
@@ -295,7 +288,8 @@ std::string GameController::getAttackName(int attackIndex) {
 std::string GameController::getMovementName(int movementIndex) {
     try {
         return DefinedMovements::getMovementName(movementIndex);
-    } catch (std::out_of_range&e) {
+    }
+    catch (std::out_of_range&e) {
         return {};
     }
 }
