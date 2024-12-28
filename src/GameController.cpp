@@ -375,6 +375,17 @@ void move_DASH(GameController* game_controller, int id) {
     game_controller->move(id, "DASH");
 }
 
+// TODO Check if this is correct
+double getAttackDamage(const GameController* gameController, int id, int attackIndex) {
+    std::string attackName = DefinedAttacks::getAttackName(attackIndex);
+    return gameController->getDamage(id, attackName);
+}
+// TODO Check if this is correct
+double getAttackChargeTime(const GameController* gameController, int id, int attackIndex) {
+    std::string attackName = DefinedAttacks::getAttackName(attackIndex);
+    return gameController->getChargeTime(id, attackName);
+}
+
 double getDamage_ATTACK1(const GameController* game_controller, int id) {
     return game_controller->getDamage(id, "ATTACK1");
 }

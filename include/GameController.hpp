@@ -273,6 +273,11 @@ MY_API double getEnemyFollowRange(const GameController*, int);
 
 MY_API double getEnemyAttackRange(const GameController*, int);
 
+// TODO Check if this is correct
+MY_API double getAttackDamage(const GameController*, int, int);
+// TODO Check if this is correct
+MY_API double getAttackChargeTime(const GameController*, int, int);
+
 MY_API bool canCharacterAttack_ATTACK1(const GameController*, int);
 
 MY_API bool canCharacterAttack_ATTACK2(const GameController*, int);
