@@ -59,6 +59,8 @@ const std::vector<std::shared_ptr<Buff>>& Character::getItems() const {
 
 void Character::land() {
     onGround = true;
+    auto jump = std::dynamic_pointer_cast<Jump>(capabilities.getMovement("JUMP"));
+    jump->reset();
 }
 
 bool Character::isLanded() const {
