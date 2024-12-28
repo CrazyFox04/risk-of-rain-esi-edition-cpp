@@ -127,6 +127,10 @@ int GameController::getPlayerId() const {
     return game_.getPlayerId();
 }
 
+bool GameController::isCharacterBusy(int id) const {
+    return game_.isCharacterBusy(id);
+}
+
 GameController* newGame() {
     return new GameController();
 }
@@ -437,4 +441,8 @@ double getChargeTime_ATTACK_DROID(const GameController* game_controller, int id)
 
 double getCharacterHurtTime(const GameController* game_controller, int id) {
     return game_controller->getCharacterHurtTime(id);
+}
+
+bool isCharacterBusy(GameController* game_controller, int id) {
+    return game_controller->isCharacterBusy(id);
 }

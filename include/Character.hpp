@@ -25,13 +25,6 @@
  */
 class Character {
     /**
-     * @brief Checks if a given attack is ready to be used.
-     * @param attack The attack to check.
-     * @return True if the attack can be used, otherwise false.
-     */
-    bool canUse(Attack attack) const; // TODO implement in .cpp
-
-    /**
      * @brief Increases the character's current health.
      * @param amount The amount to increase the health by.
      */
