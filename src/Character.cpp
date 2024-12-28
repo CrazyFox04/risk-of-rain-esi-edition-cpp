@@ -6,6 +6,9 @@
 #endif
 #include "pch.h"
 #include "Character.hpp"
+
+#include <Dash.hpp>
+
 #include "Jump.hpp"
 #include "Run.hpp"
 #include <utility>
@@ -38,7 +41,7 @@ Attack Character::getAttack(std::string name) const {
     return capabilities.getAttack(name);
 }
 
-Movement Character::getMovement(std::string name) const {
+std::shared_ptr<Movement> Character::getMovement(std::string name) const {
     return capabilities.getMovement(name);
 }
 
@@ -56,6 +59,8 @@ const std::vector<std::shared_ptr<Buff>>& Character::getItems() const {
 
 void Character::land() {
     onGround = true;
+    auto jump = std::dynamic_pointer_cast<Jump>(capabilities.getMovement("JUMP"));
+    jump->reset();
 }
 
 bool Character::isLanded() const {
@@ -103,16 +108,35 @@ void Character::useJetpack() {
 }
 
 bool Character::canUse(std::string attackName) const {
+    if (isBusy()) {
+        return false;
+    }
     return capabilities.canUse(attackName);
 }
 
 bool Character::canMove(std::string movementName) const {
-    try {
-        capabilities.getMovement(movementName);
-    } catch (std::invalid_argument&e) {
+    if (isBusy()) {
         return false;
     }
-    return capabilities.canUse(movementName);
+    try {
+        if (movementName == "JETPACK") {
+            return canUseJetpack();
+        }
+        if (movementName == "RUN") {
+            const std::shared_ptr<Run> run = std::dynamic_pointer_cast<Run>(capabilities.getMovement(movementName)); 
+            return run->canUse();
+        }
+        if (movementName == "JUMP") {
+            const std::shared_ptr<Jump> jump = std::dynamic_pointer_cast<Jump>(capabilities.getMovement(movementName)); 
+            return jump->canUse(); 
+        }
+        if (movementName == "DASH") {
+            const std::shared_ptr<Dash> dash = std::dynamic_pointer_cast<Dash>(capabilities.getMovement(movementName));
+            return dash->canUse();
+        }
+    } catch (std::invalid_argument& e) {
+        return false;
+    }
 }
 
 void Character::useItem(const std::shared_ptr<Buff>&item) {
@@ -136,4 +160,8 @@ std::string Character::getType() const {
 
 Animation Character::getHurtAnimation() const {
     return hurtAnimation;
+}
+
+void Character::takeOff() {
+    onGround = false;
 }

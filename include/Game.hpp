@@ -290,5 +290,21 @@ public:
      * @throws std::invalid_argument If the movement is invalid or the ID is not valid.
      */
     void move(int id, std::string movementName);
+    /**
+     * @brief Check if a character is on the ground.
+     * @param id The ID of the character.
+     * @return True if the character is on the ground, otherwise false.
+     */
+    bool isCharacterOnGround(int id) const;
+    /**
+     * @brief Changes the onGround status of the character.
+     * @param id The ID of the character.
+     */
+    void landCharacter(int id);
+    /**
+     * @brief Changes the onGround status of the character.
+     * @param id The ID of the character.
+     */
+    void takeOffCharacter(int id);
 };
 #endif //GAME_HPP

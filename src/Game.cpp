@@ -13,9 +13,9 @@ double Game::getCharacterSpeed(int id) const {
         return -1;
     }
     if (player.getId() == id) {
-        return player.getMovement("RUN").getForce();
+        return player.getMovement("RUN")->getForce();
     }
-    return levels.at(activeLevel).getEnemy(id).getMovement("RUN").getForce();
+    return levels.at(activeLevel).getEnemy(id).getMovement("RUN")->getForce();
 }
 
 double Game::getCharacterJumpForce(int id) const {
@@ -23,9 +23,9 @@ double Game::getCharacterJumpForce(int id) const {
         return -1;
     }
     if (player.getId() == id) {
-        return player.getMovement("JUMP").getForce();
+        return player.getMovement("JUMP")->getForce();
     }
-    return levels.at(activeLevel).getEnemy(id).getMovement("JUMP").getForce();
+    return levels.at(activeLevel).getEnemy(id).getMovement("JUMP")->getForce();
 }
 
 double Game::getEnemyFollowRange(int id) const {
@@ -199,7 +199,7 @@ bool Game::isCharacterBusy(int id) const {
 }
 
 double Game::getPlayerDashForce() const {
-    return player.getMovement("DASH").getForce();
+    return player.getMovement("DASH")->getForce();
 }
 
 double Game::getJetPackForce() const {
@@ -215,11 +215,11 @@ double Game::getPlayerLandingTime() const {
 }
 
 double Game::getPlayerDashTime() const {
-    return player.getMovement("DASH").getAnimationTime();
+    return player.getMovement("DASH")->getAnimationTime();
 }
 
 bool Game::isPlayerDashing() const {
-    return player.getMovement("DASH").isUsing();
+    return player.getMovement("DASH")->isUsing();
 }
 
 bool Game::isPlayerUsingJetpack() const {
@@ -295,6 +295,38 @@ void Game::move(int id, std::string movementName) {
     else {
         if (levels.at(activeLevel).getEnemy(id).canMove(movementName)) {
             levels.at(activeLevel).getEnemy(id).move(movementName);
+        }
+    }
+}
+
+bool Game::isCharacterOnGround(int id) const {
+    if (!isAValidId(id)) {
+        return false;
+    }
+    if (player.getId() == id) {
+        return player.isLanded();
+    }
+    return levels.at(activeLevel).getEnemy(id).isLanded();
+}
+
+void Game::landCharacter(int id) {
+    if (isAValidId(id)) {
+        if (player.getId() == id) {
+            player.land();
+        }
+        else {
+            levels.at(activeLevel).getEnemy(id).land();
+        }
+    }
+}
+
+void Game::takeOffCharacter(int id) {
+    if (isAValidId(id)) {
+        if (player.getId() == id) {
+            player.takeOff();
+        }
+        else {
+            levels.at(activeLevel).getEnemy(id).takeOff();
         }
     }
 }

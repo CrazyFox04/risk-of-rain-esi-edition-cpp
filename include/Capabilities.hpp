@@ -11,6 +11,7 @@
 #ifndef CAPABILITIES_HPP
 #define CAPABILITIES_HPP
 #include <set>
+#include <memory>
 #include <map>
 #include "Attacks.hpp"
 #include "Attack.hpp"
@@ -23,7 +24,7 @@
  */
 class Capabilities {
     std::map<std::string, Attack> attacks; ///< Map of attacks identified by their names.
-    std::map<std::string, Movement> movements; ///< Map of movements identified by their names.
+    std::map<std::string, std::shared_ptr<Movement>> movements; ///< Map of movements identified by their names.
     JetPack jetPack; ///< JetPack capability, if available.
 
     /**
@@ -70,7 +71,7 @@ public:
      * @return The corresponding Movement object.
      * @throws std::invalid_argument If the movement does not exist.
      */
-    [[nodiscard]] Movement getMovement(std::string) const;
+    [[nodiscard]] std::shared_ptr<Movement> getMovement(std::string) const;
 
     /**
      * @brief Retrieves the JetPack capability.

@@ -58,14 +58,14 @@ public:
      * @param hurtTime The duration of the hurt animation.
      * @param capabilities The capabilities assigned to the character.
      */
-    Character(const std::string& type, int max_health, double hurtTime, Capabilities capabilities);
+    Character(const std::string&type, int max_health, double hurtTime, Capabilities capabilities);
 
     /**
      * @brief Constructs a Character with default capabilities and hurt animation time.
      * @param type The type or class of the character.
      * @param max_health The maximum health of the character.
      */
-    Character(const std::string& type, int max_health);
+    Character(const std::string&type, int max_health);
 
     virtual ~Character() = default;
 
@@ -87,7 +87,7 @@ public:
      * @param name The name of the movement.
      * @return The corresponding Movement object.
      */
-    [[nodiscard]] Movement getMovement(std::string) const;
+    [[nodiscard]] std::shared_ptr<Movement> getMovement(std::string) const;
 
     /**
      * @brief Retrieves the JetPack assigned to the character.
@@ -176,7 +176,7 @@ public:
      * @brief Uses a specific item (buff).
      * @param item The buff to use.
      */
-    void useItem(const std::shared_ptr<Buff> &item);
+    void useItem(const std::shared_ptr<Buff>&item);
 
     /**
      * @brief Checks if the character is currently busy.
@@ -201,5 +201,10 @@ public:
      * @return The Animation object representing the hurt animation.
      */
     [[nodiscard]] Animation getHurtAnimation() const;
+
+    /**
+     * @brief Changes the onGround status of the character.
+     */
+    void takeOff();
 };
 #endif //CHARACTER_HPP
