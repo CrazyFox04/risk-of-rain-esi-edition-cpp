@@ -23,34 +23,34 @@ public:
     static constexpr int LENGTH = 3;
     static constexpr float FILL_PROBABILITY = 0.05;
 
-    Level(int id);
+    explicit Level(int id);
 
     Level(int id, const std::vector<std::vector<Area>>&areas);
 
-    bool isValidCoordinates(int x, int y) const;
+    [[nodiscard]] bool isValidCoordinates(int x, int y) const;
 
-    int getId() const;
+    [[nodiscard]] int getId() const;
 
-    bool isLoaded() const;
+    [[nodiscard]] bool isLoaded() const;
 
     Level generate();
 
-    int get_area_id(int x, int y) const;
+    [[nodiscard]] int get_area_id(int x, int y) const;
 
-    int get_area_type(int x, int y) const;
+    [[nodiscard]] int get_area_type(int x, int y) const;
 
-    int get_area_guid(int x, int y) const;
+    [[nodiscard]] int get_area_guid(int x, int y) const;
 
-    std::set<Direction2D> get_gateway_positions(int x, int y) const;
+    [[nodiscard]] std::set<Direction2D> get_gateway_positions(int x, int y) const;
 
     bool can_spawn_at(int area_x, int area_y, int spawd_id);
 
     int spawn_at(int area_x, int area_y, int spawd_id);
 
-    Enemy getEnemy(int enemyId) const;
+    [[nodiscard]] Enemy getEnemy(int enemyId) const;
 
-    bool isAValidEnemyId(int id) const;
+    [[nodiscard]] bool isAValidEnemyId(int id) const;
 
-    std::tuple<std::tuple<int,int>, int> getAnExistingSpawn() const;
+    [[nodiscard]] std::tuple<std::tuple<int,int>, int> getAnExistingSpawn() const;
 };
 #endif //LEVEL_HPP

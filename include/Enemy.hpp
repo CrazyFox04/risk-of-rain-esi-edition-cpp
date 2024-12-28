@@ -44,19 +44,19 @@ public:
      * @brief Retrieves the follow range of the enemy.
      * @return The follow range as a double.
      */
-    double getFollowRange() const;
+    [[nodiscard]] double getFollowRange() const;
 
     /**
      * @brief Retrieves the attack range of the enemy.
      * @return The attack range as a double.
      */
-    double getAttackRange() const;
+    [[nodiscard]] double getAttackRange() const;
 
     /**
      * @brief Checks if the enemy is a boss.
      * @return True if the enemy is a boss, otherwise false.
      */
-    bool getIsBoss() const;
+    [[nodiscard]] bool getIsBoss() const;
 
     /**
      * @brief Adds a buff or item to the enemy.

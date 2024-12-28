@@ -26,7 +26,7 @@ public:
      * @brief Constructd an Animation object with a specific duration.
      * @param duration The duration of the animation in seconds.
      */
-    Animation(double duration);
+    explicit Animation(double duration);
 
     /**
      * @brief Starts the animation by setting the last usage time to the current time.
@@ -37,12 +37,12 @@ public:
      * @brief Checks if the animation is currently playing.
      * @return True if the animation is still within its duration, otherwise false.
      */
-    bool isPlaying() const;
+    [[nodiscard]] bool isPlaying() const;
 
     /**
      * @brief Retrieves the duration of the animation.
      * @return The duration of the animation in seconds.
      */
-    double getDuration() const;
+    [[nodiscard]] double getDuration() const;
 };
 #endif //ANIMATION_HPP

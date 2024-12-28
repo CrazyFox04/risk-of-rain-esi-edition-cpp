@@ -1,6 +1,14 @@
 //
 // Created by Enzo Renard on 05/12/2024.
 //
+/**
+ * @file GameController.hpp
+ * @brief Defines the GameController class and C-style API for managing the game state and interactions.
+ *
+ * The GameController class acts as an interface to the Game class, exposing methods for
+ * managing player and enemy states, querying game information, and controlling interactions.
+ * A C-style API is also provided for external integration.
+ */
 #ifndef GAMECONTROLLER_HPP
 #define GAMECONTROLLER_HPP
 
@@ -12,69 +20,225 @@
 
 #include "Game.hpp"
 
-
+/**
+ * @class GameController
+ * @brief High-level interface to interact with the game logic.
+ *
+ * The GameController encapsulates an instance of the `Game` class, exposing methods to query and
+ * modify the state of the game. It provides abstractions for player interactions, level management,
+ * and combat/movement mechanics.
+ */
 class GameController {
-    Game game_;
+    Game game_; ///< The core game instance managing levels, players, and enemies.
 
 public:
-    int getPlayerMaxHealth() const;
+    /**
+     * @brief Gets the player's maximum health.
+     * @return The maximum health of the player.
+     */
+    [[nodiscard]] int getPlayerMaxHealth() const;
 
-    int getPlayerCurrentHealth() const;
+    /**
+     * @brief Gets the player's current health.
+     * @return The current health of the player.
+     */
+    [[nodiscard]] int getPlayerCurrentHealth() const;
 
+    /**
+     * @brief Applies damage to the player.
+     * @param damage The amount of damage to apply.
+     */
     void takePlayerDamage(int damage);
 
-    int getAreaGuidCurrentLevel(int, int) const;
+    /**
+     * @brief Gets the unique identifier for the area at a specific coordinate in the current level.
+     * @param x The x-coordinate in the level.
+     * @param y The y-coordinate in the level.
+     * @return The GUID of the area, or -1 if invalid.
+     */
+    [[nodiscard]] int getAreaGuidCurrentLevel(int, int) const;
 
+    /**
+     * @brief Attempts to spawn an entity in the current level.
+     * @param x The x-coordinate of the area.
+     * @param y The y-coordinate of the area.
+     * @param spawnId The ID of the spawn point.
+     * @return The spawn result, or -1 if spawning is not possible.
+     */
     int ifCanSpawnCurrentLevelSpawnAt(int, int, int);
 
-    std::string getType(int) const;
+    /**
+     * @brief Gets the type of a character by ID.
+     * @param id The unique ID of the character.
+     * @return The type of the character as a string.
+     */
+    [[nodiscard]] std::string getType(int) const;
 
-    int getCharacterSpeed(int) const;
+    /**
+     * @brief Gets the speed of a character by ID.
+     * @param id The unique ID of the character.
+     * @return The speed of the character.
+     */
+    [[nodiscard]] int getCharacterSpeed(int) const;
 
-    double getCharacterJumpForce(int) const;
+    /**
+     * @brief Gets the jump force of a character by ID.
+     * @param id The unique ID of the character.
+     * @return The jump force of the character.
+     */
+    [[nodiscard]] double getCharacterJumpForce(int) const;
 
-    double getEnemyFollowRange(int) const;
+    /**
+     * @brief Gets the follow range of an enemy by ID.
+     * @param id The unique ID of the enemy.
+     * @return The follow range of the enemy.
+     */
+    [[nodiscard]] double getEnemyFollowRange(int) const;
 
-    double getEnemyAttackRange(int) const;
+    /**
+     * @brief Gets the attack range of an enemy by ID.
+     * @param id The unique ID of the enemy.
+     * @return The attack range of the enemy.
+     */
+    [[nodiscard]] double getEnemyAttackRange(int) const;
 
-    bool canCharacterAttack(int, std::string) const;
+    /**
+     * @brief Checks if a character can attack with a specific attack.
+     * @param id The unique ID of the character.
+     * @param attackName The name of the attack.
+     * @return True if the character can attack, otherwise false.
+     */
+    [[nodiscard]] bool canCharacterAttack(int, std::string) const;
 
-    double getDamage(int, std::string) const;
+    /**
+     * @brief Gets the damage of a character's attack.
+     * @param id The unique ID of the character.
+     * @param attackName The name of the attack.
+     * @return The damage dealt by the attack.
+     */
+    [[nodiscard]] int getDamage(int, std::string) const;
 
-    double getChargeTime(int, std::string) const;
+    /**
+     * @brief Gets the charge time of a character's attack.
+     * @param id The unique ID of the character.
+     * @param attackName The name of the attack.
+     * @return The charge time of the attack.
+     */
+    [[nodiscard]] double getChargeTime(int, std::string) const;
 
-    double getCharacterHurtTime(int) const;
+    /**
+     * @brief Gets the hurt animation time of a character.
+     * @param id The unique ID of the character.
+     * @return The hurt animation time of the character.
+     */
+    [[nodiscard]] double getCharacterHurtTime(int) const;
 
-    int getCharacterHealth(int) const;
+    /**
+     * @brief Gets the current health of a character by ID.
+     * @param id The unique ID of the character.
+     * @return The current health of the character.
+     */
+    [[nodiscard]] int getCharacterHealth(int) const;
 
-    int getCharacterMaxHealth(int) const;
+    /**
+     * @brief Gets the maximum health of a character by ID.
+     * @param id The unique ID of the character.
+     * @return The maximum health of the character.
+     */
+    [[nodiscard]] int getCharacterMaxHealth(int) const;
 
-    double getPlayerDashForce() const;
+    /**
+     * @brief Gets the dash force of the player.
+     * @return The dash force of the player.
+     */
+    [[nodiscard]] double getPlayerDashForce() const;
 
-    double getJetPackForce() const;
+    /**
+     * @brief Gets the jetpack force of the player.
+     * @return The jetpack force of the player.
+     */
+    [[nodiscard]] double getJetPackForce() const;
 
-    double getJetPackMaxTime() const;
+    /**
+     * @brief Gets the maximum time the jetpack can be used.
+     * @return The jetpack's maximum usage time.
+     */
+    [[nodiscard]] double getJetPackMaxTime() const;
 
-    double getPlayerLandingTime() const;
+    /**
+     * @brief Gets the time taken for the player to land after using the jetpack.
+     * @return The player's landing time.
+     */
+    [[nodiscard]] double getPlayerLandingTime() const;
 
-    double getPlayerDashTime() const;
+    /**
+     * @brief Gets the time taken for the player to dash.
+     * @return The player's dash time.
+     */
+    [[nodiscard]] double getPlayerDashTime() const;
 
-    double getCharacterAttackTime(int, std::string) const;
+    /**
+     * @brief Gets the entire time it take to a character to attack.
+     * @param id The ID of the character performing the attack.
+     * @param attackName The name of the attack.
+     * @return The time of the attack.
+     */
+    [[nodiscard]] double getCharacterAttackTime(int, std::string) const;
 
-    bool isPlayerDashing() const;
+    /**
+     * @brief Checks if the player is currently dashing.
+     * @return True if the player is dashing, otherwise false.
+     */
+    [[nodiscard]] bool isPlayerDashing() const;
 
-    bool isPlayerUsingJetpack() const;
+    /**
+     * @brief Checks if the player is currently using the jetpack.
+     * @return True if the player is using the jetpack, otherwise false.
+     */
+    [[nodiscard]] bool isPlayerUsingJetpack() const;
 
-    bool canCharacterMove(int, std::string) const;
+    /**
+     * @brief Checks if a character is not busy performing an action that would prevent movement.
+     * @param id The unique ID of the character.
+     * @param movementName The name of the movement.
+     * @return True if the character can move, otherwise false.
+     */
+    [[nodiscard]] bool canCharacterMove(int, std::string) const;
 
-    double getCharacterCoolDownAttackTime(int, std::string) const;
+    /**
+     * @brief Gets the cooldown time of a character's attack.
+     * @param id The unique ID of the character.
+     * @param attackName The name of the attack.
+     * @return The cooldown time of the attack.
+     */
+    [[nodiscard]] double getCharacterCoolDownAttackTime(int, std::string) const;
 
-    bool isAValidId(int) const;
+    /**
+     * @brief Checks if a character ID is valid.
+     * @param id The unique ID of the character.
+     * @return True if the ID is valid, otherwise false.
+     */
+    [[nodiscard]] bool isAValidId(int) const;
 
-    int getPlayerId() const;
+    /**
+     * @brief Gets the ID of the player character.
+     * @return The ID of the player character.
+     */
+    [[nodiscard]] int getPlayerId() const;
 
+    /**
+     * @brief Attacks a target character with a specific attack.
+     * @param id The unique ID of the attacking character.
+     * @param attackName The name of the attack.
+     * @param targetId The unique ID of the target character.
+     */
     void attack(int, std::string, int);
 
+    /**
+     * @brief Moves a character with a specific movement.
+     * @param id The unique ID of the character.
+     * @param movementName The name of the movement.
+     */
     void move(int, std::string);
 };
 

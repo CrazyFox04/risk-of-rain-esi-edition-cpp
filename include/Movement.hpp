@@ -45,13 +45,13 @@ public:
      * @brief Checks if the movement is currently in use.
      * @return True if the movement is in use, otherwise false.
      */
-    bool isUsing() const;
+    [[nodiscard]] bool isUsing() const;
 
     /**
      * @brief Checks if the movement can be used.
      * @return True if the movement can be executed, otherwise false.
      */
-    virtual bool canUse() const;
+    [[nodiscard]] virtual bool canUse() const;
 
     /**
      * @brief Executes the movement and updates the last usage time.
@@ -63,30 +63,30 @@ public:
      * @brief Retrieves the name of the movement.
      * @return The name of the movement as a string.
      */
-    std::string getName() const;
+    [[nodiscard]] std::string getName() const;
 
     /**
      * @brief Retrieves the force of the movement.
      * @return The force as a double.
      */
-    double getForce() const;
+    [[nodiscard]] double getForce() const;
 
     /**
      * @brief Retrieves the animation time of the movement.
      * @return The animation time in seconds.
      */
-    double getAnimationTime() const;
+    [[nodiscard]] double getAnimationTime() const;
 
     /**
      * @brief Retrieves the cooldown time of the movement.
      * @return The cooldown time in seconds.
      */
-    double getCooldown() const;
+    [[nodiscard]] double getCooldown() const;
 
     /**
      * @brief Retrieves the last time the movement was used.
      * @return The time point of the last usage.
      */
-    std::chrono::time_point<std::chrono::steady_clock> getLastUsageTime() const;
+    [[nodiscard]] std::chrono::time_point<std::chrono::steady_clock> getLastUsageTime() const;
 };
 #endif //MOVEMENT_HPP

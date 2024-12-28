@@ -47,49 +47,49 @@ public:
      * @brief Checks if the attack is currently in use.
      * @return True if the attack is being used, otherwise false.
      */
-    bool isUsing() const;
+    [[nodiscard]] bool isUsing() const;
 
     /**
      * @brief Checks if the attack can be used.
      * @return True if the attack can be used, otherwise false.
      */
-    bool canUse() const;
+    [[nodiscard]] bool canUse() const;
 
     /**
      * @brief Retrieves the damage dealt by the attack.
      * @return The damage value.
      */
-    int getDamage() const;
+    [[nodiscard]] int getDamage() const;
 
     /**
      * @brief Retrieves the name of the attack.
      * @return The name of the attack.
      */
-    std::string getName() const;
+    [[nodiscard]] std::string getName() const;
 
     /**
      * @brief Retrieves the cooldown time of the attack.
      * @return The cooldown time in seconds.
      */
-    double getCooldown() const;
+    [[nodiscard]] double getCooldown() const;
 
     /**
      * @brief Retrieves the charge time of the attack.
      * @return The charge time in seconds.
      */
-    double getChargeTime() const;
+    [[nodiscard]] double getChargeTime() const;
 
     /**
      * @brief Retrieves the animation time of the attack.
      * @return The animation time in seconds.
      */
-    double getAnimationTime() const;
+    [[nodiscard]] double getAnimationTime() const;
 
     /**
     * @brief Retrieves the last usage time of the attack.
     * @return A time_point representing the last usage time.
     */
-    std::chrono::time_point<std::chrono::steady_clock> getLastUsageTime() const;
+    [[nodiscard]] std::chrono::time_point<std::chrono::steady_clock> getLastUsageTime() const;
 
     /**
      * @brief Compares two Attack objects based on their names.
