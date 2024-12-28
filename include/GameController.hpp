@@ -270,6 +270,10 @@ public:
      * @param id The ID of the character.
      */
     void takeOffCharacter(int id);
+
+    int getMovingTime(int id) const;
+    int isMoving(int id) const;
+    void stopMoving(int id, int type);
 };
 
 MY_API GameController* newGame();
@@ -343,5 +347,11 @@ MY_API bool isCharacterOnGround(const GameController*, int);
 MY_API void landCharacter(GameController*, int);
 
 MY_API void takeOffCharacter(GameController*, int);
+
+MY_API int getMovingTime(const GameController*, int);
+
+MY_API int isMoving(const GameController*, int);
+
+MY_API void stopMoving(GameController*, int, int);
 
 #endif
