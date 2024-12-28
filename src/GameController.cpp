@@ -6,6 +6,7 @@
 #endif
 #include "pch.h"
 #include "GameController.hpp"
+#include "Movements.hpp"
 
 int GameController::getPlayerMaxHealth() const {
     return game_.getPlayerMaxHealth();
@@ -47,16 +48,16 @@ double GameController::getEnemyAttackRange(int id) const {
     return game_.getEnemyAttackRange(id);
 }
 
-bool GameController::canCharacterAttack(int id, std::string attack_name) const {
-    return game_.canCharacterAttack(id, attack_name);
+bool GameController::canCharacterAttack(int id, int attackIndex) const {
+    return game_.canCharacterAttack(id, getAttackName(attackIndex));
 }
 
-int GameController::getDamage(int id, std::string attack_name) const {
-    return game_.getDamage(id, attack_name);
+int GameController::getDamage(int id, int attackIndex) const {
+    return game_.getDamage(id, getAttackName(attackIndex));
 }
 
-double GameController::getChargeTime(int id, std::string attack_name) const {
-    return game_.getChargeTime(id, attack_name);
+double GameController::getChargeTime(int id, int attackIndex) const {
+    return game_.getChargeTime(id, getAttackName(attackIndex));
 }
 
 double GameController::getCharacterHurtTime(int id) const {
@@ -91,8 +92,8 @@ double GameController::getPlayerDashTime() const {
     return game_.getPlayerDashTime();
 }
 
-double GameController::getCharacterAttackTime(int id, std::string attack_name) const {
-    return game_.getCharacterAttackTime(id, attack_name);
+double GameController::getCharacterAttackTime(int id, int attackIndex) const {
+    return game_.getCharacterAttackTime(id, getAttackName(attackIndex));
 }
 
 bool GameController::isPlayerDashing() const {
@@ -107,20 +108,20 @@ bool GameController::canCharacterMove(int id, std::string movement_name) const {
     return game_.canCharacterMove(id, movement_name);
 }
 
-double GameController::getCharacterCoolDownAttackTime(int id, std::string attack_name) const {
-    return game_.getCharacterCoolDownAttack(id, attack_name);
+double GameController::getCharacterCoolDownAttackTime(int id, int attackIndex) const {
+    return game_.getCharacterCoolDownAttack(id, getAttackName(attackIndex));
 }
 
 bool GameController::isAValidId(int id) const {
     return game_.isAValidId(id);
 }
 
-void GameController::attack(int id, std::string attack_name, int targetId) {
-    game_.attack(id, attack_name, targetId);
+void GameController::attack(int id, int attackIndex, int targetId) {
+    game_.attack(id, getAttackName(attackIndex), targetId);
 }
 
-void GameController::move(int id, std::string movement_name) {
-    game_.move(id, movement_name);
+void GameController::move(int id, int attackIndex) {
+    game_.move(id, getMovementName(attackIndex));
 }
 
 int GameController::getPlayerId() const {
@@ -207,10 +208,8 @@ double getPlayerDashTime(const GameController* game_controller) {
     return game_controller->getPlayerDashTime();
 }
 
-// TODO Check if this is correct
 double getCharacterAttackTime(const GameController* game_controller, int id, int attackIndex) {
-    std::string attackName = DefinedAttacks::getAttackName(attackIndex);
-    return game_controller->getCharacterAttackTime(id, attackName);
+    return game_controller->getCharacterAttackTime(id, attackIndex);
 }
 
 bool isPlayerDashing(const GameController* game_controller) {
@@ -232,10 +231,9 @@ bool canCharacterMove_JUMP(const GameController* game_controller, int id) {
 bool canCharacterMove_DASH(const GameController* game_controller, int id) {
     return game_controller->canCharacterMove(id, "DASH");
 }
-// TODO Check if this is correct
+
 double getCharacterCoolDownAttackTime(const GameController* game_controller, int id, int attackIndex) {
-    std::string attackName = DefinedAttacks::getAttackName(attackIndex);
-    return game_controller->getCharacterCoolDownAttackTime(id, attackName);
+    return game_controller->getCharacterCoolDownAttackTime(id, attackIndex);
 }
 
 bool isAValidId(const GameController* game_controller, int id) {
@@ -246,65 +244,24 @@ int getPlayerId(const GameController* game_controller) {
     return game_controller->getPlayerId();
 }
 
-void attack_ATTACK1(GameController* game_controller, int id, int targetId) {
-    game_controller->attack(id, "ATTACK1", targetId);
+void attack(GameController* game_controller, int id, int attackIndex, int targetId) {
+    game_controller->attack(id, attackIndex, targetId);
 }
 
-void attack_ATTACK2(GameController* game_controller, int id, int targetId) {
-    game_controller->attack(id, "ATTACK2", targetId);
+void move(GameController* game_controller, int id, int attackIndex) {
+    game_controller->move(id, attackIndex);
 }
 
-void attack_ATTACK3(GameController* game_controller, int id, int targetId) {
-    game_controller->attack(id, "ATTACK3", targetId);
-}
-
-void attack_ATTACK4(GameController* game_controller, int id, int targetId) {
-    game_controller->attack(id, "ATTACK4", targetId);
-}
-
-void attack_ATTACK5(GameController* game_controller, int id, int targetId) {
-    game_controller->attack(id, "ATTACK5", targetId);
-}
-
-void attack_ATTACK_SPECTRUM(GameController* game_controller, int id, int targetId) {
-    game_controller->attack(id, "ATTACK_SPECTRUM", targetId);
-}
-
-void attack_ATTACK_MONSTER(GameController* game_controller, int id, int targetId) {
-    game_controller->attack(id, "ATTACK_MONSTER", targetId);
-}
-
-void attack_ATTACK_DROID(GameController* game_controller, int id, int targetId) {
-    game_controller->attack(id, "ATTACK_DROID", targetId);
-}
-
-void move_RUN(GameController* game_controller, int id) {
-    game_controller->move(id, "RUN");
-}
-
-void move_JUMP(GameController* game_controller, int id) {
-    game_controller->move(id, "JUMP");
-}
-
-void move_DASH(GameController* game_controller, int id) {
-    game_controller->move(id, "DASH");
-}
-
-// TODO Check if this is correct
 double getAttackDamage(const GameController* gameController, int id, int attackIndex) {
-    std::string attackName = DefinedAttacks::getAttackName(attackIndex);
-    return gameController->getDamage(id, attackName);
-}
-// TODO Check if this is correct
-double getAttackChargeTime(const GameController* gameController, int id, int attackIndex) {
-    std::string attackName = DefinedAttacks::getAttackName(attackIndex);
-    return gameController->getChargeTime(id, attackName);
+    return gameController->getDamage(id, attackIndex);
 }
 
-// TODO Check if this is correct
+double getAttackChargeTime(const GameController* gameController, int id, int attackIndex) {
+    return gameController->getChargeTime(id, attackIndex);
+}
+
 bool canCharacterAttack(const GameController* game_controller, int id, int attackIndex) {
-    std::string attackName = DefinedAttacks::getAttackName(attackIndex);
-    return game_controller->canCharacterAttack(id, attackName);
+    return game_controller->canCharacterAttack(id, attackIndex);
 }
 
 double getCharacterHurtTime(const GameController* game_controller, int id) {
@@ -313,4 +270,20 @@ double getCharacterHurtTime(const GameController* game_controller, int id) {
 
 bool isCharacterBusy(GameController* game_controller, int id) {
     return game_controller->isCharacterBusy(id);
+}
+
+std::string GameController::getAttackName(int attackIndex) {
+    try {
+        return DefinedAttacks::getAttackName(attackIndex);
+    } catch (std::out_of_range&e) {
+        return {};
+    }
+}
+
+std::string GameController::getMovementName(int movementIndex) {
+    try {
+        return DefinedMovements::getMovementName(movementIndex);
+    } catch (std::out_of_range&e) {
+        return {};
+    }
 }

@@ -31,6 +31,10 @@
 class GameController {
     Game game_; ///< The core game instance managing levels, players, and enemies.
 
+    static std::string getAttackName(int attackIndex);
+
+    static std::string getMovementName(int movementIndex);
+
 public:
     /**
      * @brief Gets the player's maximum health.
@@ -108,7 +112,7 @@ public:
      * @param attackName The name of the attack.
      * @return True if the character can attack, otherwise false.
      */
-    [[nodiscard]] bool canCharacterAttack(int, std::string) const;
+    [[nodiscard]] bool canCharacterAttack(int, int) const;
 
     /**
      * @brief Gets the damage of a character's attack.
@@ -116,7 +120,7 @@ public:
      * @param attackName The name of the attack.
      * @return The damage dealt by the attack.
      */
-    [[nodiscard]] int getDamage(int, std::string) const;
+    [[nodiscard]] int getDamage(int, int) const;
 
     /**
      * @brief Gets the charge time of a character's attack.
@@ -124,7 +128,7 @@ public:
      * @param attackName The name of the attack.
      * @return The charge time of the attack.
      */
-    [[nodiscard]] double getChargeTime(int, std::string) const;
+    [[nodiscard]] double getChargeTime(int, int) const;
 
     /**
      * @brief Gets the hurt animation time of a character.
@@ -183,7 +187,7 @@ public:
      * @param attackName The name of the attack.
      * @return The time of the attack.
      */
-    [[nodiscard]] double getCharacterAttackTime(int, std::string) const;
+    [[nodiscard]] double getCharacterAttackTime(int, int) const;
 
     /**
      * @brief Checks if the player is currently dashing.
@@ -211,7 +215,7 @@ public:
      * @param attackName The name of the attack.
      * @return The cooldown time of the attack.
      */
-    [[nodiscard]] double getCharacterCoolDownAttackTime(int, std::string) const;
+    [[nodiscard]] double getCharacterCoolDownAttackTime(int, int) const;
 
     /**
      * @brief Checks if a character ID is valid.
@@ -232,14 +236,14 @@ public:
      * @param attackName The name of the attack.
      * @param targetId The unique ID of the target character.
      */
-    void attack(int, std::string, int);
+    void attack(int, int, int);
 
     /**
      * @brief Moves a character with a specific movement.
      * @param id The unique ID of the character.
      * @param movementName The name of the movement.
      */
-    void move(int, std::string);
+    void move(int, int);
 
     /**
      * @brief Checks if a character is currently busy performing an action.
@@ -273,13 +277,10 @@ MY_API double getEnemyFollowRange(const GameController*, int);
 
 MY_API double getEnemyAttackRange(const GameController*, int);
 
-// TODO Check if this is correct
 MY_API double getAttackDamage(const GameController*, int, int);
 
-// TODO Check if this is correct
 MY_API double getAttackChargeTime(const GameController*, int, int);
 
-// TODO Check if this is correct
 MY_API bool canCharacterAttack(const GameController*, int, int);
 
 MY_API double getCharacterHurtTime(const GameController*, int);
@@ -298,7 +299,6 @@ MY_API double getPlayerLandingTime(const GameController*);
 
 MY_API double getPlayerDashTime(const GameController*);
 
-// TODO Check if this is correct
 MY_API double getCharacterAttackTime(const GameController*, int, int);
 
 MY_API bool isPlayerDashing(const GameController*);
@@ -311,34 +311,15 @@ MY_API bool canCharacterMove_JUMP(const GameController*, int);
 
 MY_API bool canCharacterMove_DASH(const GameController*, int);
 
-// TODO Check if this is correct
 MY_API double getCharacterCoolDownAttackTime(const GameController*, int, int);
 
 MY_API bool isAValidId(const GameController*, int);
 
 MY_API int getPlayerId(const GameController*);
 
-MY_API void attack_ATTACK1(GameController*, int, int);
+MY_API void attack(GameController*, int, int, int);
 
-MY_API void attack_ATTACK2(GameController*, int, int);
-
-MY_API void attack_ATTACK3(GameController*, int, int);
-
-MY_API void attack_ATTACK4(GameController*, int, int);
-
-MY_API void attack_ATTACK5(GameController*, int, int);
-
-MY_API void attack_ATTACK_SPECTRUM(GameController*, int, int);
-
-MY_API void attack_ATTACK_MONSTER(GameController*, int, int);
-
-MY_API void attack_ATTACK_DROID(GameController*, int, int);
-
-MY_API void move_RUN(GameController*, int);
-
-MY_API void move_JUMP(GameController*, int);
-
-MY_API void move_DASH(GameController*, int);
+MY_API void move(GameController*, int, int);
 
 MY_API bool isCharacterBusy(GameController*, int);
 

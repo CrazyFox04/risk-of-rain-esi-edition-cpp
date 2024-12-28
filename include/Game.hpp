@@ -130,7 +130,7 @@ public:
      * @param attackName The name of the attack.
      * @return True if the character can attack, otherwise false.
      */
-    [[nodiscard]] bool canCharacterAttack(int id, std::string attackName) const;
+    [[nodiscard]] bool canCharacterAttack(int id, const std::string&attackName) const;
 
     /**
      * @brief Retrieves the damage of a character's attack.
@@ -138,7 +138,7 @@ public:
      * @param attackName The name of the attack.
      * @return The damage dealt by the attack.
      */
-    [[nodiscard]] int getDamage(int id, std::string attackName) const;
+    [[nodiscard]] int getDamage(int id, const std::string&attackName) const;
 
     /**
      * @brief Retrieves the charge time of a character's attack.
@@ -146,7 +146,7 @@ public:
      * @param attackName The name of the
      * @return The charge time of the attack.
      */
-    [[nodiscard]] double getChargeTime(int id, std::string attackName) const;
+    [[nodiscard]] double getChargeTime(int id, const std::string&attackName) const;
 
     /**
      * @brief Retrieves the hurt animation time of a character.
@@ -232,7 +232,7 @@ public:
      * @param movementName The name of the movement.
      * @return True if the character can move, otherwise false.
      */
-    [[nodiscard]] bool canCharacterMove(int id, std::string movementName) const;
+    [[nodiscard]] bool canCharacterMove(int id, const std::string& movementName) const;
 
     /**
      * @brief Retrieves the cooldown time of a character's attack.
@@ -272,7 +272,9 @@ public:
      * @param attackName The name of the attack.
      * @return True if the attack name is valid, otherwise false.
      */
-    static bool isAValidAttackName(std::string attackName) ;
+    static bool isAValidAttackName(const std::string&attackName) ;
+
+    static bool isAValidMovementName(const std::string& string);
 
     /**
      * @brief Attacks a target character with a specific attack.
@@ -289,6 +291,6 @@ public:
      * @param movementName The name of the movement.
      * @throws std::invalid_argument If the movement is invalid or the ID is not valid.
      */
-    void move(int id, std::string movementName);
+    void move(int id, const std::string& movementName);
 };
 #endif //GAME_HPP

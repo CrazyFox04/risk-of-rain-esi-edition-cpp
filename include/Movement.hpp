@@ -13,6 +13,7 @@
 #define MOVEMENT_HPP
 #include <string>
 #include <chrono>
+#include "Movements.hpp"
 
 /**
  * @class Movement

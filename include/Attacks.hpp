@@ -74,7 +74,6 @@ struct DefinedAttacks {
         return attacks;
     }
 
-    // TODO Check if this is correct
     /**
      * @brief Retrieves the name of a specific attack.
      * @param attack The attack enum value.
