@@ -307,3 +307,10 @@ TEST(GameTest, playerIsHurtBusy) {
     usleep(Player::DEF_HURT_TIME * 1000000);
     EXPECT_FALSE(game.isCharacterBusy(id));
 }
+
+TEST(GameTest, canCharacterAttackAttack4Player) {
+    Game game = Game();
+    int id = game.getPlayerId();
+    EXPECT_TRUE(game.canCharacterAttack(id, "ATTACK3"));
+    EXPECT_FALSE(game.canCharacterAttack(id, "ATTACK4"));
+}
