@@ -13,7 +13,7 @@ Capabilities::Capabilities(std::set<Attack> attacks, std::set<std::shared_ptr<Mo
         this->attacks.emplace(attack.getName(), attack);
     }
     for (const auto&movement: movements) {
-        this->movements.emplace(movement->getName(), *movement);
+        this->movements.emplace(movement->getName(), movement);
     }
     if (hasJetPack) {
         jetPack = JetPack(JetPack::DEF_FORCE, JetPack::DEF_TIME, JetPack::DEF_COOLDOWN,
@@ -47,7 +47,7 @@ bool Capabilities::canUse(std::string name) const {
         return attacks.at(name).canUse();
     }
     if (hasThisMovement(name)) {
-        return movements.at(name).canUse();
+        return movements.at(name)->canUse();
     }
     return false; // doesn't have this capability
 }
@@ -59,7 +59,7 @@ Attack Capabilities::getAttack(std::string name) const {
     return attacks.at(name);
 }
 
-Movement Capabilities::getMovement(std::string name) const {
+std::shared_ptr<Movement> Capabilities::getMovement(std::string name) const {
     if (!hasThisMovement(name)) {
         throw std::invalid_argument("This movement does not exist");
     }
@@ -83,7 +83,7 @@ int Capabilities::use(std::string name) {
         return attacks.at(name).getDamage();
     }
     if (hasThisMovement(name)) {
-        movements.at(name).use();
+        movements.at(name)->use();
         return 0;
     }
 }
@@ -95,7 +95,7 @@ bool Capabilities::isBusy() const {
         }
     }
     for (const auto&[name, movement]: movements) {
-        if (movement.isUsing()) {
+        if (movement->isUsing()) {
             return true;
         }
     }
