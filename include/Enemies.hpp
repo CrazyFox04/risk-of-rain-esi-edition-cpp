@@ -40,6 +40,8 @@ struct DefinedEnemies {
      */
     static DefinedEnemies get(const Enemies enemies);
 
+    static int getId(const std::string&enemies);
+
     /**
      * @brief Retrieves the number of predefined enemy types.
      * @return The number of elements in the Enemies enum.

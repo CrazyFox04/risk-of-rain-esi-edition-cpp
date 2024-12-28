@@ -65,9 +65,9 @@ TEST(GameTest, IfSpawnReturnId_isInThisLevel) {
     int areaY = std::get<1>(std::get<0>(existingSpawn));
     int spawnId = std::get<1>(existingSpawn);
     int id = game.ifCanSpawnCurrentLevelSpawnAt(areaX, areaY, spawnId);
-    EXPECT_NO_THROW(game.getType(98765678987));
-    EXPECT_EQ("", game.getType(98765678987));
-    EXPECT_NO_THROW(game.getType(id));
+    EXPECT_NO_THROW(game.getCharacterType(98765678987));
+    EXPECT_EQ(-1, game.getCharacterType(98765678987));
+    EXPECT_NO_THROW(game.getCharacterType(id));
 }
 
 TEST(GameTest, noThrowWhenGetCharacterSpeed) {
@@ -234,7 +234,7 @@ TEST(GameTest, noThrowWhenIfCanSpawnCurrentLevelSpawnAt) {
 TEST(GameTest, noThrowWhenGetType) {
     Game game = Game();
     int id = 0;
-    EXPECT_NO_THROW(game.getType(id));
+    EXPECT_NO_THROW(game.getCharacterType(id));
 }
 
 TEST(GameTest, playerJump) {
@@ -300,7 +300,7 @@ TEST(GameTest, playerIsHurtBusy) {
     int enemyId = 0;
     do {
         enemyId = game.ifCanSpawnCurrentLevelSpawnAt(areaX, areaY, spawnId);
-    } while (game.getType(enemyId) != "SPECTRUM");
+    } while (game.getCharacterType(enemyId) != 1);
     EXPECT_FALSE(game.isCharacterBusy(id));
     EXPECT_NO_THROW(game.attack(enemyId, "ATTACK_SPECTRUM", id));
     EXPECT_EQ(game.getPlayerCurrentHealth(), Player::DEF_MAX_HEALTH - 75);

@@ -94,7 +94,7 @@ public:
      * @param id The character's ID.
      * @return The character's type as a string.
      */
-    [[nodiscard]] std::string getType(int id) const;
+    [[nodiscard]] int getCharacterType(int id) const;
 
     /**
      * @brief Retrieves the speed of a character by ID.

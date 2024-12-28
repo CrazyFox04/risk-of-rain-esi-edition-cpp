@@ -94,3 +94,12 @@ Enemy DefinedEnemies::getRandomEnemy(bool isBoss) {
     }
     throw std::runtime_error("Failed to find a suitable enemy");
 }
+
+int DefinedEnemies::getId(const std::string&enemies) {
+    for (const auto& enemy : magic_enum::enum_values<Enemies>()) {
+        if (magic_enum::enum_name(enemy) == enemies) {
+            return enemy; 
+        }
+    }
+    throw std::invalid_argument("This enemy does not exist");
+}

@@ -76,7 +76,7 @@ public:
      * @param id The unique ID of the character.
      * @return The type of the character as a string.
      */
-    [[nodiscard]] std::string getType(int) const;
+    [[nodiscard]] int getCharacterType(int) const;
 
     /**
      * @brief Gets the speed of a character by ID.
@@ -286,7 +286,7 @@ MY_API int getAreaGuidCurrentLevel(const GameController*, int, int);
 
 MY_API int ifCanSpawnCurrentLevelSpawnAt(GameController*, int, int, int);
 
-MY_API const char* getType(const GameController*, int);
+MY_API int getCharacterType(const GameController*, int);
 
 MY_API double getCharacterSpeed(const GameController*, int);
 
