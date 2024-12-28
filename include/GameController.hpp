@@ -240,6 +240,13 @@ public:
      * @param movementName The name of the movement.
      */
     void move(int, std::string);
+
+    /**
+     * @brief Checks if a character is currently busy performing an action.
+     * @relatedalso Game::isCharacterBusy
+     * @return True if the character is busy, otherwise false.
+     */
+    bool isCharacterBusy(int) const;
 };
 
 MY_API GameController* newGame();
@@ -397,5 +404,7 @@ MY_API void move_RUN(GameController*, int);
 MY_API void move_JUMP(GameController*, int);
 
 MY_API void move_DASH(GameController*, int);
+
+MY_API bool isCharacterBusy(GameController*, int);
 
 #endif
