@@ -144,6 +144,18 @@ void GameController::takeOffCharacter(int id) {
     game_.takeOffCharacter(id);
 }
 
+int GameController::getMovingTime(int id) const {
+    return game_.getMovingType(id);
+}
+
+int GameController::isMoving(int id) const {
+    return game_.isMoving(id);
+}
+
+void GameController::stopMoving(int id, int type) {
+    game_.stopMoving(id, type);
+}
+
 GameController* newGame() {
     return new GameController();
 }
@@ -305,3 +317,16 @@ void landCharacter(GameController* game_controller, int id) {
 void takeOffCharacter(GameController* game_controller, int id) {
     game_controller->takeOffCharacter(id);
 }
+
+int getMovingTime(const GameController* game_controller, int id) {
+    return game_controller->getMovingTime(id);
+}
+
+int isMoving(const GameController* game_controller, int id) {
+    return game_controller->isMoving(id);
+}
+
+void stopMoving(GameController* game_controller, int id, int type) {
+    game_controller->stopMoving(id, type);
+}
+
