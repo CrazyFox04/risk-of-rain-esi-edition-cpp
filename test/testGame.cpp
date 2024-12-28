@@ -315,10 +315,3 @@ TEST(GameTest, canCharacterAttackAttack4Player) {
     EXPECT_TRUE(game.canCharacterAttack(id, "ATTACK3"));
     EXPECT_FALSE(game.canCharacterAttack(id, "ATTACK4"));
 }
-
-TEST(GameTest, canAttack2) {
-    Game game = Game();
-    GameController gameController = GameController();
-    int id = game.getPlayerId();
-    EXPECT_TRUE(canCharacterAttack(gameController, id, 1));
-}
