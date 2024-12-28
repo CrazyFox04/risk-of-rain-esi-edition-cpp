@@ -132,6 +132,18 @@ bool GameController::isCharacterBusy(int id) const {
     return game_.isCharacterBusy(id);
 }
 
+bool GameController::isCharacterOnGround(int id) const {
+    return game_.isCharacterOnGround(id);
+}
+
+void GameController::landCharacter(int id) {
+    game_.landCharacter(id);
+}
+
+void GameController::takeOffCharacter(int id) {
+    game_.takeOffCharacter(id);
+}
+
 GameController* newGame() {
     return new GameController();
 }
@@ -286,4 +298,16 @@ std::string GameController::getMovementName(int movementIndex) {
     } catch (std::out_of_range&e) {
         return {};
     }
+}
+
+bool isCharacterOnGround(const GameController* game_controller, int id) {
+    return game_controller->isCharacterOnGround(id);
+}
+
+void landCharacter(GameController* game_controller, int id) {
+    game_controller->landCharacter(id);
+}
+
+void takeOffCharacter(GameController* game_controller, int id) {
+    game_controller->takeOffCharacter(id);
 }

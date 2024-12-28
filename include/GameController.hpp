@@ -251,6 +251,25 @@ public:
      * @return True if the character is busy, otherwise false.
      */
     bool isCharacterBusy(int) const;
+
+    /**
+  * @brief Check if a character is on the ground.
+  * @param id The ID of the character.
+  * @return True if the character is on the ground, otherwise false.
+  */
+    bool isCharacterOnGround(int id) const;
+
+    /**
+     * @brief Changes the onGround status of the character.
+     * @param id The ID of the character.
+     */
+    void landCharacter(int id);
+
+    /**
+     * @brief Changes the onGround status of the character.
+     * @param id The ID of the character.
+     */
+    void takeOffCharacter(int id);
 };
 
 MY_API GameController* newGame();
@@ -322,5 +341,11 @@ MY_API void attack(GameController*, int, int, int);
 MY_API void move(GameController*, int, int);
 
 MY_API bool isCharacterBusy(GameController*, int);
+
+MY_API bool isCharacterOnGround(const GameController*, int);
+
+MY_API void landCharacter(GameController*, int);
+
+MY_API void takeOffCharacter(GameController*, int);
 
 #endif

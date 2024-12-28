@@ -315,3 +315,22 @@ TEST(GameTest, canCharacterAttackAttack4Player) {
     EXPECT_TRUE(game.canCharacterAttack(id, "ATTACK3"));
     EXPECT_FALSE(game.canCharacterAttack(id, "ATTACK4"));
 }
+
+TEST(GameTest, canUseJump) {
+    Game game = Game();
+    int id = game.getPlayerId();
+    EXPECT_TRUE(game.canCharacterMove(id, "JUMP"));
+    EXPECT_NO_THROW(game.move(id, "JUMP"));
+    EXPECT_FALSE(game.canCharacterMove(id, "JUMP"));
+}
+
+TEST(GameTest, JumpAndLand) {
+    Game game = Game();
+    int id = game.getPlayerId();
+    EXPECT_TRUE(game.canCharacterMove(id, "JUMP"));
+    EXPECT_NO_THROW(game.move(id, "JUMP"));
+    EXPECT_NO_THROW(game.takeOffCharacter(id));
+    EXPECT_FALSE(game.canCharacterMove(id, "JUMP"));
+    EXPECT_NO_THROW(game.landCharacter(id));
+    EXPECT_TRUE(game.canCharacterMove(id, "JUMP"));
+}
