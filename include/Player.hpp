@@ -36,6 +36,7 @@ public:
     static constexpr double DEF_RUN_FORCE = 4.0; ///< Default force for running movements.
     static constexpr double DEF_JUMP_FORCE = 5.0; ///< Default force for jumping movements.
     static constexpr double DEF_HURT_TIME = 0.5; ///< Default duration of the hurt animation.
+    static constexpr double DEF_CLIMB_FORCE = 4.0;
     static const std::set<Attack> DEF_ATTACKS_PLAYER; ///< Default set of attacks available to the player.
 
     /**

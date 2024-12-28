@@ -206,5 +206,7 @@ public:
      * @brief Changes the onGround status of the character.
      */
     void takeOff();
+    int isMoving() const;
+    void stopMoving(std::string movementName);
 };
 #endif //CHARACTER_HPP

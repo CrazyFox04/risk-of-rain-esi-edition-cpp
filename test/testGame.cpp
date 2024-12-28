@@ -334,3 +334,12 @@ TEST(GameTest, JumpAndLand) {
     EXPECT_NO_THROW(game.landCharacter(id));
     EXPECT_TRUE(game.canCharacterMove(id, "JUMP"));
 }
+
+TEST(GameTest, playerClimb) {
+    Game game = Game();
+    int id = game.getPlayerId();
+    EXPECT_TRUE(game.canCharacterMove(id, "CLIMB"));
+    EXPECT_NO_THROW(game.move(id, "CLIMB"));
+    EXPECT_EQ(4, game.isMoving(id));
+    EXPECT_NO_THROW(game.stopMoving(id, 4));
+}

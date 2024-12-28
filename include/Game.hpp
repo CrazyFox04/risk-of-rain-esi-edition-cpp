@@ -232,7 +232,7 @@ public:
      * @param movementName The name of the movement.
      * @return True if the character can move, otherwise false.
      */
-    [[nodiscard]] bool canCharacterMove(int id, const std::string& movementName) const;
+    [[nodiscard]] bool canCharacterMove(int id, const std::string&movementName) const;
 
     /**
      * @brief Retrieves the cooldown time of a character's attack.
@@ -259,7 +259,7 @@ public:
      * @brief Retrieves an existing spawn point in the current level.
      * @return The spawn point as a tuple of area coordinates and spawn ID.
      */
-    [[nodiscard]] std::tuple<std::tuple<int,int>, int> getExistingSpawn() const;
+    [[nodiscard]] std::tuple<std::tuple<int, int>, int> getExistingSpawn() const;
 
     /**
      * @brief Retrieves the names of all character attacks.
@@ -272,9 +272,9 @@ public:
      * @param attackName The name of the attack.
      * @return True if the attack name is valid, otherwise false.
      */
-    static bool isAValidAttackName(const std::string&attackName) ;
+    static bool isAValidAttackName(const std::string&attackName);
 
-    static bool isAValidMovementName(const std::string& string);
+    static bool isAValidMovementName(const std::string&string);
 
     /**
      * @brief Attacks a target character with a specific attack.
@@ -291,7 +291,7 @@ public:
      * @param movementName The name of the movement.
      * @throws std::invalid_argument If the movement is invalid or the ID is not valid.
      */
-    void move(int id, const std::string& movementName);
+    void move(int id, const std::string&movementName);
 
     /**
      * @brief Check if a character is on the ground.
@@ -299,15 +299,23 @@ public:
      * @return True if the character is on the ground, otherwise false.
      */
     bool isCharacterOnGround(int id) const;
+
     /**
      * @brief Changes the onGround status of the character.
      * @param id The ID of the character.
      */
     void landCharacter(int id);
+
     /**
      * @brief Changes the onGround status of the character.
      * @param id The ID of the character.
      */
     void takeOffCharacter(int id);
+
+    int getMovingType(int id) const;
+
+    int isMoving(int id) const;
+
+    void stopMoving(int id, int type);
 };
 #endif //GAME_HPP

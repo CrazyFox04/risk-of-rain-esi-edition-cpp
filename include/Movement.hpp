@@ -46,7 +46,7 @@ public:
      * @brief Checks if the movement is currently in use.
      * @return True if the movement is in use, otherwise false.
      */
-    [[nodiscard]] bool isUsing() const;
+    virtual bool isUsing() const;
 
     /**
      * @brief Checks if the movement can be used.
@@ -59,6 +59,7 @@ public:
      * @throws std::invalid_argument If the movement cannot be used due to cooldown or other constraints.
      */
     virtual void use();
+    virtual void stop();
 
     /**
      * @brief Retrieves the name of the movement.

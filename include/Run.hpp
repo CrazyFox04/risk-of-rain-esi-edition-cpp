@@ -20,12 +20,17 @@
  * to run with a specified force.
  */
 class Run : public Movement {
+    int running = false; ///< Flag indicating if the character is currently running.
 public:
     /**
      * @brief Constructs a Run object with a specified force.
      * @param force The force applied during the running movement.
      */
     explicit Run(double force);
+    void use() override;
+    void stop() override;
+    bool isUsing() const override;
+    bool canUse() const override;
 };
 
 #endif //RUN_HPP
