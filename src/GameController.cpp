@@ -179,38 +179,6 @@ double getEnemyAttackRange(const GameController* game_controller, int id) {
     return game_controller->getEnemyAttackRange(id);
 }
 
-bool canCharacterAttack_ATTACK1(const GameController* game_controller, int id) {
-    return game_controller->canCharacterAttack(id, "ATTACK1");
-}
-
-bool canCharacterAttack_ATTACK2(const GameController* game_controller, int id) {
-    return game_controller->canCharacterAttack(id, "ATTACK2");
-}
-
-bool canCharacterAttack_ATTACK3(const GameController* game_controller, int id) {
-    return game_controller->canCharacterAttack(id, "ATTACK3");
-}
-
-bool canCharacterAttack_ATTACK4(const GameController* game_controller, int id) {
-    return game_controller->canCharacterAttack(id, "ATTACK4");
-}
-
-bool canCharacterAttack_ATTACK5(const GameController* game_controller, int id) {
-    return game_controller->canCharacterAttack(id, "ATTACK5");
-}
-
-bool canCharacterAttack_ATTACK_SPECTRUM(const GameController* game_controller, int id) {
-    return game_controller->canCharacterAttack(id, "ATTACK_SPECTRUM");
-}
-
-bool canCharacterAttack_ATTACK_MONSTER(const GameController* game_controller, int id) {
-    return game_controller->canCharacterAttack(id, "ATTACK_MONSTER");
-}
-
-bool canCharacterAttack_ATTACK_DROID(const GameController* game_controller, int id) {
-    return game_controller->canCharacterAttack(id, "ATTACK_DROID");
-}
-
 int getCharacterHealth(const GameController* game_controller, int id) {
     return game_controller->getCharacterHealth(id);
 }

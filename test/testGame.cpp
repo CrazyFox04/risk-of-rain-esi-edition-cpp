@@ -3,6 +3,7 @@
 //
 #include <gtest/gtest.h>
 #include "Game.hpp"
+#include "GameController.hpp"
 #include <tuple>
 #include "Level.hpp"
 
@@ -313,4 +314,11 @@ TEST(GameTest, canCharacterAttackAttack4Player) {
     int id = game.getPlayerId();
     EXPECT_TRUE(game.canCharacterAttack(id, "ATTACK3"));
     EXPECT_FALSE(game.canCharacterAttack(id, "ATTACK4"));
+}
+
+TEST(GameTest, canAttack2) {
+    Game game = Game();
+    GameController gameController = GameController();
+    int id = game.getPlayerId();
+    EXPECT_TRUE(canCharacterAttack(gameController, id, 1));
 }
