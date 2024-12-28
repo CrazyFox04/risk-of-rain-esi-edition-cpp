@@ -101,7 +101,7 @@ public:
      * @param id The character's ID.
      * @return The character's speed.
      */
-    [[nodiscard]] int getCharacterSpeed(int id) const;
+    [[nodiscard]] double getCharacterSpeed(int id) const;
 
     /**
      * @brief Retrieves the jump force of a character by ID.

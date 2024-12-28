@@ -31,7 +31,7 @@ std::string GameController::getType(int id) const {
     return game_.getType(id);
 }
 
-int GameController::getCharacterSpeed(int id) const {
+double GameController::getCharacterSpeed(int id) const {
     return game_.getCharacterSpeed(id);
 }
 
@@ -51,7 +51,7 @@ bool GameController::canCharacterAttack(int id, std::string attack_name) const {
     return game_.canCharacterAttack(id, attack_name);
 }
 
-double GameController::getDamage(int id, std::string attack_name) const {
+int GameController::getDamage(int id, std::string attack_name) const {
     return game_.getDamage(id, attack_name);
 }
 
@@ -159,7 +159,7 @@ const char* getType(const GameController* game_controller, int id) {
     return game_controller->getType(id).c_str();
 }
 
-int getCharacterSpeed(const GameController* game_controller, int id) {
+double getCharacterSpeed(const GameController* game_controller, int id) {
     return game_controller->getCharacterSpeed(id);
 }
 

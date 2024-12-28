@@ -79,7 +79,7 @@ public:
      * @param id The unique ID of the character.
      * @return The speed of the character.
      */
-    [[nodiscard]] int getCharacterSpeed(int) const;
+    [[nodiscard]] double getCharacterSpeed(int) const;
 
     /**
      * @brief Gets the jump force of a character by ID.
@@ -258,7 +258,7 @@ MY_API int ifCanSpawnCurrentLevelSpawnAt(GameController*, int, int, int);
 
 MY_API const char* getType(const GameController*, int);
 
-MY_API int getCharacterSpeed(const GameController*, int);
+MY_API double getCharacterSpeed(const GameController*, int);
 
 MY_API double getCharacterJumpForce(const GameController*, int);
 

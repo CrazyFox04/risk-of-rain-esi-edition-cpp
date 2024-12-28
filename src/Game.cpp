@@ -8,7 +8,7 @@
 #include "Enemies.hpp"
 #include "Game.hpp"
 
-int Game::getCharacterSpeed(int id) const {
+double Game::getCharacterSpeed(int id) const {
     if (!isAValidId(id)) {
         return -1;
     }
