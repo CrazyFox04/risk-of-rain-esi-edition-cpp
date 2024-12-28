@@ -49,7 +49,7 @@ bool Capabilities::canUse(std::string name) const {
     if (hasThisMovement(name)) {
         return movements.at(name).canUse();
     }
-    throw std::invalid_argument("This capability does not exist");
+    return false; // doesn't have this capability
 }
 
 Attack Capabilities::getAttack(std::string name) const {
