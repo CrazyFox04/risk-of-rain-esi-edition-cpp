@@ -52,3 +52,7 @@ double Movement::getAnimationTime() const {
 double Movement::getCooldown() const {
     return cooldown;
 }
+
+void Movement::stop() {
+    // nop
+}

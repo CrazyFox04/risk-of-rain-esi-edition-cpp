@@ -31,11 +31,11 @@ std::chrono::time_point<std::chrono::steady_clock> Capabilities::getLastAttackTi
     return lastAttackTime;
 }
 
-bool Capabilities::hasThisAttack(std::string&name) const {
+bool Capabilities::hasThisAttack(std::string name) const {
     return attacks.contains(name);
 }
 
-bool Capabilities::hasThisMovement(std::string&name) const {
+bool Capabilities::hasThisMovement(std::string name) const {
     return movements.contains(name);
 }
 
@@ -100,4 +100,23 @@ bool Capabilities::isBusy() const {
         }
     }
     return jetPack.isUsing();
+}
+
+int Capabilities::isMoving() const {
+    if (movements.at("RUN")->isUsing()) {
+        return DefinedMovements::getMovementIndex("RUN");
+    }
+    if (movements.at("JUMP")->isUsing()) {
+        return DefinedMovements::getMovementIndex("JUMP");
+    }
+    if (movements.at("DASH")->isUsing()) {
+        return DefinedMovements::getMovementIndex("DASH");
+    }
+    if (movements.at("CLIMB")->isUsing()) {
+        return DefinedMovements::getMovementIndex("CLIMB");
+    }
+    if (jetPack.isUsing()) {
+        return DefinedMovements::getMovementIndex("JETPACK");
+    }
+    return -1;
 }

@@ -360,3 +360,35 @@ void Game::takeOffCharacter(int id) {
         }
     }
 }
+
+int Game::getMovingType(int id) const {
+    if (!isAValidId(id)) {
+        return -1;
+    }
+    if (player.getId() == id) {
+        return player.isMoving();
+    }
+    return levels.at(activeLevel).getEnemy(id).isMoving();
+}
+
+int Game::isMoving(int id) const {
+    if (!isAValidId(id)) {
+        return -1;
+    }
+    if (player.getId() == id) {
+        return player.isMoving();
+    }
+    return levels.at(activeLevel).getEnemy(id).isMoving();
+}
+
+void Game::stopMoving(int id, int type) {
+    if (!isAValidId(id)) {
+        return;
+    }
+    if (player.getId() == id) {
+        player.stopMoving(DefinedMovements::getMovementName(type));
+    }
+    else {
+        levels.at(activeLevel).getEnemy(id).stopMoving(DefinedMovements::getMovementName(type));
+    }
+}

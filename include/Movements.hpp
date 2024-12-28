@@ -10,7 +10,9 @@
 enum Movements {
     RUN,
     JUMP,
-    DASH
+    DASH,
+    JETPACK,
+    CLIMB
 };
 
 struct DefinedMovements {
@@ -49,6 +51,15 @@ struct DefinedMovements {
 
     static bool isAValidMovementName(const std::string&move) {
         return getCharacterMovementsName().contains(move);
+    }
+
+    static int getMovementIndex(const std::string& movementName) {
+        for (int i = 0; i < size(); ++i) {
+            if (getMovementName(i) == movementName) {
+                return i;
+            }
+        }
+        return -1;
     }
 };
 #endif //MOVEMENTS_HPP

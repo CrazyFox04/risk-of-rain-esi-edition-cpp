@@ -27,19 +27,6 @@ class Capabilities {
     std::map<std::string, std::shared_ptr<Movement>> movements; ///< Map of movements identified by their names.
     JetPack jetPack; ///< JetPack capability, if available.
 
-    /**
-     * @brief Checks if a specific attack exists.
-     * @param name The name of the attack.
-     * @return True if the attack exists, otherwise false.
-     */
-    bool hasThisAttack(std::string& name) const;
-
-    /**
-     * @brief Checks if a specific movement exists.
-     * @param name The name of the movement.
-     * @return True if the movement exists, otherwise false.
-     */
-    bool hasThisMovement(std::string& name) const;
 public:
     /**
      * @brief Constructs a Capabilities object with the specified attacks, movements, and JetPack.
@@ -98,5 +85,21 @@ public:
      * @return True if any attack, movement, or the JetPack is in use, otherwise false.
      */
     [[nodiscard]] bool isBusy() const;
+
+    int isMoving() const;
+
+    /**
+ * @brief Checks if a specific attack exists.
+ * @param name The name of the attack.
+ * @return True if the attack exists, otherwise false.
+ */
+    bool hasThisAttack(std::string name) const;
+
+    /**
+     * @brief Checks if a specific movement exists.
+     * @param name The name of the movement.
+     * @return True if the movement exists, otherwise false.
+     */
+    bool hasThisMovement(std::string name) const;
 };
 #endif //CAPABILITIES_HPP

@@ -7,6 +7,7 @@
 #include "pch.h"
 #include "Character.hpp"
 
+#include <Climb.hpp>
 #include <Dash.hpp>
 
 #include "Jump.hpp"
@@ -123,18 +124,24 @@ bool Character::canMove(std::string movementName) const {
             return canUseJetpack();
         }
         if (movementName == "RUN") {
-            const std::shared_ptr<Run> run = std::dynamic_pointer_cast<Run>(capabilities.getMovement(movementName)); 
+            const std::shared_ptr<Run> run = std::dynamic_pointer_cast<Run>(capabilities.getMovement(movementName));
             return run->canUse();
         }
         if (movementName == "JUMP") {
-            const std::shared_ptr<Jump> jump = std::dynamic_pointer_cast<Jump>(capabilities.getMovement(movementName)); 
-            return jump->canUse(); 
+            const std::shared_ptr<Jump> jump = std::dynamic_pointer_cast<Jump>(capabilities.getMovement(movementName));
+            return jump->canUse();
         }
         if (movementName == "DASH") {
             const std::shared_ptr<Dash> dash = std::dynamic_pointer_cast<Dash>(capabilities.getMovement(movementName));
             return dash->canUse();
         }
-    } catch (std::invalid_argument& e) {
+        if (movementName == "CLIMB") {
+            const std::shared_ptr<Climb> climb = std::dynamic_pointer_cast<Climb>(
+                capabilities.getMovement(movementName));
+            return climb->canUse();
+        }
+    }
+    catch (std::invalid_argument&e) {
         return false;
     }
 }
@@ -144,7 +151,10 @@ void Character::useItem(const std::shared_ptr<Buff>&item) {
 }
 
 bool Character::isBusy() const {
-    return capabilities.isBusy() || hurtAnimation.isPlaying();
+    if (capabilities.hasThisMovement("DASH")) {
+        return capabilities.getMovement("DASH")->isUsing() || hurtAnimation.isPlaying(); 
+    }
+    return hurtAnimation.isPlaying();
 }
 
 void Character::hurt(int damage) {
@@ -164,4 +174,12 @@ Animation Character::getHurtAnimation() const {
 
 void Character::takeOff() {
     onGround = false;
+}
+
+int Character::isMoving() const {
+    return capabilities.isMoving();
+}
+
+void Character::stopMoving(std::string movementName) {
+    capabilities.getMovement(movementName)->stop();
 }

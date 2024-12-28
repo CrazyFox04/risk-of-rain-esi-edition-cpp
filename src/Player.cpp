@@ -6,13 +6,17 @@
 #endif
 #include "pch.h"
 #include "Player.hpp"
+#include "Run.hpp"
+#include <memory>
+#include <Climb.hpp>
 
 Player::Player(): Character("PLAYER", DEF_MAX_HEALTH, DEF_HURT_TIME,
                             {
                                 {DEF_ATTACKS_PLAYER}, {
                                     std::make_shared<Run>(DEF_RUN_FORCE),
                                     std::make_shared<Jump>(DEF_JUMP_FORCE, 1),
-                                    std::make_shared<Dash>()
+                                    std::make_shared<Dash>(),
+                                    std::make_shared<Climb>(DEF_CLIMB_FORCE)
                                 },
                                 true
                             }) {

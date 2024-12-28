@@ -25,6 +25,7 @@ set(SOURCES
         Run.cpp
         Animation.cpp
         Enemies.cpp
+        Climb.cpp
 )
 
 # Create the model library that public can use
