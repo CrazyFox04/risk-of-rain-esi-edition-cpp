@@ -3,6 +3,7 @@
 //
 #include <gtest/gtest.h>
 #include "Game.hpp"
+#include "GameController.hpp"
 #include <tuple>
 #include "Level.hpp"
 

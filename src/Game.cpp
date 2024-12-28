@@ -42,8 +42,11 @@ double Game::getEnemyAttackRange(int id) const {
     return levels.at(activeLevel).getEnemy(id).getAttackRange();
 }
 
-int Game::getDamage(int id, std::string attackName) const {
+int Game::getDamage(int id, const std::string& attackName) const {
     if (!isAValidId(id)) {
+        return -1;
+    }
+    if (!isAValidAttackName(attackName)) {
         return -1;
     }
     if (player.getId() == id) {
@@ -52,8 +55,11 @@ int Game::getDamage(int id, std::string attackName) const {
     return levels.at(activeLevel).getEnemy(id).getAttack(attackName).getDamage();
 }
 
-double Game::getChargeTime(int id, std::string attackName) const {
+double Game::getChargeTime(int id, const std::string& attackName) const {
     if (!isAValidId(id)) {
+        return -1;
+    }
+    if (!isAValidAttackName(attackName)) {
         return -1;
     }
     if (player.getId() == id) {
@@ -96,14 +102,24 @@ double Game::getCharacterAttackTime(int id, std::string attackName) const {
     if (!isAValidId(id)) {
         return -1;
     }
-    if (player.getId() == id) {
-        return player.getAttack(attackName).getAnimationTime();
+    if (!isAValidAttackName(attackName)) {
+        return -1;
     }
-    return levels.at(activeLevel).getEnemy(id).getAttack(attackName).getAnimationTime();
+    try {
+        if (player.getId() == id) {
+            return player.getAttack(attackName).getAnimationTime();
+        }
+        return levels.at(activeLevel).getEnemy(id).getAttack(attackName).getAnimationTime();
+    } catch (std::invalid_argument&e) {
+        return -1;
+    }
 }
 
 double Game::getCharacterCoolDownAttack(int id, std::string attackName) const {
     if (!isAValidId(id)) {
+        return -1;
+    }
+    if (!isAValidAttackName(attackName)) {
         return -1;
     }
     if (player.getId() == id) {
@@ -175,7 +191,7 @@ std::string Game::getType(int id) const {
     return levels.at(activeLevel).getEnemy(id).getType();
 }
 
-bool Game::canCharacterAttack(int id, std::string attackName) const {
+bool Game::canCharacterAttack(int id, const std::string& attackName) const {
     if (!isAValidId(id)) {
         return false;
     }
@@ -226,8 +242,11 @@ bool Game::isPlayerUsingJetpack() const {
     return player.getJetPack().isUsing();
 }
 
-bool Game::canCharacterMove(int id, std::string movementName) const {
+bool Game::canCharacterMove(int id, const std::string& movementName) const {
     if (!isAValidId(id)) {
+        return false;
+    }
+    if (isAValidMovementName(movementName)) {
         return false;
     }
     if (player.getId() == id) {
@@ -255,8 +274,12 @@ std::set<std::string> Game::getCharacterAttacksName() {
     return DefinedAttacks::getCharacterAttacksName();
 }
 
-bool Game::isAValidAttackName(std::string attackName) {
+bool Game::isAValidAttackName(const std::string& attackName) {
     return DefinedAttacks::isAValidAttackName(attackName);
+}
+
+bool Game::isAValidMovementName(const std::string& movementName) {
+    return DefinedMovements::isAValidMovementName(movementName);
 }
 
 void Game::attack(int id, std::string attackName, int targetId) {
@@ -283,9 +306,12 @@ void Game::attack(int id, std::string attackName, int targetId) {
     }
 }
 
-void Game::move(int id, std::string movementName) {
+void Game::move(int id, const std::string& movementName) {
     if (!isAValidId(id)) {
         throw std::invalid_argument("Invalid id");
+    }
+    if (!isAValidMovementName(movementName)) {
+        throw std::invalid_argument("Invalid movement name");
     }
     if (player.getId() == id) {
         if (player.canMove(movementName)) {

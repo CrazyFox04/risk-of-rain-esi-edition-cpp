@@ -75,6 +75,18 @@ struct DefinedAttacks {
     }
 
     /**
+     * @brief Retrieves the name of a specific attack.
+     * @param attack The attack enum value.
+     * @return The name of the attack.
+     */
+    static std::string getAttackName(int attack) {
+        if (attack < 0 || attack >= size()) {
+            throw std::out_of_range("Invalid attack enum value.");
+        }
+        return magic_enum::enum_name(static_cast<Attacks>(attack)).data();
+    }
+
+    /**
      * @brief Retrieves the names of all predefined character attacks.
      * @return A set of strings representing the names of all character attacks.
      */
