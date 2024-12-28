@@ -6,30 +6,134 @@
 #endif
 #include "pch.h"
 #include "Character.hpp"
-#include "Weapon.h"
-#include "Buff.h"
+#include "Jump.hpp"
+#include "Run.hpp"
+#include <utility>
 
-Character::Character(int health, int speed, int damage)
-        : health(health), speed(speed), damage(damage) {}
+int Character::nextId = 0;
 
-void Character::hit(int damage) {
-    if (canHit(damage)) {
-        health -= damage;
-        if (health <= 0) {
-            kill();
-        }
-    }
+Character::Character(const std::string&type, int max_health, double hurtTime,
+                     Capabilities capabilities) : hurtAnimation(hurtTime), type(type),
+                                                  id(nextId++),
+                                                  health(max_health, max_health), capabilities(capabilities) {
+    onGround = true;
 }
 
-void Character::kill() {
-    health = 0;
+Character::Character(const std::string&type, int max_health) : Character(type, max_health, DEF_HURT_TIME, {
+                                                                             {},
+                                                                             {
+                                                                                 std::make_shared<Run>(DEF_RUN_FORCE),
+                                                                                 std::make_shared<Jump>(
+                                                                                     DEF_JUMP_FORCE, 1)
+                                                                             },
+                                                                             false
+                                                                         }) {
+}
+
+Health Character::getHealth() const {
+    return health;
+}
+
+Attack Character::getAttack(std::string name) const {
+    return capabilities.getAttack(name);
+}
+
+Movement Character::getMovement(std::string name) const {
+    return capabilities.getMovement(name);
+}
+
+JetPack Character::getJetPack() const {
+    return capabilities.getJetPack();
+}
+
+int Character::getId() const {
+    return id;
+}
+
+const std::vector<std::shared_ptr<Buff>>& Character::getItems() const {
+    return items;
+}
+
+void Character::land() {
+    onGround = true;
+}
+
+bool Character::isLanded() const {
+    return onGround;
+}
+
+void Character::increaseHealth(int amount) {
+    health.current += amount;
+}
+
+void Character::increaseMaxHealth(int amount) {
+    health.max += amount;
+}
+
+bool Character::hasJetPack() const {
+    return capabilities.getJetPack().getForce() > 0;
+}
+
+int Character::attack(std::string attackName) {
+    if (!canUse(attackName)) {
+        throw std::invalid_argument("This attack cannot be used");
+    }
+    return capabilities.use(attackName);
+}
+
+void Character::move(std::string movementName) {
+    if (!canMove(movementName)) {
+        throw std::invalid_argument("This movement cannot be used");
+    }
+    capabilities.use(movementName);
+}
+
+bool Character::canUseJetpack() const {
+    if (!hasJetPack()) {
+        return false;
+    }
+    return capabilities.getJetPack().canActivate();
+}
+
+void Character::useJetpack() {
+    if (!canUseJetpack()) {
+        throw std::invalid_argument("Jetpack cannot be used");
+    }
+    capabilities.getJetPack().activate();
+}
+
+bool Character::canUse(std::string attackName) const {
+    return capabilities.canUse(attackName);
+}
+
+bool Character::canMove(std::string movementName) const {
+    try {
+        capabilities.getMovement(movementName);
+    } catch (std::invalid_argument&e) {
+        return false;
+    }
+    return capabilities.canUse(movementName);
+}
+
+void Character::useItem(const std::shared_ptr<Buff>&item) {
     // todo
 }
 
-bool Character::canHit(int damage) const {
-    return health > 0 && damage > 0;
+bool Character::isBusy() const {
+    return capabilities.isBusy() || hurtAnimation.isPlaying();
 }
 
-void Character::addItem(std::shared_ptr <Buff> item) {
-        buffs.push_back(item);
+void Character::hurt(int damage) {
+    health.current -= damage;
+    if (!hurtAnimation.isPlaying()) {
+        hurtAnimation.start();
+    }
+}
+
+std::string Character::getType() const {
+    return type;
+}
+
+Animation Character::getHurtAnimation() const {
+    return hurtAnimation;
 }

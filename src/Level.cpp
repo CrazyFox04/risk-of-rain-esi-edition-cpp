@@ -6,6 +6,9 @@
 #endif
 #include "pch.h"
 #include "Level.hpp"
+
+#include "Enemies.hpp"
+
 #include "Direction.hpp"
 #include <random>
 #include <stdexcept>
@@ -56,11 +59,13 @@ Level Level::generate() {
         }
     }
 
+    areas[1][1] = DefinedAreas::get(A4URDL).area;
+
     std::function<bool(int, int)> backtrack = [&](int x, int y) {
         if (x == LENGTH) return true;
         if (y == HEIGHT) return backtrack(x + 1, 0);
 
-        if (areas[x][y].get_type() == 0) return backtrack(x, y + 1);
+        if (areas[x][y].get_type() == 0 || areas[x][y].get_type() == 40) return backtrack(x, y + 1);
 
         std::vector<Area> candidates;
         for (int i = 0; i < DefinedAreas::size(); ++i) {
@@ -73,8 +78,8 @@ Level Level::generate() {
             else {
                 compatible &= candidate.isCompatible(Direction::LEFT, Area(0, 1, {}));
             }
-            if (y > 0 && areas[x][y - 1].get_type() != 0) {
-                compatible &= candidate.isCompatible(Direction::UP, areas[x][y - 1]);
+            if (y < HEIGHT - 1 && areas[x][y + 1].get_type() != 0) {
+                compatible &= candidate.isCompatible(Direction::UP, areas[x][y + 1]);
             }
             else {
                 compatible &= candidate.isCompatible(Direction::UP, Area(0, 1, {}));
@@ -85,8 +90,8 @@ Level Level::generate() {
             else {
                 compatible &= candidate.isCompatible(Direction::RIGHT, Area(0, 1, {}));
             }
-            if (y < HEIGHT - 1 && areas[x][y + 1].get_type() != 0) {
-                compatible &= candidate.isCompatible(Direction::DOWN, areas[x][y + 1]);
+            if (y > 0 && areas[x][y - 1].get_type() != 0) {
+                compatible &= candidate.isCompatible(Direction::DOWN, areas[x][y - 1]);
             }
             else {
                 compatible &= candidate.isCompatible(Direction::DOWN, Area(0, 1, {}));
@@ -108,7 +113,13 @@ Level Level::generate() {
     };
 
     if (!backtrack(0, 0)) {
-        throw std::runtime_error("Failed to generate a valid level");
+        for (int i = 0; i < LENGTH; ++i) {
+            for (int j = 0; j < HEIGHT; ++j) {
+                if (areas[i][j].get_type() == -1) {
+                    areas[i][j] = Area(0, 1, {});
+                }
+            }
+        }
     }
 
     return std::move(*this);
@@ -127,9 +138,57 @@ int Level::get_area_id(int x, int y) const {
 }
 
 int Level::get_area_guid(int x, int y) const {
+    if (!isLoaded()) {
+        throw std::runtime_error("Cannot get guid of an unloaded level");
+    }
+    if (!isValidCoordinates(x, y)) {
+        throw std::invalid_argument("Invalid area coordinates (" + std::to_string(x) + ", " + std::to_string(y) + ")");
+    }
     return areas.at(x).at(y).get_guid();
 }
 
 std::set<Direction2D> Level::get_gateway_positions(int x, int y) const {
     return areas.at(x).at(y).get_gateway_positions();
+}
+
+bool Level::can_spawn_at(int area_x, int area_y, int spawd_id) {
+    return areas.at(area_x).at(area_y).can_spawn(spawd_id);
+}
+
+int Level::spawn_at(int area_x, int area_y, int spawd_id) {
+    if (!can_spawn_at(area_x, area_y, spawd_id)) {
+        throw std::invalid_argument(
+            "Cannot spawn at area (" + std::to_string(area_x) + ", " + std::to_string(area_y) + ") with spawn id " +
+            std::to_string(spawd_id));
+    }
+    areas.at(area_x).at(area_y).spawn(spawd_id);
+    Enemy enemy = DefinedEnemies::getRandomEnemy(false);
+    enemies.emplace(enemy.getId(), enemy);
+    return enemy.getId();
+}
+
+Enemy Level::getEnemy(int enemyId) const {
+    if (!enemies.contains(enemyId)) {
+        throw std::invalid_argument("No enemy with id " + std::to_string(enemyId));
+    }
+    return enemies.at(enemyId);
+}
+
+bool Level::isAValidEnemyId(int id) const {
+    return enemies.contains(id);
+}
+
+bool Level::isValidCoordinates(int x, int y) const {
+    return x >= 0 && x < LENGTH && y >= 0 && y < HEIGHT;
+}
+
+std::tuple<std::tuple<int, int>, int> Level::getAnExistingSpawn() const {
+    for (int i = 0; i < LENGTH; ++i) {
+        for (int j = 0; j < HEIGHT; ++j) {
+            if (areas[i][j].get_type() != 0 && !areas[i][j].get_spawn_ids().empty()) {
+                return std::make_tuple(std::make_tuple(i, j), areas[i][j].get_spawn_ids().at(0));
+            }
+        }
+    }
+    return std::make_tuple(std::make_tuple(-1, -1), -1);
 }

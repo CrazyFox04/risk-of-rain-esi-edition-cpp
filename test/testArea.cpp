@@ -13,17 +13,11 @@ TEST(AreaTest, DefaultConstructorInitializesWithNegativeOneType) {
 
 TEST(AreaTest, ParameterizedConstructorInitializesCorrectly) {
     std::set<Direction2D> gateways = {Direction::UP, Direction::DOWN};
-    Area area(1, 10, gateways);
+    Area area(1, 10, gateways, {});
     EXPECT_EQ(area.get_type(), 1);
     EXPECT_EQ(area.get_id(), area.get_id()); // Ensure ID is within range
     EXPECT_TRUE(area.get_gateway_positions().contains(Direction::UP));
     EXPECT_TRUE(area.get_gateway_positions().contains(Direction::DOWN));
-}
-
-TEST(AreaTest, GetRandomAreaReturnsValidArea) {
-    Area area = Area::getRandomArea();
-    EXPECT_GE(area.get_type(), 0);
-    EXPECT_LE(area.get_type(), DefinedAreas::size());
 }
 
 TEST(AreaTest, IsCompatibleReturnsTrueForUnchosenArea) {

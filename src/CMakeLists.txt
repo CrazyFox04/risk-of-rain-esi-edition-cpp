@@ -15,6 +15,16 @@ set(SOURCES
         InteractiveObject.cpp
         Direction.cpp
         GameController.cpp
+        Spawn.cpp
+        Capabilities.cpp
+        Attack.cpp
+        JetPack.cpp
+        Movement.cpp
+        Jump.cpp
+        Dash.cpp
+        Run.cpp
+        Animation.cpp
+        Enemies.cpp
 )
 
 # Create the model library that public can use

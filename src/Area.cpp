@@ -18,7 +18,7 @@ Area Area::getRandomArea() {
     return DefinedAreas::get(static_cast<Areas>(dis(gen))).area;
 }
 
-Area::Area() : Area(-1, 1, {}) {
+Area::Area() : Area(-1, 1, {}, {}) {
 }
 
 Area::Area(int type, int max_id, std::set<Direction2D> gatewayPositions) : type(type),
@@ -28,6 +28,12 @@ Area::Area(int type, int max_id, std::set<Direction2D> gatewayPositions) : type(
         throw std::invalid_argument("max_id must be less than 100");
     }
     id = get_random_area_id(max_id);
+}
+
+Area::Area(int type, int max_is, std::set<Direction2D> gatawayPositions, std::vector<Spawn> spawns) : Area(type, max_is,
+    std::move(
+        gatawayPositions)){
+    this->spawns = spawns;
 }
 
 bool Area::isCompatible(Direction2D direction, const Area&otherArea) {
@@ -57,9 +63,34 @@ int Area::get_id() const {
 }
 
 int Area::get_guid() const {
-    return type * 100 + id;
+    return type * 10 + id;
 }
 
 std::set<Direction2D> Area::get_gateway_positions() const {
     return gatewayPositions;
+}
+
+Spawn& Area::get_spawn(int spawn_id) {
+    for (Spawn& spawn: spawns) {
+        if (spawn.getId() == spawn_id) {
+            return spawn; // return spawn (not copy)
+        }
+    }
+    throw std::invalid_argument("No spawn with id " + std::to_string(spawn_id));
+}
+
+bool Area::can_spawn(int spawd_id) {
+    return get_spawn(spawd_id).canSpawn();
+}
+
+void Area::spawn(int spawd_id) {
+    get_spawn(spawd_id).spawn();
+}
+
+std::vector<int> Area::get_spawn_ids() const {
+    std::vector<int> ids;
+    for (const Spawn& spawn: spawns) {
+        ids.push_back(spawn.getId());
+    }
+    return ids;
 }
