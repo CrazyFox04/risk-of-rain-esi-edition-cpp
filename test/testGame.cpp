@@ -248,7 +248,7 @@ TEST(GameTest, playerNotKnownMove) {
     Game game = Game();
     int id = game.getPlayerId();
     EXPECT_FALSE(game.canCharacterMove(id, "JUMPJUMP"));
-    EXPECT_NO_THROW(game.move(id, "JUMPJUMPRUN"));
+    EXPECT_THROW(game.move(id, "JUMPJUMPRUN"), std::invalid_argument);
 }
 
 TEST(GameTest, playerDashCooldown) {
