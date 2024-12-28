@@ -207,7 +207,7 @@ public:
      * @param movementName The name of the movement.
      * @return True if the character can move, otherwise false.
      */
-    [[nodiscard]] bool canCharacterMove(int, std::string) const;
+    [[nodiscard]] bool canCharacterMove(int, int) const;
 
     /**
      * @brief Gets the cooldown time of a character's attack.
@@ -324,11 +324,7 @@ MY_API bool isPlayerDashing(const GameController*);
 
 MY_API bool isPlayerUsingJetpack(const GameController*);
 
-MY_API bool canCharacterMove_RUN(const GameController*, int);
-
-MY_API bool canCharacterMove_JUMP(const GameController*, int);
-
-MY_API bool canCharacterMove_DASH(const GameController*, int);
+MY_API bool canCharacterMove(const GameController*, int, int);
 
 MY_API double getCharacterCoolDownAttackTime(const GameController*, int, int);
 
