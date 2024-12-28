@@ -246,7 +246,7 @@ bool Game::canCharacterMove(int id, const std::string& movementName) const {
     if (!isAValidId(id)) {
         return false;
     }
-    if (isAValidMovementName(movementName)) {
+    if (!isAValidMovementName(movementName)) {
         return false;
     }
     if (player.getId() == id) {
