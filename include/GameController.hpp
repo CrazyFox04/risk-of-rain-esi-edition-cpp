@@ -275,56 +275,12 @@ MY_API double getEnemyAttackRange(const GameController*, int);
 
 // TODO Check if this is correct
 MY_API double getAttackDamage(const GameController*, int, int);
+
 // TODO Check if this is correct
 MY_API double getAttackChargeTime(const GameController*, int, int);
 
-MY_API bool canCharacterAttack_ATTACK1(const GameController*, int);
-
-MY_API bool canCharacterAttack_ATTACK2(const GameController*, int);
-
-MY_API bool canCharacterAttack_ATTACK3(const GameController*, int);
-
-MY_API bool canCharacterAttack_ATTACK4(const GameController*, int);
-
-MY_API bool canCharacterAttack_ATTACK5(const GameController*, int);
-
-MY_API bool canCharacterAttack_ATTACK_SPECTRUM(const GameController*, int);
-
-MY_API bool canCharacterAttack_ATTACK_MONSTER(const GameController*, int);
-
-MY_API bool canCharacterAttack_ATTACK_DROID(const GameController*, int);
-
-MY_API double getDamage_ATTACK1(const GameController*, int);
-
-MY_API double getDamage_ATTACK2(const GameController*, int);
-
-MY_API double getDamage_ATTACK3(const GameController*, int);
-
-MY_API double getDamage_ATTACK4(const GameController*, int);
-
-MY_API double getDamage_ATTACK5(const GameController*, int);
-
-MY_API double getDamage_ATTACK_SPECTRUM(const GameController*, int);
-
-MY_API double getDamage_ATTACK_MONSTER(const GameController*, int);
-
-MY_API double getDamage_ATTACK_DROID(const GameController*, int);
-
-MY_API double getChargeTime_ATTACK1(const GameController*, int);
-
-MY_API double getChargeTime_ATTACK2(const GameController*, int);
-
-MY_API double getChargeTime_ATTACK3(const GameController*, int);
-
-MY_API double getChargeTime_ATTACK4(const GameController*, int);
-
-MY_API double getChargeTime_ATTACK5(const GameController*, int);
-
-MY_API double getChargeTime_ATTACK_SPECTRUM(const GameController*, int);
-
-MY_API double getChargeTime_ATTACK_MONSTER(const GameController*, int);
-
-MY_API double getChargeTime_ATTACK_DROID(const GameController*, int);
+// TODO Check if this is correct
+MY_API bool canCharacterAttack(const GameController*, int, int);
 
 MY_API double getCharacterHurtTime(const GameController*, int);
 
@@ -342,21 +298,8 @@ MY_API double getPlayerLandingTime(const GameController*);
 
 MY_API double getPlayerDashTime(const GameController*);
 
-MY_API double getCharacterAttackTime_ATTACK1(const GameController*, int);
-
-MY_API double getCharacterAttackTime_ATTACK2(const GameController*, int);
-
-MY_API double getCharacterAttackTime_ATTACK3(const GameController*, int);
-
-MY_API double getCharacterAttackTime_ATTACK4(const GameController*, int);
-
-MY_API double getCharacterAttackTime_ATTACK5(const GameController*, int);
-
-MY_API double getCharacterAttackTime_ATTACK_SPECTRUM(const GameController*, int);
-
-MY_API double getCharacterAttackTime_ATTACK_MONSTER(const GameController*, int);
-
-MY_API double getCharacterAttackTime_ATTACK_DROID(const GameController*, int);
+// TODO Check if this is correct
+MY_API double getCharacterAttackTime(const GameController*, int, int);
 
 MY_API bool isPlayerDashing(const GameController*);
 
@@ -368,21 +311,8 @@ MY_API bool canCharacterMove_JUMP(const GameController*, int);
 
 MY_API bool canCharacterMove_DASH(const GameController*, int);
 
-MY_API double getCharacterCoolDownAttackTime_ATTACK1(const GameController*, int);
-
-MY_API double getCharacterCoolDownAttackTime_ATTACK2(const GameController*, int);
-
-MY_API double getCharacterCoolDownAttackTime_ATTACK3(const GameController*, int);
-
-MY_API double getCharacterCoolDownAttackTime_ATTACK4(const GameController*, int);
-
-MY_API double getCharacterCoolDownAttackTime_ATTACK5(const GameController*, int);
-
-MY_API double getCharacterCoolDownAttackTime_ATTACK_SPECTRUM(const GameController*, int);
-
-MY_API double getCharacterCoolDownAttackTime_ATTACK_MONSTER(const GameController*, int);
-
-MY_API double getCharacterCoolDownAttackTime_ATTACK_DROID(const GameController*, int);
+// TODO Check if this is correct
+MY_API double getCharacterCoolDownAttackTime(const GameController*, int, int);
 
 MY_API bool isAValidId(const GameController*, int);
 
