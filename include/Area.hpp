@@ -10,7 +10,7 @@
  */
 #ifndef AREA_HPP
 #define AREA_HPP
-#include <Chest.hpp>
+#include "Chest.hpp"
 
 #include "Direction.hpp"
 #include "Spawn.hpp"

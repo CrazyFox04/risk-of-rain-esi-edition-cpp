@@ -7,7 +7,7 @@
 #include "pch.h"
 #include "Character.hpp"
 
-#include <GameOverException.hpp>
+#include "GameOverException.hpp"
 #include <random>
 
 #include "Items.hpp"
@@ -18,7 +18,6 @@
 #include "Jump.hpp"
 #include "Run.hpp"
 #include <utility>
-#include <__random/random_device.h>
 
 int Character::nextId = 0;
 

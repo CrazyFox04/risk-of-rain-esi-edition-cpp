@@ -8,7 +8,7 @@
 #include "Enemies.hpp"
 #include "Game.hpp"
 
-#include <GameOverException.hpp>
+#include "GameOverException.hpp"
 
 double Game::getCharacterSpeed(int id) const {
     if (!isAValidId(id)) {
