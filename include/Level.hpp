@@ -146,6 +146,10 @@ public:
     Item openChest(int area_x, int area_y, int chest_id);
 
     bool isChestEmpty(int area_x, int area_y, int chest_id) const;
+
+    void hurtEnemy(int id, int damage);
+
+    int attackEnemy(int id, std::string attackName);
 };
 
 #endif // LEVEL_HPP
