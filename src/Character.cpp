@@ -181,5 +181,9 @@ int Character::isMoving() const {
 }
 
 void Character::stopMoving(std::string movementName) {
+    if (movementName == "JETPACK") {
+        capabilities.getJetPack().stop();
+        return;
+    }
     capabilities.getMovement(movementName)->stop();
 }

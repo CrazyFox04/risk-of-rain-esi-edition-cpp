@@ -316,6 +316,6 @@ public:
 
     int isMoving(int id) const;
 
-    void stopMoving(int id, int type);
+    void stopMoving(int id, std::string type);
 };
 #endif //GAME_HPP

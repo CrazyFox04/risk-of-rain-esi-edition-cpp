@@ -16,14 +16,24 @@ void JetPack::activate() {
         throw std::runtime_error("Cannot use jetpack");
     }
     lastJetpackUse = std::chrono::steady_clock::now();
+    inUse = true;
 }
 
 bool JetPack::canActivate() const {
-    return std::chrono::steady_clock::now() - lastJetpackUse < std::chrono::duration<double>(maxTime) +
+    if (lastJetpackUse.time_since_epoch().count() == 0) {
+        return true;
+    }
+    return std::chrono::steady_clock::now() - lastJetpackUse > std::chrono::duration<double>(maxTime) +
            std::chrono::duration<double>(cooldown) + std::chrono::duration<double>(landingAnimationTime);
 }
 
 bool JetPack::isUsing() const {
+    if (inUse) {
+        return true;
+    }
+    if (lastJetpackUse.time_since_epoch().count() == 0) {
+        return false;
+    }
     return std::chrono::steady_clock::now() - lastJetpackUse < std::chrono::duration<double>(maxTime);
 }
 
@@ -37,4 +47,8 @@ double JetPack::getLandAnimationTime() const {
 
 double JetPack::getMaxTime() const {
     return maxTime;
+}
+
+void JetPack::stop() {
+    inUse = false;
 }
