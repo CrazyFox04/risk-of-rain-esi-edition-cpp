@@ -192,3 +192,23 @@ std::tuple<std::tuple<int, int>, int> Level::getAnExistingSpawn() const {
     }
     return std::make_tuple(std::make_tuple(-1, -1), -1);
 }
+
+int Level::activateBossSpawn(int area_x, int area_y, int area_id) {
+    if (!isValidCoordinates(area_x, area_y)) {
+        throw std::invalid_argument("Invalid area coordinates (" + std::to_string(area_x) + ", " + std::to_string(area_y) + ")");
+    }
+    if (!areas.at(area_x).at(area_y).can_spawn(area_id)) {
+        throw std::invalid_argument("Cannot spawn at area (" + std::to_string(area_x) + ", " + std::to_string(area_y) + ") with spawn id " + std::to_string(area_id));
+    }
+    if (!areas.at(area_x).at(area_y).canSpawnBoss()) {
+        throw std::runtime_error("Cannot spawn boss at area (" + std::to_string(area_x) + ", " + std::to_string(area_y) + ")");
+    }
+    areas.at(area_x).at(area_y).spawnBoss(area_id);
+    Enemy enemy = DefinedEnemies::getRandomEnemy(true);
+    enemies.emplace(enemy.getId(), enemy);
+    return enemy.getId();
+}
+
+bool Level::canActivateBossSpawn(int area_x, int area_y, int area_id) {
+    return areas.at(area_x).at(area_y).canSpawnBoss();
+}

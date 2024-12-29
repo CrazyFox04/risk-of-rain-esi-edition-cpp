@@ -144,8 +144,8 @@ void GameController::takeOffCharacter(int id) {
     game_.takeOffCharacter(id);
 }
 
-int GameController::getMovingTime(int id) const {
-    return game_.getMovingType(id);
+int GameController::activateBossSpawn(int areaX, int areaY, int areaId) {
+    return game_.activateBossSpawn(areaX, areaY, areaId);
 }
 
 int GameController::isMoving(int id) const {
@@ -318,10 +318,6 @@ void takeOffCharacter(GameController* game_controller, int id) {
     game_controller->takeOffCharacter(id);
 }
 
-int getMovingTime(const GameController* game_controller, int id) {
-    return game_controller->getMovingTime(id);
-}
-
 int isMoving(const GameController* game_controller, int id) {
     return game_controller->isMoving(id);
 }
@@ -330,3 +326,6 @@ void stopMoving(GameController* game_controller, int id, int type) {
     game_controller->stopMoving(id, type);
 }
 
+int activateBossSpawn(GameController* game_controller, int areaX, int areaY, int spawnId) {
+    return game_controller->activateBossSpawn(areaX, areaY, spawnId);
+}
