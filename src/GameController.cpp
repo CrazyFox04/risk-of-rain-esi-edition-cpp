@@ -153,7 +153,7 @@ int GameController::isMoving(int id) const {
 }
 
 void GameController::stopMoving(int id, int type) {
-    game_.stopMoving(id, type);
+    game_.stopMoving(id, getMovementName(type));
 }
 
 GameController* newGame() {

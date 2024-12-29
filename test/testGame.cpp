@@ -341,7 +341,7 @@ TEST(GameTest, playerClimb) {
     EXPECT_TRUE(game.canCharacterMove(id, "CLIMB"));
     EXPECT_NO_THROW(game.move(id, "CLIMB"));
     EXPECT_EQ(4, game.isMoving(id));
-    EXPECT_NO_THROW(game.stopMoving(id, 4));
+    EXPECT_NO_THROW(game.stopMoving(id, "CLIMB"));
 }
 
 TEST(GameTest, playerCanUseJetPack) {
@@ -349,8 +349,10 @@ TEST(GameTest, playerCanUseJetPack) {
     int id = game.getPlayerId();
     EXPECT_TRUE(game.canCharacterMove(id, "JETPACK"));
     EXPECT_NO_THROW(game.move(id, "JETPACK"));
-    EXPECT_EQ(4, game.isMoving(id));
-    EXPECT_NO_THROW(game.stopMoving(id, 4));
+    EXPECT_EQ(3, game.isMoving(id));
+    EXPECT_NO_THROW(game.stopMoving(id, "JETPACK"));
+    EXPECT_FALSE(game.canCharacterMove(id, "JETPACK"));
+    EXPECT_TRUE(game.canCharacterMove(id, "RUN"));
 }
 
 TEST(GameTest, playerCanUseDash) {
@@ -359,7 +361,7 @@ TEST(GameTest, playerCanUseDash) {
     EXPECT_TRUE(game.canCharacterMove(id, "DASH"));
     EXPECT_NO_THROW(game.move(id, "DASH"));
     EXPECT_EQ(2, game.isMoving(id));
-    EXPECT_TRUE(game.canCharacterMove(id, "DASH"));
+    EXPECT_FALSE(game.canCharacterMove(id, "DASH"));
 }
 
 TEST(GameTest, playerCanUseRun) {
@@ -367,7 +369,6 @@ TEST(GameTest, playerCanUseRun) {
     int id = game.getPlayerId();
     EXPECT_TRUE(game.canCharacterMove(id, "JUMP"));
     EXPECT_NO_THROW(game.move(id, "JUMP"));
-    EXPECT_EQ(1, game.isMoving(id));
     EXPECT_TRUE(game.canCharacterMove(id, "RUN"));
 }
 

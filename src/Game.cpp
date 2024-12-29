@@ -389,14 +389,14 @@ int Game::isMoving(int id) const {
     return levels.at(activeLevel).getEnemy(id).isMoving();
 }
 
-void Game::stopMoving(int id, int type) {
+void Game::stopMoving(int id, std::string type) {
     if (!isAValidId(id)) {
         return;
     }
     if (player.getId() == id) {
-        player.stopMoving(DefinedMovements::getMovementName(type));
+        player.stopMoving(type);
     }
     else {
-        levels.at(activeLevel).getEnemy(id).stopMoving(DefinedMovements::getMovementName(type));
+        levels.at(activeLevel).getEnemy(id).stopMoving(type);
     }
 }

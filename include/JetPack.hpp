@@ -21,6 +21,7 @@ class JetPack {
     double maxTime; ///< The maximum duration the jetpack can be used continuously.
     double cooldown; ///< The cooldown time required before the jetpack can be used again.
     double landingAnimationTime; ///< The duration of the landing animation after jetpack usage.
+    bool inUse = false; ///< Flag indicating if the jetpack is currently in use.
     std::chrono::time_point<std::chrono::steady_clock> lastJetpackUse; ///< The last time the jetpack was activated.
 
 public:
@@ -73,5 +74,6 @@ public:
      * @return The maximum time as a double.
      */
     [[nodiscard]] double getMaxTime() const;
+    void stop();
 };
 #endif //JETPACK_HPP
