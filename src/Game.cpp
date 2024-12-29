@@ -409,3 +409,7 @@ int Game::activateBossSpawn(int areaX, int areaY, int areaId) {
     }
     return -1;
 }
+
+bool Game::canActivateBossSpawn(int areaX, int areaY, int spawnId) {
+    return levels.at(activeLevel).canActivateBossSpawn(areaX, areaY, spawnId);
+}

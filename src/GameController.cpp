@@ -156,6 +156,10 @@ void GameController::stopMoving(int id, int type) {
     game_.stopMoving(id, getMovementName(type));
 }
 
+bool GameController::canActivateBossSpawn(int areaX, int areaY, int spawnId) {
+    return game_.canActivateBossSpawn(areaX, areaY, spawnId);
+}
+
 GameController* newGame() {
     return new GameController();
 }
@@ -328,4 +332,8 @@ void stopMoving(GameController* game_controller, int id, int type) {
 
 int activateBossSpawn(GameController* game_controller, int areaX, int areaY, int spawnId) {
     return game_controller->activateBossSpawn(areaX, areaY, spawnId);
+}
+
+bool canActivateBossSpawn(GameController* game_controller, int areaX, int areaY, int spawnId) {
+    return game_controller->canActivateBossSpawn(areaX, areaY, spawnId);
 }
