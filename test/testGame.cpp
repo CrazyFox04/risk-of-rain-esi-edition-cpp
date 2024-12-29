@@ -389,3 +389,9 @@ TEST(GameTest, spawnBoss) {
     EXPECT_EQ(3, game.getCharacterType(id));
     EXPECT_FALSE(game.canActivateBossSpawn(1,1,3));
 }
+
+TEST(GameTest, jetpackCoolDownTime) {
+    Game game = Game();
+    int id = game.getPlayerId();
+    EXPECT_EQ(JetPack::DEF_COOLDOWN, game.getCharacterCoolDownMovementTime(id, "JETPACK"));
+}

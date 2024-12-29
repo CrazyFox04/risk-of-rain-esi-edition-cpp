@@ -413,3 +413,22 @@ int Game::activateBossSpawn(int areaX, int areaY, int areaId) {
 bool Game::canActivateBossSpawn(int areaX, int areaY, int spawnId) {
     return levels.at(activeLevel).canActivateBossSpawn(areaX, areaY, spawnId);
 }
+
+double Game::getCharacterCoolDownMovementTime(int id, const std::string&movementName) const {
+    if (!isAValidId(id)) {
+        throw std::invalid_argument("Invalid id");
+    }
+    if (!isAValidMovementName(movementName)) {
+        throw std::invalid_argument("Invalid movement name");
+    }
+    if (player.getId() == id) {
+        if (movementName == "JETPACK") {
+            return player.getJetPack().getCoolDown();
+        }
+        return player.getMovement(movementName)->getCooldown();
+    }
+    if (movementName == "JETPACK") {
+        return levels.at(activeLevel).getEnemy(id).getJetPack().getCoolDown();
+    }
+    return levels.at(activeLevel).getEnemy(id).getMovement(movementName)->getCooldown();
+}

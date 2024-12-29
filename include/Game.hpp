@@ -265,6 +265,8 @@ public:
 
     bool canActivateBossSpawn(int areaX, int areaY, int spawnId);
 
+    double getCharacterCoolDownMovementTime(int id, const std::string& string) const;
+
     /**
      * @brief Retrieves the names of all character attacks.
      * @return A set of attack names.
