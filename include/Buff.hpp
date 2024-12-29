@@ -44,12 +44,12 @@ struct DefinedBuff {
         }
     }
 
-    static std::set<Buff> getAllBuffs() {
-        std::set<Buff> buffs;
-        for (int i = 0; i < size(); ++i) {
-            buffs.insert(get(static_cast<Buff>(i)).item);
+    static std::set<Item> getAllBuffs() {
+        std::set<Item> items;
+        for (auto buff : magic_enum::enum_values<Buff>()) {
+            items.insert(get(buff).item);
         }
-        return buffs;
+        return items;
     }
 
     static std::string getBuffName(int buff) {
@@ -60,10 +60,9 @@ struct DefinedBuff {
     }
 
     static std::set<std::string> getCharacterBuffsName() {
-        auto buffs = getAllBuffs();
         std::set<std::string> buffNames;
-        for (const auto& buff : buffs) {
-            buffNames.insert(getBuffName(static_cast<int>(buff)));
+        for (auto buff : magic_enum::enum_values<Buff>()) {
+            buffNames.insert(std::string(magic_enum::enum_name(buff)));
         }
         return buffNames;
     }

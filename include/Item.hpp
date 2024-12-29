@@ -77,5 +77,9 @@ public:
      * @return The time point of the last usage.
      */
     [[nodiscard]] std::chrono::time_point<std::chrono::steady_clock> getLastUsageTime() const;
+
+    bool operator<(const Item& other) const {
+        return name < other.name;
+    }
 };
 #endif //RISK_OF_RAIN_ITEM_H
