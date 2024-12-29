@@ -52,3 +52,7 @@ double JetPack::getMaxTime() const {
 void JetPack::stop() {
     inUse = false;
 }
+
+double JetPack::getCoolDown() const {
+    return cooldown;
+}

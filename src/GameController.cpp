@@ -160,6 +160,10 @@ bool GameController::canActivateBossSpawn(int areaX, int areaY, int spawnId) {
     return game_.canActivateBossSpawn(areaX, areaY, spawnId);
 }
 
+double GameController::getCharacterCoolDownMovementTime(int id, int movementIndex) const {
+    return game_.getCharacterCoolDownMovementTime(id, getMovementName(movementIndex));
+}
+
 GameController* newGame() {
     return new GameController();
 }
@@ -336,4 +340,8 @@ int activateBossSpawn(GameController* game_controller, int areaX, int areaY, int
 
 bool canActivateBossSpawn(GameController* game_controller, int areaX, int areaY, int spawnId) {
     return game_controller->canActivateBossSpawn(areaX, areaY, spawnId);
+}
+
+double getCharacterCoolDownMovementTime(const GameController* game_controller, int id, int movementIndex) {
+    return game_controller->getCharacterCoolDownMovementTime(id, movementIndex);
 }

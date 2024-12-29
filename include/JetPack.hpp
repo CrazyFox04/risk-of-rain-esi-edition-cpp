@@ -74,6 +74,9 @@ public:
      * @return The maximum time as a double.
      */
     [[nodiscard]] double getMaxTime() const;
+
     void stop();
+
+    double getCoolDown() const;
 };
 #endif //JETPACK_HPP
