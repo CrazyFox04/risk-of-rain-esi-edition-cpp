@@ -352,6 +352,7 @@ TEST(GameTest, playerCanUseJetPack) {
     EXPECT_NO_THROW(game.move(id, "JETPACK"));
     EXPECT_EQ(3, game.isMoving(id));
     EXPECT_NO_THROW(game.stopMoving(id, "JETPACK"));
+    EXPECT_EQ(-1, game.isMoving(id)); 
     EXPECT_FALSE(game.canCharacterMove(id, "JETPACK"));
     EXPECT_TRUE(game.canCharacterMove(id, "RUN"));
 }

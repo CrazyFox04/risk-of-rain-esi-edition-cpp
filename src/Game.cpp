@@ -8,6 +8,8 @@
 #include "Enemies.hpp"
 #include "Game.hpp"
 
+#include <GameOverException.hpp>
+
 double Game::getCharacterSpeed(int id) const {
     if (!isAValidId(id)) {
         return -1;
@@ -315,7 +317,11 @@ void Game::attack(int id, std::string attackName, int targetId) {
     else {
         if (levels.at(activeLevel).getEnemy(id).canUse(attackName)) {
             int damage = levels.at(activeLevel).getEnemy(id).attack(attackName);
-            player.hurt(damage);
+            try {
+                player.hurt(damage);
+            } catch (GameOverException&e) {
+                over = true;
+            }
         }
     }
 }
@@ -431,4 +437,39 @@ double Game::getCharacterCoolDownMovementTime(int id, const std::string&movement
         return levels.at(activeLevel).getEnemy(id).getJetPack().getCoolDown();
     }
     return levels.at(activeLevel).getEnemy(id).getMovement(movementName)->getCooldown();
+}
+
+int Game::openChest(int area_x, int area_y, int chest_id) {
+    Item item = levels.at(activeLevel).openChest(area_x, area_y, chest_id);
+    switch (DefinedItems::getId(item.getName())) {
+        case HEALTH_POTION:
+            player.addItem(item);
+        case HEALTH_BOOST:
+            player.increaseMaxHealth(item.use());
+        case SPEED_BOOST:
+            player.increaseMovementForce("RUN", item.use());
+        case DAMAGE_BOOST:
+            player.increaseAttackDamage(item.use(), player.getAllAttackName());
+        case EXTRA_JUMP:
+            player.increaseMovementForce("JUMP", item.use());
+        case TEDDY_BEAR:
+            player.addItem(item);
+        default:
+            throw std::invalid_argument("Invalid item");
+    }
+    return DefinedItems::getId(item.getName());
+}
+
+bool Game::isChestEmpty(int area_x, int area_y, int chest_id) const {
+    return levels.at(activeLevel).isChestEmpty(area_x, area_y, chest_id);
+}
+
+int Game::getNumberOfItem(int id, int item_id) {
+    if (!isAValidId(id)) {
+        return -1;
+    }
+    if (player.getId() == id) {
+        return player.getNumberOfItem(item_id);
+    }
+    return levels.at(activeLevel).getEnemy(id).getNumberOfItem(item_id);
 }

@@ -7,12 +7,18 @@
 #include "pch.h"
 #include "Character.hpp"
 
+#include <GameOverException.hpp>
+#include <random>
+
+#include "Items.hpp"
+#include "Item.hpp"
 #include "Climb.hpp"
 #include "Dash.hpp"
 
 #include "Jump.hpp"
 #include "Run.hpp"
 #include <utility>
+#include <__random/random_device.h>
 
 int Character::nextId = 0;
 
@@ -54,10 +60,6 @@ int Character::getId() const {
     return id;
 }
 
-const std::vector<std::shared_ptr<Buff>>& Character::getItems() const {
-    return items;
-}
-
 void Character::land() {
     onGround = true;
     auto jump = std::dynamic_pointer_cast<Jump>(capabilities.getMovement("JUMP"));
@@ -69,10 +71,16 @@ bool Character::isLanded() const {
 }
 
 void Character::increaseHealth(int amount) {
+    if (amount < 0) {
+        throw std::invalid_argument("Amount must be positive");
+    }
     health.current += amount;
 }
 
 void Character::increaseMaxHealth(int amount) {
+    if (amount < 0) {
+        throw std::invalid_argument("Amount must be positive");
+    }
     health.max += amount;
 }
 
@@ -146,7 +154,7 @@ bool Character::canMove(std::string movementName) const {
     }
 }
 
-void Character::useItem(const std::shared_ptr<Buff>&item) {
+void Character::useItem(const std::shared_ptr<Items>&item) {
     // todo
 }
 
@@ -158,6 +166,21 @@ bool Character::isBusy() const {
 }
 
 void Character::hurt(int damage) {
+    if (damage < 0) {
+        throw std::invalid_argument("Damage must be positive");
+    }
+    if (health.current - damage <= 0) {
+        if (items.contains("TEDDY_BEAR")) {
+            items.at("TEDDY_BEAR") -= 1;
+            std::random_device rd;
+            std::mt19937 gen(rd());
+            std::uniform_int_distribution<> dis(0, 100);
+            if (dis(gen) < 5) {
+                health.current = 0.1 * health.max;
+            }
+        }
+        throw GameOverException("Game over : Player is dead");
+    }
     health.current -= damage;
     if (!hurtAnimation.isPlaying()) {
         hurtAnimation.start();
@@ -186,4 +209,31 @@ void Character::stopMoving(std::string movementName) {
         return;
     }
     capabilities.getMovement(movementName)->stop();
+}
+
+void Character::addItem(Item item) {
+    if (items.contains(item.getName())) {
+        items.at(item.getName()) += 1;
+    }
+    else {
+        items.emplace(item.getName(), 1);
+    }
+}
+
+void Character::increaseMovementForce(const std::string& movementName, const double amount) {
+    capabilities.increaseMovementForce(movementName, amount);
+}
+
+void Character::increaseAttackDamage(double amount, std::vector<std::string> attackName) {
+    for (auto attack_name : attackName) {
+        capabilities.increaseAttackDamage(amount, attack_name);
+    }
+}
+
+std::vector<std::string> Character::getAllAttackName() {
+    return capabilities.getCharacterAttacksName();
+}
+
+int Character::getNumberOfItem(int item_id) const {
+    return items.at(DefinedItems::getItemName(static_cast<Items>(item_id)));
 }

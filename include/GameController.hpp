@@ -280,6 +280,12 @@ public:
     bool canActivateBossSpawn(int, int, int);
 
     double getCharacterCoolDownMovementTime(int, int) const;
+
+    int openChest(int, int, int);
+
+    bool isChestEmpty(int, int, int) const;
+
+    int getNumberOfItem(int, int);
 };
 
 MY_API GameController* newGame();
@@ -361,5 +367,11 @@ MY_API int activateBossSpawn(GameController*, int, int, int);
 MY_API bool canActivateBossSpawn(GameController*, int, int, int);
 
 MY_API double getCharacterCoolDownMovementTime(const GameController*, int, int);
+
+MY_API bool isChestEmpty(const GameController*, int, int, int);
+
+MY_API int openChest(GameController*, int, int, int);
+
+MY_API int getNumberOfItem(GameController*, int, int);
 
 #endif

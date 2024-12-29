@@ -120,3 +120,23 @@ int Capabilities::isMoving() const {
     }
     return -1;
 }
+
+void Capabilities::increaseAttackDamage(double amount, const std::string& attacksName...) {
+    if (hasThisAttack(attacksName)) {
+        attacks.at(attacksName).increaseDamage(amount);
+    }
+}
+
+void Capabilities::increaseMovementForce(const std::string&string, double amount) {
+    if (hasThisMovement(string)) {
+        movements.at(string)->increaseForce(amount);
+    }
+}
+
+std::vector<std::string> Capabilities::getCharacterAttacksName() {
+    std::vector<std::string> attacksName;
+    for (const auto&[name, attack]: attacks) {
+        attacksName.emplace_back(name);
+    }
+    return attacksName;
+}

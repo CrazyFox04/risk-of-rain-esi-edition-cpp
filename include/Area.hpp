@@ -10,6 +10,8 @@
  */
 #ifndef AREA_HPP
 #define AREA_HPP
+#include <Chest.hpp>
+
 #include "Direction.hpp"
 #include "Spawn.hpp"
 #include <set>
@@ -24,6 +26,7 @@ class Area {
     int id; ///< The unique identifier of the area.
     std::set<Direction2D> gatewayPositions; ///< Set of gateway positions for connecting areas.
     std::vector<Spawn> spawns; ///< List of spawns within the area.
+    std::vector<Chest> chests;
 
     /**
      * @brief Retrieves a spawn by its ID.
@@ -54,6 +57,8 @@ public:
      * @param spawns A list of spawns for the area.
      */
     Area(int type, int max_id, std::set<Direction2D> gatewayPositions, std::vector<Spawn> spawns);
+
+    Area(int type, int max_id, std::set<Direction2D> gatewayPositions, std::vector<Spawn> spawns, std::vector<Chest> chests);
 
     /**
      * @brief Generates a random Area object.
@@ -122,5 +127,8 @@ public:
      * @return A vector containing all spawn IDs.
      */
     [[nodiscard]] std::vector<int> get_spawn_ids() const;
+
+    Item openChest(int chest_id);
+    bool isChestEmpty(int chest_id) const;
 };
 #endif //AREA_HPP

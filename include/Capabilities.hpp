@@ -101,5 +101,11 @@ public:
      * @return True if the movement exists, otherwise false.
      */
     bool hasThisMovement(std::string name) const;
+
+    void increaseMovementForce(const std::string& string, double amount);
+
+    void increaseAttackDamage(double amount, const std::string& attacksName...);
+
+    std::vector<std::string> getCharacterAttacksName();
 };
 #endif //CAPABILITIES_HPP

@@ -45,12 +45,6 @@ public:
     Player();
 
     ~Player() override = default;
-
-    /**
-     * @brief Adds an item (buff) to the player's inventory.
-     * @param item The buff to add.
-     */
-    void addItem(std::shared_ptr<Buff> item) override;
 };
 
 #endif //PLAYER_HPP

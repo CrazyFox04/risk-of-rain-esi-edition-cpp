@@ -56,3 +56,10 @@ double Movement::getCooldown() const {
 void Movement::stop() {
     // nop
 }
+
+void Movement::increaseForce(double amount) {
+    if (amount < 0) {
+        throw std::invalid_argument("Amount must be positive");
+    }
+    force += amount;
+}

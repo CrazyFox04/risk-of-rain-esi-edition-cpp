@@ -59,3 +59,10 @@ double Attack::getAnimationTime() const {
 std::chrono::time_point<std::chrono::steady_clock> Attack::getLastUsageTime() const {
     return lastUsageTime;
 }
+
+void Attack::increaseDamage(double amount) {
+    if (amount < 0) {
+        throw std::invalid_argument("Amount must be positive");
+    }
+    damage += amount;
+}

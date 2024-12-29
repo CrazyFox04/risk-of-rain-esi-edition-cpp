@@ -23,8 +23,7 @@
 class Item {
     std::string name; ///< The name of the item.
     double effect; ///< The effect value of the item.
-    double effectDuration; ///< The duration of the item's effect.
-    std::chrono::time_point<std::chrono::steady_clock> lastUsageTime; ///< The last time the item was used.
+    double probability; ///< The probability of the item being generated.
 
 public:
     /**
@@ -33,7 +32,7 @@ public:
      * @param effect The effect value of the item.
      * @param effectDuration The duration of the item's effect.
      */
-    Item(const std::string&name, double effect, double effectDuration);
+    Item(const std::string&name, double effect, double probability);
 
     /**
      * @brief Executes the item's effect and returns the effect value.
@@ -43,40 +42,12 @@ public:
     double use();
 
     /**
-     * @brief Checks if the item is currently in effect.
-     * @return True if the item is effective, otherwise false.
-     */
-    [[nodiscard]] bool isUsing() const;
-
-    /**
-     * @brief Checks if the item can be used.
-     * @return True if the item can be used, otherwise false.
-     */
-    [[nodiscard]] bool canUse() const;
-
-    /**
-     * @brief Retrieves the effect value of the item.
-     * @return The effect value.
-     */
-    [[nodiscard]] double getEffect() const;
-
-    /**
-     * @brief Retrieves the duration of the item's effect.
-     * @return The effect duration.
-     */
-    [[nodiscard]] double getEffectDuration() const;
-
-    /**
      * @brief Retrieves the name of the item.
      * @return The name of the item.
      */
     [[nodiscard]] std::string getName() const;
 
-    /**
-     * @brief Retrieves the last time the item was used.
-     * @return The time point of the last usage.
-     */
-    [[nodiscard]] std::chrono::time_point<std::chrono::steady_clock> getLastUsageTime() const;
+    double getProbability() const;
 
     bool operator<(const Item& other) const {
         return name < other.name;

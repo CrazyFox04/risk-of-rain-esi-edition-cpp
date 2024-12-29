@@ -29,6 +29,7 @@ class Game {
     int activeLevel; ///< The index of the currently active level.
     std::vector<Level> levels; ///< A list of levels in the game.
     Player player; ///< The player character.
+    bool over;
 
     /**
      * @brief Adds a new level to the game.
@@ -266,6 +267,12 @@ public:
     bool canActivateBossSpawn(int areaX, int areaY, int spawnId);
 
     double getCharacterCoolDownMovementTime(int id, const std::string& string) const;
+
+    bool isChestEmpty(int area_x, int area_y, int chest_id) const;
+
+    int openChest(int area_x, int area_y, int chest_id);
+
+    int getNumberOfItem(int id, int item_id);
 
     /**
      * @brief Retrieves the names of all character attacks.

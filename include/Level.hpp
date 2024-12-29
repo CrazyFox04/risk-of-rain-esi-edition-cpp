@@ -142,6 +142,10 @@ public:
     int activateBossSpawn(int area_x, int area_y, int area_id);
 
     bool canActivateBossSpawn(int area_x, int area_y, int area_id);
+
+    Item openChest(int area_x, int area_y, int chest_id);
+
+    bool isChestEmpty(int area_x, int area_y, int chest_id) const;
 };
 
 #endif // LEVEL_HPP

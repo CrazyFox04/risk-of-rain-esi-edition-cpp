@@ -212,3 +212,12 @@ int Level::activateBossSpawn(int area_x, int area_y, int area_id) {
 bool Level::canActivateBossSpawn(int area_x, int area_y, int area_id) {
     return areas.at(area_x).at(area_y).canSpawnBoss();
 }
+
+bool Level::isChestEmpty(int area_x, int area_y, int chest_id) const {
+    return areas.at(area_x).at(area_y).isChestEmpty(chest_id);
+}
+
+Item Level::openChest(int area_x, int area_y, int chest_id) {
+    return areas.at(area_x).at(area_y).openChest(chest_id);
+}
+
