@@ -343,3 +343,38 @@ TEST(GameTest, playerClimb) {
     EXPECT_EQ(4, game.isMoving(id));
     EXPECT_NO_THROW(game.stopMoving(id, 4));
 }
+
+TEST(GameTest, playerCanUseJetPack) {
+    Game game = Game();
+    int id = game.getPlayerId();
+    EXPECT_TRUE(game.canCharacterMove(id, "JETPACK"));
+    EXPECT_NO_THROW(game.move(id, "JETPACK"));
+    EXPECT_EQ(4, game.isMoving(id));
+    EXPECT_NO_THROW(game.stopMoving(id, 4));
+}
+
+TEST(GameTest, playerCanUseDash) {
+    Game game = Game();
+    int id = game.getPlayerId();
+    EXPECT_TRUE(game.canCharacterMove(id, "DASH"));
+    EXPECT_NO_THROW(game.move(id, "DASH"));
+    EXPECT_EQ(2, game.isMoving(id));
+    EXPECT_TRUE(game.canCharacterMove(id, "DASH"));
+}
+
+TEST(GameTest, playerCanUseRun) {
+    Game game = Game();
+    int id = game.getPlayerId();
+    EXPECT_TRUE(game.canCharacterMove(id, "JUMP"));
+    EXPECT_NO_THROW(game.move(id, "JUMP"));
+    EXPECT_EQ(1, game.isMoving(id));
+    EXPECT_TRUE(game.canCharacterMove(id, "RUN"));
+}
+
+TEST(GameTest, playerAttack) {
+    Game game = Game();
+    int id = game.getPlayerId();
+    EXPECT_TRUE(game.canCharacterAttack(id, "ATTACK3"));
+    EXPECT_NO_THROW(game.attack(id, "ATTACK3", -1));
+    EXPECT_FALSE(game.canCharacterAttack(id, "ATTACK3"));
+}
