@@ -140,3 +140,13 @@ std::vector<std::string> Capabilities::getCharacterAttacksName() {
     }
     return attacksName;
 }
+
+void Capabilities::stop(std::string name) {
+    if (name == "JETPACK") {
+        jetPack.stop();
+        return;
+    }
+    if (hasThisMovement(name)) {
+        movements.at(name)->stop();
+    }
+}
