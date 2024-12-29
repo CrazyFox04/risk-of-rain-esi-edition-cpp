@@ -8,7 +8,7 @@
 #include "Player.hpp"
 #include "Run.hpp"
 #include <memory>
-#include <Climb.hpp>
+#include "Climb.hpp"
 
 Player::Player(): Character("PLAYER", DEF_MAX_HEALTH, DEF_HURT_TIME,
                             {

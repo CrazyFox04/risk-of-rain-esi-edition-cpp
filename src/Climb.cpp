@@ -1,6 +1,10 @@
 //
 // Created by Enzo Renard on 28/12/2024.
 //
+#ifndef _WIN64
+#define PCH_H
+#endif
+#include "pch.h"
 #include "Climb.hpp"
 
 Climb::Climb(double force) : Movement("CLIMB", force, 0, 0) {
