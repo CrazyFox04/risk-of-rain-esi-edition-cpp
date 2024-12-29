@@ -28,13 +28,10 @@ bool JetPack::canActivate() const {
 }
 
 bool JetPack::isUsing() const {
-    if (inUse) {
-        return true;
-    }
     if (lastJetpackUse.time_since_epoch().count() == 0) {
         return false;
     }
-    return std::chrono::steady_clock::now() - lastJetpackUse < std::chrono::duration<double>(maxTime);
+    return inUse && std::chrono::steady_clock::now() - lastJetpackUse < std::chrono::duration<double>(maxTime);
 }
 
 double JetPack::getForce() const {

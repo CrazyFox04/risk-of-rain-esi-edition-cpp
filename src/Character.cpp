@@ -204,10 +204,10 @@ int Character::isMoving() const {
 
 void Character::stopMoving(std::string movementName) {
     if (movementName == "JETPACK") {
-        capabilities.getJetPack().stop();
+        capabilities.stop(movementName);
         return;
     }
-    capabilities.getMovement(movementName)->stop();
+    capabilities.stop(movementName);
 }
 
 void Character::addItem(Item item) {

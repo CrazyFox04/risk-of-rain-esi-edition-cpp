@@ -107,5 +107,7 @@ public:
     void increaseAttackDamage(double amount, const std::string& attacksName...);
 
     std::vector<std::string> getCharacterAttacksName();
+
+    void stop(std::string name);
 };
 #endif //CAPABILITIES_HPP
