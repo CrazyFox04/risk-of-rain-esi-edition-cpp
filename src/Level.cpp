@@ -59,6 +59,7 @@ Level Level::generate() {
         }
     }
 
+    areas[0][0] = Area();
     areas[1][1] = DefinedAreas::get(A4URDL).area;
 
     std::function<bool(int, int)> backtrack = [&](int x, int y) {
