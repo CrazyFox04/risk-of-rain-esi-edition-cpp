@@ -290,6 +290,14 @@ void Game::attack(int id, std::string attackName, int targetId) {
     if (!isAValidId(id)) {
         throw std::invalid_argument("Invalid id");
     }
+    if (targetId == -1) {
+        if (player.getId() == id) {
+            player.attack(attackName);
+            return;
+        }
+        levels.at(activeLevel).getEnemy(id).attack(attackName);
+        return;
+    }
     if (!isAValidId(targetId)) {
         throw std::invalid_argument("Invalid target id");
     }
