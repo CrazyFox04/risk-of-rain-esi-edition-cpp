@@ -271,7 +271,6 @@ public:
      */
     void takeOffCharacter(int id);
 
-    int getMovingTime(int id) const;
     int isMoving(int id) const;
     void stopMoving(int id, int type);
 };
@@ -326,8 +325,6 @@ MY_API double getCharacterAttackTime(const GameController*, int, int);
 
 MY_API bool isPlayerDashing(const GameController*);
 
-MY_API bool isPlayerUsingJetpack(const GameController*);
-
 MY_API bool canCharacterMove(const GameController*, int, int);
 
 MY_API double getCharacterCoolDownAttackTime(const GameController*, int, int);
@@ -347,8 +344,6 @@ MY_API bool isCharacterOnGround(const GameController*, int);
 MY_API void landCharacter(GameController*, int);
 
 MY_API void takeOffCharacter(GameController*, int);
-
-MY_API int getMovingTime(const GameController*, int);
 
 MY_API int isMoving(const GameController*, int);
 
