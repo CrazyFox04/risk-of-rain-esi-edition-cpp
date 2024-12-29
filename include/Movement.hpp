@@ -33,6 +33,8 @@ protected:
 public:
     virtual ~Movement() = default;
 
+    void increaseForce(double amount);
+
     /**
      * @brief Constructs a Movement object with specified parameters.
      * @param name The name of the movement.

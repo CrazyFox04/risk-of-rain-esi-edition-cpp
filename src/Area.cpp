@@ -32,9 +32,15 @@ Area::Area(int type, int max_id, std::set<Direction2D> gatewayPositions) : type(
 
 Area::Area(int type, int max_is, std::set<Direction2D> gatawayPositions, std::vector<Spawn> spawns) : Area(type, max_is,
     std::move(
-        gatawayPositions)){
+        gatawayPositions)) {
     this->spawns = spawns;
 }
+
+Area::Area(int type, int max_id, std::set<Direction2D> gatewayPositions, std::vector<Spawn> spawns, std::vector<Chest> chests) : Area(
+    type, max_id, std::move(gatewayPositions), std::move(spawns)) {
+    this->chests = chests;
+}
+
 
 bool Area::isCompatible(Direction2D direction, const Area&otherArea) {
     if (otherArea.type == -1) {
@@ -71,7 +77,7 @@ std::set<Direction2D> Area::get_gateway_positions() const {
 }
 
 Spawn& Area::get_spawn(int spawn_id) {
-    for (Spawn& spawn: spawns) {
+    for (Spawn&spawn: spawns) {
         if (spawn.getId() == spawn_id) {
             return spawn; // return spawn (not copy)
         }
@@ -89,14 +95,14 @@ void Area::spawn(int spawd_id) {
 
 std::vector<int> Area::get_spawn_ids() const {
     std::vector<int> ids;
-    for (const Spawn& spawn: spawns) {
+    for (const Spawn&spawn: spawns) {
         ids.push_back(spawn.getId());
     }
     return ids;
 }
 
 bool Area::canSpawnBoss() const {
-    for (const Spawn& spawn: spawns) {
+    for (const Spawn&spawn: spawns) {
         if (spawn.canSpawnBoss()) {
             return true;
         }
@@ -106,4 +112,22 @@ bool Area::canSpawnBoss() const {
 
 void Area::spawnBoss(int spawn_id) {
     get_spawn(spawn_id).spawnBoss();
+}
+
+Item Area::openChest(int chest_id) {
+    for (auto&chest: chests) {
+        if (chest.getId() == chest_id) {
+            return chest.open();
+        }
+    }
+    throw std::invalid_argument("No chest with id " + std::to_string(chest_id));
+}
+
+bool Area::isChestEmpty(int chest_id) const {
+    for (auto chest : chests) {
+        if (chest.getId() == chest_id) {
+            return chest.isEmpty();
+        }
+    }
+    return true;
 }

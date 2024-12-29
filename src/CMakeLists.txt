@@ -26,6 +26,9 @@ set(SOURCES
         Animation.cpp
         Enemies.cpp
         Climb.cpp
+        Item.cpp
+        Chest.cpp
+        GameOverException.cpp
 )
 
 # Create the model library that public can use

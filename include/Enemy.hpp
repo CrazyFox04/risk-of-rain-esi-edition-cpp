@@ -58,12 +58,6 @@ public:
      */
     [[nodiscard]] bool getIsBoss() const;
 
-    /**
-     * @brief Adds a buff or item to the enemy.
-     *
-     * @param buff The buff to add.
-     * @throws std::invalid_argument Always, as items cannot be added to enemies for now.
-     */
-    void addItem(std::shared_ptr<Buff> buff) override;
+    void addItem(Item buff) override;
 };
 #endif //ENEMY_HPP

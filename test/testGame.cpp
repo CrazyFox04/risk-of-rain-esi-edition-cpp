@@ -352,6 +352,7 @@ TEST(GameTest, playerCanUseJetPack) {
     EXPECT_NO_THROW(game.move(id, "JETPACK"));
     EXPECT_EQ(3, game.isMoving(id));
     EXPECT_NO_THROW(game.stopMoving(id, "JETPACK"));
+    EXPECT_EQ(-1, game.isMoving(id)); 
     EXPECT_FALSE(game.canCharacterMove(id, "JETPACK"));
     EXPECT_TRUE(game.canCharacterMove(id, "RUN"));
 }
@@ -394,4 +395,11 @@ TEST(GameTest, jetpackCoolDownTime) {
     Game game = Game();
     int id = game.getPlayerId();
     EXPECT_EQ(JetPack::DEF_COOLDOWN, game.getCharacterCoolDownMovementTime(id, "JETPACK"));
+}
+
+TEST(GameTest, openChestChangePlayer) {
+    Game game = Game();
+    int id = game.getPlayerId();
+    Item item = DefinedItems::get(static_cast<Items>(game.openChest(1,1,1))).item;
+    int health = game.getPlayerCurrentHealth();
 }

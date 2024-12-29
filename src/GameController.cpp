@@ -144,8 +144,8 @@ void GameController::takeOffCharacter(int id) {
     game_.takeOffCharacter(id);
 }
 
-int GameController::activateBossSpawn(int areaX, int areaY, int areaId) {
-    return game_.activateBossSpawn(areaX, areaY, areaId);
+int GameController::activateBossSpawn(int areaX, int areaY, int spawnId) {
+    return game_.activateBossSpawn(areaX, areaY, spawnId);
 }
 
 int GameController::isMoving(int id) const {
@@ -162,6 +162,18 @@ bool GameController::canActivateBossSpawn(int areaX, int areaY, int spawnId) {
 
 double GameController::getCharacterCoolDownMovementTime(int id, int movementIndex) const {
     return game_.getCharacterCoolDownMovementTime(id, getMovementName(movementIndex));
+}
+
+bool GameController::isChestEmpty(int areaX, int areaY, int chestId) const {
+    return game_.isChestEmpty(areaX, areaY, chestId);
+}
+
+int GameController::openChest(int areaX, int areaY, int chestId) {
+    return game_.openChest(areaX, areaY, chestId);
+}
+
+int GameController::getNumberOfItem(int id, int itemId) {
+    return game_.getNumberOfItem(id, itemId);
 }
 
 GameController* newGame() {
@@ -344,4 +356,16 @@ bool canActivateBossSpawn(GameController* game_controller, int areaX, int areaY,
 
 double getCharacterCoolDownMovementTime(const GameController* game_controller, int id, int movementIndex) {
     return game_controller->getCharacterCoolDownMovementTime(id, movementIndex);
+}
+
+bool isChestEmpty(const GameController* game_controller, int areaX, int areaY, int chestId) {
+    return game_controller->isChestEmpty(areaX, areaY, chestId);
+}
+
+int openChest(GameController* game_controller, int areaX, int areaY, int chestId) {
+    return game_controller->openChest(areaX, areaY, chestId);
+}
+
+int getNumberOfItem(GameController* game_controller, int id, int itemId) {
+    return game_controller->getNumberOfItem(id, itemId);
 }

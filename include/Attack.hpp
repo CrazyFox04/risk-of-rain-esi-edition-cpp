@@ -99,5 +99,7 @@ public:
     bool operator<(const Attack&rhs) const {
         return name < rhs.name;
     }
+
+    void increaseDamage(double amount);
 };
 #endif //ATTACK_HPP

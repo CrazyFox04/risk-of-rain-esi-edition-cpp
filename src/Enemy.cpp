@@ -14,7 +14,7 @@ Enemy::Enemy(std::string type, int maxHealth, double followRange, double attackR
                             followRange(followRange), attackRange(attackRange) {
 }
 
-void Enemy::addItem(std::shared_ptr<Buff> buff) {
+void Enemy::addItem(Item buff) {
     throw std::invalid_argument("Cannot add items to an enemy");
 }
 

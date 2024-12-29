@@ -9,6 +9,7 @@
 #include "Run.hpp"
 #include <memory>
 #include "Climb.hpp"
+#include "Items.hpp"
 
 Player::Player(): Character("PLAYER", DEF_MAX_HEALTH, DEF_HURT_TIME,
                             {
@@ -20,10 +21,6 @@ Player::Player(): Character("PLAYER", DEF_MAX_HEALTH, DEF_HURT_TIME,
                                 },
                                 true
                             }) {
-}
-
-void Player::addItem(std::shared_ptr<Buff> item) {
-    items.push_back(item);
 }
 
 const std::set<Attack> Player::DEF_ATTACKS_PLAYER = {

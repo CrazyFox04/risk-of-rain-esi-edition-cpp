@@ -15,7 +15,8 @@
 
 #include "Capabilities.hpp"
 #include "Health.hpp"
-#include "Buff.h"
+#include "Item.hpp"
+#include "Items.hpp"
 #include <vector>
 #include <memory>
 
@@ -30,17 +31,11 @@ class Character {
      */
     void increaseHealth(int amount);
 
-    /**
-     * @brief Increases the character's maximum health.
-     * @param amount The amount to increase the maximum health by.
-     */
-    void increaseMaxHealth(int amount);
-
 protected:
     static int nextId; ///< Static counter to generate unique IDs for characters.
     std::string type; ///< The type or class of the character.
     int id; ///< Unique identifier for the character.
-    std::vector<std::shared_ptr<Buff>> items; ///< List of buffs or items the character possesses.
+    std::map<std::string, int> items; ///< List of buffs or items the character possesses.
     Health health; ///< The health object representing the character's health.
     Capabilities capabilities; ///< The capabilities (attacks, movements, jetpack) of the character.
     bool onGround; ///< Indicates whether the character is on the ground.
@@ -112,7 +107,7 @@ public:
      * @brief Retrieves the items (buffs) assigned to the character.
      * @return A vector of shared pointers to Buff objects.
      */
-    [[nodiscard]] const std::vector<std::shared_ptr<Buff>>& getItems() const;
+    [[nodiscard]] const std::vector<std::shared_ptr<Items>>& getItems() const;
 
     /**
      * @brief Executes an attack by its name.
@@ -170,13 +165,13 @@ public:
      * @brief Adds a buff to the character's inventory.
      * @param buff The buff to add.
      */
-    virtual void addItem(std::shared_ptr<Buff> buff) = 0;
+    virtual void addItem(Item buff);
 
     /**
      * @brief Uses a specific item (buff).
      * @param item The buff to use.
      */
-    void useItem(const std::shared_ptr<Buff>&item);
+    void useItem(const std::shared_ptr<Items>&item);
 
     /**
      * @brief Checks if the character is currently busy.
@@ -206,7 +201,19 @@ public:
      * @brief Changes the onGround status of the character.
      */
     void takeOff();
+
     int isMoving() const;
+
     void stopMoving(std::string movementName);
+
+    void increaseMaxHealth(int amount);
+
+    void increaseMovementForce(const std::string&movementName, double amount);
+
+    void increaseAttackDamage(double amount, std::vector<std::string> attackName);
+
+    std::vector<std::string> getAllAttackName();
+
+    int getNumberOfItem(int item_id) const;
 };
 #endif //CHARACTER_HPP
