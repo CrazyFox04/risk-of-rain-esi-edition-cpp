@@ -299,7 +299,7 @@ void Game::attack(int id, std::string attackName, int targetId) {
             player.attack(attackName);
             return;
         }
-        levels.at(activeLevel).getEnemy(id).attack(attackName);
+        levels.at(activeLevel).attackEnemy(id, attackName);
         return;
     }
     if (!isAValidId(targetId)) {
@@ -311,12 +311,12 @@ void Game::attack(int id, std::string attackName, int targetId) {
     if (player.getId() == id) {
         if (player.canUse(attackName)) {
             int damage = player.attack(attackName);
-            levels.at(activeLevel).getEnemy(targetId).hurt(damage);
+            levels.at(activeLevel).hurtEnemy(targetId, damage);
         }
     }
     else {
         if (levels.at(activeLevel).getEnemy(id).canUse(attackName)) {
-            int damage = levels.at(activeLevel).getEnemy(id).attack(attackName);
+            int damage = levels.at(activeLevel).attackEnemy(id, attackName);
             try {
                 player.hurt(damage);
             } catch (GameOverException&e) {

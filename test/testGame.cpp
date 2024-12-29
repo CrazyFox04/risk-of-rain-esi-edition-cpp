@@ -410,3 +410,32 @@ TEST(GameTest, generateLevelNotArea001) {
         EXPECT_NE(1, game.getActiveLevel().get_area_guid(0,0));
     }
 }
+
+TEST(GameTest, ennemiesCanAttack) {
+    Game game = Game();
+    std::tuple<std::tuple<int, int>, int> existingSpawn = game.getExistingSpawn();
+    int areaX = std::get<0>(std::get<0>(existingSpawn));
+    int areaY = std::get<1>(std::get<0>(existingSpawn));
+    int spawnId = std::get<1>(existingSpawn);
+    int enemyId = 0;
+    do {
+        enemyId = game.ifCanSpawnCurrentLevelSpawnAt(areaX, areaY, spawnId);
+    } while (game.getCharacterType(enemyId) != 1);
+    int id = game.getPlayerId();
+    EXPECT_TRUE(game.canCharacterAttack(enemyId, "ATTACK_SPECTRUM"));
+    EXPECT_NO_THROW(game.attack(enemyId, "ATTACK_SPECTRUM", id));
+    EXPECT_FALSE(game.canCharacterAttack(enemyId, "ATTACK_SPECTRUM"));
+}
+
+TEST(GameTest, playerAttackMonster) {
+    Game game = Game();
+    int id = game.getPlayerId();
+    int enemyId = game.ifCanSpawnCurrentLevelSpawnAt(1,1,1);
+    EXPECT_NO_THROW(game.attack(id, "ATTACK1", enemyId));
+    EXPECT_NO_THROW(game.attack(id, "ATTACK1", enemyId));
+    EXPECT_NO_THROW(game.attack(id, "ATTACK1", enemyId));
+    EXPECT_NO_THROW(game.attack(id, "ATTACK1", enemyId));
+    EXPECT_NO_THROW(game.attack(id, "ATTACK1", enemyId));
+    EXPECT_NO_THROW(game.attack(id, "ATTACK1", enemyId));
+    EXPECT_NO_THROW(game.attack(id, "ATTACK1", enemyId));
+}

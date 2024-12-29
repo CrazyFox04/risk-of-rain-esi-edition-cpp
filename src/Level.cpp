@@ -13,6 +13,7 @@
 #include <random>
 #include <stdexcept>
 #include <functional>
+#include <utility>
 
 Level::Level(int id): id(id) {
 }
@@ -222,3 +223,16 @@ Item Level::openChest(int area_x, int area_y, int chest_id) {
     return areas.at(area_x).at(area_y).openChest(chest_id);
 }
 
+void Level::hurtEnemy(int id, int damage) {
+    if (!enemies.contains(id)) {
+        throw std::invalid_argument("No enemy with id " + std::to_string(id));
+    }
+    enemies.at(id).hurt(damage);
+}
+
+int Level::attackEnemy(int id, std::string attackName) {
+    if (!enemies.contains(id)) {
+        throw std::invalid_argument("No enemy with id " + std::to_string(id));
+    }
+    return enemies.at(id).attack(std::move(attackName));
+}
