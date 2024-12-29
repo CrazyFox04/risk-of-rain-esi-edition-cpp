@@ -444,16 +444,22 @@ int Game::openChest(int area_x, int area_y, int chest_id) {
     switch (DefinedItems::getId(item.getName())) {
         case HEALTH_POTION:
             player.addItem(item);
+            break;
         case HEALTH_BOOST:
             player.increaseMaxHealth(item.use());
+            break;
         case SPEED_BOOST:
             player.increaseMovementForce("RUN", item.use());
+            break;
         case DAMAGE_BOOST:
             player.increaseAttackDamage(item.use(), player.getAllAttackName());
+            break;
         case EXTRA_JUMP:
             player.increaseMovementForce("JUMP", item.use());
+            break;
         case TEDDY_BEAR:
             player.addItem(item);
+            break;
         default:
             throw std::invalid_argument("Invalid item");
     }

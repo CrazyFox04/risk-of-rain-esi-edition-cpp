@@ -50,7 +50,12 @@ struct DefinedAreas {
                          {
                              {1, 5, 20},
                              {2, 5, 20}
-                         })
+                         },
+                         {
+                             {1},
+                             {2}
+                         }
+                    )
                 };
             case A1R:
                 return DefinedAreas{
@@ -58,7 +63,12 @@ struct DefinedAreas {
                          {
                              {1, 5, 20},
                              {2, 5, 20}
-                         })
+                         },
+                         {
+                             {1},
+                             {2}
+                         }
+                    )
                 };
             case A1D:
                 return DefinedAreas{
@@ -66,7 +76,12 @@ struct DefinedAreas {
                          {
                              {1, 5, 20},
                              {2, 5, 20}
-                         })
+                         },
+                         {
+                             {1},
+                             {2}
+                         }
+                    )
                 };
             case A1L:
                 return DefinedAreas{
@@ -74,7 +89,12 @@ struct DefinedAreas {
                          {
                              {1, 5, 20},
                              {2, 5, 20}
-                         })
+                         },
+                         {
+                             {1},
+                             {2}
+                         }
+                    )
                 };
             case A2UR:
                 return DefinedAreas{
@@ -82,7 +102,12 @@ struct DefinedAreas {
                          {
                              {1, 5, 20},
                              {2, 5, 20}
-                         })
+                         },
+                         {
+                             {1},
+                             {2}
+                         }
+                    )
                 };
             case A2LD:
                 return DefinedAreas{
@@ -90,7 +115,12 @@ struct DefinedAreas {
                          {
                              {1, 5, 20},
                              {2, 5, 20}
-                         })
+                         },
+                         {
+                             {1},
+                             {2}
+                         }
+                    )
                 };
             case A2UL:
                 return DefinedAreas{
@@ -98,7 +128,12 @@ struct DefinedAreas {
                          {
                              {1, 5, 20},
                              {2, 5, 20}
-                         })
+                         },
+                         {
+                             {1},
+                             {2}
+                         }
+                    )
                 };
             case A2DR:
                 return DefinedAreas{
@@ -106,7 +141,12 @@ struct DefinedAreas {
                          {
                              {1, 5, 20},
                              {2, 5, 20}
-                         })
+                         },
+                         {
+                             {1},
+                             {2}
+                         }
+                    )
                 };
             case A2UD:
                 return DefinedAreas{
@@ -114,7 +154,12 @@ struct DefinedAreas {
                          {
                              {1, 5, 20},
                              {2, 5, 20}
-                         })
+                         },
+                         {
+                             {1},
+                             {2}
+                         }
+                    )
                 };
             case A2LR:
                 return DefinedAreas{
@@ -122,7 +167,12 @@ struct DefinedAreas {
                          {
                              {1, 5, 20},
                              {2, 5, 20}
-                         })
+                         },
+                         {
+                             {1},
+                             {2}
+                         }
+                    )
                 };
             case A3LUR:
                 return DefinedAreas{
@@ -130,7 +180,12 @@ struct DefinedAreas {
                          {
                              {1, 5, 20},
                              {2, 5, 20}
-                         })
+                         },
+                         {
+                             {1},
+                             {2}
+                         }
+                    )
                 };
             case A3URD:
                 return DefinedAreas{
@@ -138,7 +193,12 @@ struct DefinedAreas {
                          {
                              {1, 5, 20},
                              {2, 5, 20}
-                         })
+                         },
+                         {
+                             {1},
+                             {2}
+                         }
+                    )
                 };
             case A3LDR:
                 return DefinedAreas{
@@ -146,7 +206,12 @@ struct DefinedAreas {
                          {
                              {1, 5, 20},
                              {2, 5, 20}
-                         })
+                         },
+                         {
+                             {1},
+                             {2}
+                         }
+                    )
                 };
             case A3ULD:
                 return DefinedAreas{
@@ -154,7 +219,12 @@ struct DefinedAreas {
                          {
                              {1, 5, 20},
                              {2, 5, 20}
-                         })
+                         },
+                         {
+                             {1},
+                             {2}
+                         }
+                    )
                 };
             case A4URDL:
                 return DefinedAreas{
@@ -163,7 +233,12 @@ struct DefinedAreas {
                              {1, 5, 20},
                              {2, 5, 20},
                              {3, 5, 20, true}
-                         })
+                         },
+                         {
+                             {1},
+                             {2}
+                         }
+                    )
                 };
         }
     }

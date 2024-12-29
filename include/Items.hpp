@@ -28,7 +28,7 @@ struct DefinedItems {
     static DefinedItems get(const Items buff) {
         switch (buff) {
             case HEALTH_POTION:
-                return DefinedItems{Item(getItemName(HEALTH_POTION), 50.0, 0.8)};
+                return DefinedItems{Item(getItemName(HEALTH_POTION), 50.0, 1)};
             case HEALTH_BOOST:
                 return DefinedItems{Item(getItemName(HEALTH_BOOST), 20.0, 0.5)};
             case SPEED_BOOST:

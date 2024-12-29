@@ -26,7 +26,7 @@ Item Chest::generate() {
     for (int i = 0; i < DefinedItems::size(); ++i) {
         Item item = DefinedItems::get(static_cast<Items>(i)).item;
         std::uniform_int_distribution<> dis(0, 10);
-        if (dis(gen) < item.getProbability()*10) {
+        if (dis(gen) <= item.getProbability()*10) {
             items.emplace_back(item);
         }
     }

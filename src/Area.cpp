@@ -36,6 +36,12 @@ Area::Area(int type, int max_is, std::set<Direction2D> gatawayPositions, std::ve
     this->spawns = spawns;
 }
 
+Area::Area(int type, int max_id, std::set<Direction2D> gatewayPositions, std::vector<Spawn> spawns, std::vector<Chest> chests) : Area(
+    type, max_id, std::move(gatewayPositions), std::move(spawns)) {
+    this->chests = chests;
+}
+
+
 bool Area::isCompatible(Direction2D direction, const Area&otherArea) {
     if (otherArea.type == -1) {
         return true;
