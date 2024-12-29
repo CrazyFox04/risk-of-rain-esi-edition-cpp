@@ -48,8 +48,8 @@ struct DefinedAreas {
                 return DefinedAreas{
                     Area(11, 1, {Direction::UP},
                          {
-                             {1, 5, 20},
-                             {2, 5, 20}
+                             {1, 20, 40},
+                             {2, 20, 40}
                          },
                          {
                              {1},
@@ -61,8 +61,8 @@ struct DefinedAreas {
                 return DefinedAreas{
                     Area(12, 1, {Direction::RIGHT},
                          {
-                             {1, 5, 20},
-                             {2, 5, 20}
+                             {1, 20, 40},
+                             {2, 20, 40}
                          },
                          {
                              {1},
@@ -74,8 +74,8 @@ struct DefinedAreas {
                 return DefinedAreas{
                     Area(13, 1, {Direction::DOWN},
                          {
-                             {1, 5, 20},
-                             {2, 5, 20}
+                             {1, 20, 40},
+                             {2, 20, 40}
                          },
                          {
                              {1},
@@ -87,8 +87,8 @@ struct DefinedAreas {
                 return DefinedAreas{
                     Area(14, 1, {Direction::LEFT},
                          {
-                             {1, 5, 20},
-                             {2, 5, 20}
+                             {1, 20, 40},
+                             {2, 20, 40}
                          },
                          {
                              {1},
@@ -100,8 +100,8 @@ struct DefinedAreas {
                 return DefinedAreas{
                     Area(21, 1, {Direction::UP, Direction::RIGHT},
                          {
-                             {1, 5, 20},
-                             {2, 5, 20}
+                             {1, 20, 40},
+                             {2, 20, 40}
                          },
                          {
                              {1},
@@ -113,8 +113,8 @@ struct DefinedAreas {
                 return DefinedAreas{
                     Area(22, 1, {Direction::LEFT, Direction::DOWN},
                          {
-                             {1, 5, 20},
-                             {2, 5, 20}
+                             {1, 20, 40},
+                             {2, 20, 40}
                          },
                          {
                              {1},
@@ -126,8 +126,8 @@ struct DefinedAreas {
                 return DefinedAreas{
                     Area(23, 1, {Direction::UP, Direction::LEFT},
                          {
-                             {1, 5, 20},
-                             {2, 5, 20}
+                             {1, 20, 40},
+                             {2, 20, 40}
                          },
                          {
                              {1},
@@ -139,8 +139,8 @@ struct DefinedAreas {
                 return DefinedAreas{
                     Area(24, 1, {Direction::DOWN, Direction::RIGHT},
                          {
-                             {1, 5, 20},
-                             {2, 5, 20}
+                             {1, 20, 40},
+                             {2, 20, 40}
                          },
                          {
                              {1},
@@ -150,10 +150,10 @@ struct DefinedAreas {
                 };
             case A2UD:
                 return DefinedAreas{
-                    Area(25, 1, {Direction::UP, Direction::DOWN},
+                    Area(220, 1, {Direction::UP, Direction::DOWN},
                          {
-                             {1, 5, 20},
-                             {2, 5, 20}
+                             {1, 20, 40},
+                             {2, 20, 40}
                          },
                          {
                              {1},
@@ -165,8 +165,8 @@ struct DefinedAreas {
                 return DefinedAreas{
                     Area(26, 1, {Direction::LEFT, Direction::RIGHT},
                          {
-                             {1, 5, 20},
-                             {2, 5, 20}
+                             {1, 20, 40},
+                             {2, 20, 40}
                          },
                          {
                              {1},
@@ -178,8 +178,8 @@ struct DefinedAreas {
                 return DefinedAreas{
                     Area(31, 1, {Direction::UP, Direction::LEFT, Direction::RIGHT},
                          {
-                             {1, 5, 20},
-                             {2, 5, 20}
+                             {1, 20, 40},
+                             {2, 20, 40}
                          },
                          {
                              {1},
@@ -191,8 +191,8 @@ struct DefinedAreas {
                 return DefinedAreas{
                     Area(32, 1, {Direction::UP, Direction::RIGHT, Direction::DOWN},
                          {
-                             {1, 5, 20},
-                             {2, 5, 20}
+                             {1, 20, 40},
+                             {2, 20, 40}
                          },
                          {
                              {1},
@@ -204,8 +204,8 @@ struct DefinedAreas {
                 return DefinedAreas{
                     Area(33, 1, {Direction::LEFT, Direction::DOWN, Direction::RIGHT},
                          {
-                             {1, 5, 20},
-                             {2, 5, 20}
+                             {1, 20, 40},
+                             {2, 20, 40}
                          },
                          {
                              {1},
@@ -217,8 +217,8 @@ struct DefinedAreas {
                 return DefinedAreas{
                     Area(34, 1, {Direction::UP, Direction::LEFT, Direction::DOWN},
                          {
-                             {1, 5, 20},
-                             {2, 5, 20}
+                             {1, 20, 40},
+                             {2, 20, 40}
                          },
                          {
                              {1},
@@ -230,9 +230,9 @@ struct DefinedAreas {
                 return DefinedAreas{
                     Area(40, 2, {Direction::UP, Direction::RIGHT, Direction::DOWN, Direction::LEFT},
                          {
-                             {1, 5, 20},
-                             {2, 5, 20},
-                             {3, 5, 20, true}
+                             {1, 20, 40},
+                             {2, 20, 40},
+                             {3, 20, 40, true}
                          },
                          {
                              {1},
