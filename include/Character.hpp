@@ -15,7 +15,7 @@
 
 #include "Capabilities.hpp"
 #include "Health.hpp"
-#include "Buff.h"
+#include "Buff.hpp"
 #include <vector>
 #include <memory>
 
