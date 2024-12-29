@@ -300,7 +300,8 @@ TEST(GameTest, playerIsHurtBusy) {
     int enemyId = 0;
     do {
         enemyId = game.ifCanSpawnCurrentLevelSpawnAt(areaX, areaY, spawnId);
-    } while (game.getCharacterType(enemyId) != 1);
+    }
+    while (game.getCharacterType(enemyId) != 1);
     EXPECT_FALSE(game.isCharacterBusy(id));
     EXPECT_NO_THROW(game.attack(enemyId, "ATTACK_SPECTRUM", id));
     EXPECT_EQ(game.getPlayerCurrentHealth(), Player::DEF_MAX_HEALTH - 75);
@@ -378,4 +379,13 @@ TEST(GameTest, playerAttack) {
     EXPECT_TRUE(game.canCharacterAttack(id, "ATTACK3"));
     EXPECT_NO_THROW(game.attack(id, "ATTACK3", -1));
     EXPECT_FALSE(game.canCharacterAttack(id, "ATTACK3"));
+}
+
+TEST(GameTest, spawnBoss) {
+    Game game = Game();
+    int id = 0;
+    EXPECT_TRUE(game.canActivateBossSpawn(1,1,3));
+    EXPECT_NO_THROW(id = game.activateBossSpawn(1, 1, 3));
+    EXPECT_EQ(3, game.getCharacterType(id));
+    EXPECT_FALSE(game.canActivateBossSpawn(1,1,3));
 }

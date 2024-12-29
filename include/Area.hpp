@@ -93,6 +93,10 @@ public:
      */
     [[nodiscard]] std::set<Direction2D> get_gateway_positions() const;
 
+    bool canSpawnBoss() const;
+
+    void spawnBoss(int spawn_id);
+
     /**
      * @brief Generates a random area ID within a maximum range.
      * @param max_id The maximum allowable ID.

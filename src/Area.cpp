@@ -94,3 +94,16 @@ std::vector<int> Area::get_spawn_ids() const {
     }
     return ids;
 }
+
+bool Area::canSpawnBoss() const {
+    for (const Spawn& spawn: spawns) {
+        if (spawn.canSpawnBoss()) {
+            return true;
+        }
+    }
+    return false;
+}
+
+void Area::spawnBoss(int spawn_id) {
+    get_spawn(spawn_id).spawnBoss();
+}

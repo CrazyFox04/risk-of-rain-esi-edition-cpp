@@ -42,7 +42,7 @@ double Game::getEnemyAttackRange(int id) const {
     return levels.at(activeLevel).getEnemy(id).getAttackRange();
 }
 
-int Game::getDamage(int id, const std::string& attackName) const {
+int Game::getDamage(int id, const std::string&attackName) const {
     if (!isAValidId(id)) {
         return -1;
     }
@@ -55,7 +55,7 @@ int Game::getDamage(int id, const std::string& attackName) const {
     return levels.at(activeLevel).getEnemy(id).getAttack(attackName).getDamage();
 }
 
-double Game::getChargeTime(int id, const std::string& attackName) const {
+double Game::getChargeTime(int id, const std::string&attackName) const {
     if (!isAValidId(id)) {
         return -1;
     }
@@ -110,7 +110,8 @@ double Game::getCharacterAttackTime(int id, std::string attackName) const {
             return player.getAttack(attackName).getAnimationTime();
         }
         return levels.at(activeLevel).getEnemy(id).getAttack(attackName).getAnimationTime();
-    } catch (std::invalid_argument&e) {
+    }
+    catch (std::invalid_argument&e) {
         return -1;
     }
 }
@@ -189,13 +190,14 @@ int Game::getCharacterType(int id) const {
         return 0;
     }
     try {
-        return DefinedEnemies::getId(levels.at(activeLevel).getEnemy(id).getType())+1;
-    } catch (std::invalid_argument&e) {
+        return DefinedEnemies::getId(levels.at(activeLevel).getEnemy(id).getType()) + 1;
+    }
+    catch (std::invalid_argument&e) {
         return -1;
     }
 }
 
-bool Game::canCharacterAttack(int id, const std::string& attackName) const {
+bool Game::canCharacterAttack(int id, const std::string&attackName) const {
     if (!isAValidId(id)) {
         return false;
     }
@@ -246,7 +248,7 @@ bool Game::isPlayerUsingJetpack() const {
     return player.getJetPack().isUsing();
 }
 
-bool Game::canCharacterMove(int id, const std::string& movementName) const {
+bool Game::canCharacterMove(int id, const std::string&movementName) const {
     if (!isAValidId(id)) {
         return false;
     }
@@ -278,11 +280,11 @@ std::set<std::string> Game::getCharacterAttacksName() {
     return DefinedAttacks::getCharacterAttacksName();
 }
 
-bool Game::isAValidAttackName(const std::string& attackName) {
+bool Game::isAValidAttackName(const std::string&attackName) {
     return DefinedAttacks::isAValidAttackName(attackName);
 }
 
-bool Game::isAValidMovementName(const std::string& movementName) {
+bool Game::isAValidMovementName(const std::string&movementName) {
     return DefinedMovements::isAValidMovementName(movementName);
 }
 
@@ -318,7 +320,7 @@ void Game::attack(int id, std::string attackName, int targetId) {
     }
 }
 
-void Game::move(int id, const std::string& movementName) {
+void Game::move(int id, const std::string&movementName) {
     if (!isAValidId(id)) {
         throw std::invalid_argument("Invalid id");
     }
@@ -399,4 +401,15 @@ void Game::stopMoving(int id, std::string type) {
     else {
         levels.at(activeLevel).getEnemy(id).stopMoving(type);
     }
+}
+
+int Game::activateBossSpawn(int areaX, int areaY, int areaId) {
+    if (levels.at(activeLevel).canActivateBossSpawn(areaX, areaY, areaId)) {
+        return levels.at(activeLevel).activateBossSpawn(areaX, areaY, areaId);
+    }
+    return -1;
+}
+
+bool Game::canActivateBossSpawn(int areaX, int areaY, int spawnId) {
+    return levels.at(activeLevel).canActivateBossSpawn(areaX, areaY, spawnId);
 }

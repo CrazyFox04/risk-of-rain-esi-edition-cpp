@@ -138,6 +138,10 @@ public:
      * @return A tuple containing the coordinates and spawn ID of an existing spawn point.
      */
     [[nodiscard]] std::tuple<std::tuple<int, int>, int> getAnExistingSpawn() const;
+
+    int activateBossSpawn(int area_x, int area_y, int area_id);
+
+    bool canActivateBossSpawn(int area_x, int area_y, int area_id);
 };
 
 #endif // LEVEL_HPP

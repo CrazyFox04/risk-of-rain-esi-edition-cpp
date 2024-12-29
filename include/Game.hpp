@@ -261,6 +261,10 @@ public:
      */
     [[nodiscard]] std::tuple<std::tuple<int, int>, int> getExistingSpawn() const;
 
+    int activateBossSpawn(int area_x, int area_y, int area_id);
+
+    bool canActivateBossSpawn(int areaX, int areaY, int spawnId);
+
     /**
      * @brief Retrieves the names of all character attacks.
      * @return A set of attack names.

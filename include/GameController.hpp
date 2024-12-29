@@ -272,7 +272,12 @@ public:
     void takeOffCharacter(int id);
 
     int isMoving(int id) const;
+
     void stopMoving(int id, int type);
+
+    int activateBossSpawn(int, int, int);
+
+    bool canActivateBossSpawn(int, int, int);
 };
 
 MY_API GameController* newGame();
@@ -348,5 +353,9 @@ MY_API void takeOffCharacter(GameController*, int);
 MY_API int isMoving(const GameController*, int);
 
 MY_API void stopMoving(GameController*, int, int);
+
+MY_API int activateBossSpawn(GameController*, int, int, int);
+
+MY_API bool canActivateBossSpawn(GameController*, int, int, int);
 
 #endif
