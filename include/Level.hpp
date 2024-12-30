@@ -24,6 +24,7 @@ class Level {
      * @param areas 2D vector of areas to load into the level.
      */
     void loadFromAreas(const std::vector<std::vector<Area>>& areas);
+    Enemy getARandomEnemy(double difficulty_coefficient);
 
 public:
     static constexpr int HEIGHT = 3; ///< Height of the level grid.
