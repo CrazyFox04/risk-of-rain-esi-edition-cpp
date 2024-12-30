@@ -69,7 +69,7 @@ public:
      * @param spawnId The ID of the spawn point.
      * @return The spawn result, or -1 if spawning is not possible.
      */
-    int ifCanSpawnCurrentLevelSpawnAt(int, int, int);
+    int ifCanSpawnCurrentLevelSpawnAt(int, int, int, double);
 
     /**
      * @brief Gets the type of a character by ID.
@@ -300,7 +300,7 @@ MY_API void takePlayerDamage(GameController*, int);
 
 MY_API int getAreaGuidCurrentLevel(const GameController*, int, int);
 
-MY_API int ifCanSpawnCurrentLevelSpawnAt(GameController*, int, int, int);
+MY_API int ifCanSpawnCurrentLevelSpawnAt(GameController*, int, int, int, double);
 
 MY_API int getCharacterType(const GameController*, int);
 

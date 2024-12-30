@@ -494,6 +494,10 @@ void Game::increaseDifficulty(double increment) {
     difficulty += increment;
 }
 
+double Game::getDifficulty() const {
+    return difficulty;
+}
+
 bool Game::isOver() const {
     return over;
 }

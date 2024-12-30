@@ -24,8 +24,8 @@ int GameController::getAreaGuidCurrentLevel(int x, int y) const {
     return game_.get_area_guid_current_level(x, y);
 }
 
-int GameController::ifCanSpawnCurrentLevelSpawnAt(int x, int y, int id) {
-    return game_.ifCanSpawnCurrentLevelSpawnAt(x, y, id);
+int GameController::ifCanSpawnCurrentLevelSpawnAt(int x, int y, int id, double difficulty) {
+    return game_.ifCanSpawnCurrentLevelSpawnAt(x, y, id, difficulty);
 }
 
 int GameController::getCharacterType(int id) const {
@@ -200,8 +200,8 @@ int getAreaGuidCurrentLevel(const GameController* game_controller, int x, int y)
     return game_controller->getAreaGuidCurrentLevel(x, y);
 }
 
-int ifCanSpawnCurrentLevelSpawnAt(GameController* game_controller, int x, int y, int id) {
-    return game_controller->ifCanSpawnCurrentLevelSpawnAt(x, y, id);
+int ifCanSpawnCurrentLevelSpawnAt(GameController* game_controller, int x, int y, int id, double di) {
+    return game_controller->ifCanSpawnCurrentLevelSpawnAt(x, y, id, di);
 }
 
 int getCharacterType(const GameController* game_controller, int id) {

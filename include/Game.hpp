@@ -337,6 +337,8 @@ public:
 
     void updateGameDifficulty();
 
+    double getDifficulty() const;
+
     bool isOver() const;
 };
 #endif //GAME_HPP
