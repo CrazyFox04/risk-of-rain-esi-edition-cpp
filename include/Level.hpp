@@ -117,7 +117,7 @@ public:
      * @param spawd_id Spawn ID.
      * @return The ID of the spawned enemy.
      */
-    int spawn_at(int area_x, int area_y, int spawd_id);
+    int spawn_at(int area_x, int area_y, int spawd_id, double difficultyCoefficient);
 
     /**
      * @brief Gets the enemy with the given ID.

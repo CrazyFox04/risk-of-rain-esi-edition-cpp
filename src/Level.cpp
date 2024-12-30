@@ -157,7 +157,7 @@ bool Level::can_spawn_at(int area_x, int area_y, int spawd_id) {
     return areas.at(area_x).at(area_y).can_spawn(spawd_id);
 }
 
-int Level::spawn_at(int area_x, int area_y, int spawd_id) {
+int Level::spawn_at(int area_x, int area_y, int spawd_id, double difficultyCoefficient) {
     if (!can_spawn_at(area_x, area_y, spawd_id)) {
         throw std::invalid_argument(
             "Cannot spawn at area (" + std::to_string(area_x) + ", " + std::to_string(area_y) + ") with spawn id " +
@@ -165,6 +165,8 @@ int Level::spawn_at(int area_x, int area_y, int spawd_id) {
     }
     areas.at(area_x).at(area_y).spawn(spawd_id);
     Enemy enemy = DefinedEnemies::getRandomEnemy(false);
+    enemy.increaseMovementForce("RUN", enemy.getMovement("RUN")->getForce() * difficultyCoefficient);
+    enemy.increaseMaxHealth(enemy.getHealth().max * difficultyCoefficient);
     enemies.emplace(enemy.getId(), enemy);
     return enemy.getId();
 }

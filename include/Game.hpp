@@ -90,7 +90,7 @@ public:
      * @param spawdId The ID of the spawn point.
      * @return The spawn result, or -1 if unsuccessful.
      */
-    int ifCanSpawnCurrentLevelSpawnAt(int areaX, int areaY, int spawdId);
+    int ifCanSpawnCurrentLevelSpawnAt(int areaX, int areaY, int spawdId, double difficultyCoefficient);
 
     /**
      * @brief Retrieves the type of a character by ID.

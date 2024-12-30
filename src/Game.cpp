@@ -177,10 +177,10 @@ void Game::takePlayerDamage(int damage) {
     player.hurt(damage);
 }
 
-int Game::ifCanSpawnCurrentLevelSpawnAt(int areaX, int areaY, int spawdId) {
+int Game::ifCanSpawnCurrentLevelSpawnAt(int areaX, int areaY, int spawdId, double difficultyCoefficient) {
     if (levels.at(activeLevel).can_spawn_at(areaX, areaY, spawdId)) {
         // todo 
-        return levels.at(activeLevel).spawn_at(areaX, areaY, spawdId);
+        return levels.at(activeLevel).spawn_at(areaX, areaY, spawdId, difficultyCoefficient);
     }
     return -1; // can't spawn
 }
