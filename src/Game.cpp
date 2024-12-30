@@ -480,3 +480,20 @@ int Game::getNumberOfItem(int id, int item_id) {
     }
     return levels.at(activeLevel).getEnemy(id).getNumberOfItem(item_id);
 }
+
+void Game::updateGameDifficulty() {
+    auto now = std::chrono::steady_clock::now();
+    const auto DIFFICULTY_INTERVAL = std::chrono::seconds(60);
+    if (now - timeSinceDifficultyUpdate > DIFFICULTY_INTERVAL) {
+        increaseDifficulty(0.1);
+        timeSinceDifficultyUpdate = now;
+    }
+}
+
+void Game::increaseDifficulty(double increment) {
+    difficulty += increment;
+}
+
+bool Game::isOver() const {
+    return over;
+}

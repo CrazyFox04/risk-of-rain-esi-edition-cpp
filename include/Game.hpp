@@ -30,7 +30,8 @@ class Game {
     std::vector<Level> levels; ///< A list of levels in the game.
     Player player; ///< The player character.
     bool over;
-    std::chrono::time_point<std::chrono::steady_clock> timeSinceStart;
+    double difficulty = 1.0;
+    std::chrono::time_point<std::chrono::steady_clock> timeSinceDifficultyUpdate;
 
     /**
      * @brief Adds a new level to the game.
@@ -332,6 +333,10 @@ public:
 
     void stopMoving(int id, std::string type);
 
-    void editEnemyBasedOnCu
+    void increaseDifficulty(double increment);
+
+    void updateGameDifficulty();
+
+    bool isOver() const;
 };
 #endif //GAME_HPP
