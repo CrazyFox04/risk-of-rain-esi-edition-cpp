@@ -29,3 +29,7 @@ double Enemy::getAttackRange() const {
 bool Enemy::getIsBoss() const {
     return isBoss;
 }
+
+void Enemy::die() {
+    // nop
+}
