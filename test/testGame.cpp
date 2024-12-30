@@ -439,3 +439,13 @@ TEST(GameTest, playerAttackMonster) {
     EXPECT_NO_THROW(game.attack(id, "ATTACK1", enemyId));
     EXPECT_NO_THROW(game.attack(id, "ATTACK1", enemyId));
 }
+
+TEST(GAmeTest, enemyDieDontThrow) {
+    Game game = Game();
+    int id = game.getPlayerId();
+    int enemyId = game.ifCanSpawnCurrentLevelSpawnAt(1,1,1);
+    do {
+        EXPECT_NO_THROW(game.attack(id, "ATTACK1", enemyId));
+    } while (game.getCharacterHealth(enemyId) > 0);
+    EXPECT_EQ(0, game.getCharacterHealth(enemyId));
+}

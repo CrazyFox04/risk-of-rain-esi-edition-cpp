@@ -41,6 +41,7 @@ protected:
     bool onGround; ///< Indicates whether the character is on the ground.
     Animation hurtAnimation; ///< Animation triggered when the character is hurt.
 
+    virtual void die() = 0;
 public:
     static constexpr double DEF_HURT_TIME = 0.5; ///< Default duration of the hurt animation.
     static constexpr double DEF_RUN_FORCE = 4.0; ///< Default force for running movements.

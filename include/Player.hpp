@@ -44,6 +44,8 @@ public:
      */
     Player();
 
+    void die() override;
+
     ~Player() override = default;
 };
 

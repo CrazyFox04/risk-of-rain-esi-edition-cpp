@@ -8,6 +8,8 @@
 #include "Player.hpp"
 #include "Run.hpp"
 #include <memory>
+#include "GameOverException.hpp"
+#include <random>
 #include "Climb.hpp"
 #include "Items.hpp"
 
@@ -26,3 +28,16 @@ Player::Player(): Character("PLAYER", DEF_MAX_HEALTH, DEF_HURT_TIME,
 const std::set<Attack> Player::DEF_ATTACKS_PLAYER = {
     DefinedAttacks::get(ATTACK1).attack, DefinedAttacks::get(ATTACK2).attack, DefinedAttacks::get(ATTACK3).attack
 };
+
+void Player::die() {
+    if (items.contains("TEDDY_BEAR")) {
+        items.at("TEDDY_BEAR") -= 1;
+        std::random_device rd;
+        std::mt19937 gen(rd());
+        std::uniform_int_distribution<> dis(0, 100);
+        if (dis(gen) < 5) {
+            health.current = 0.1 * health.max;
+        }
+    }
+    throw GameOverException("Game over : Player is dead");
+}

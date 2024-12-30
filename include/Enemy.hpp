@@ -58,6 +58,8 @@ public:
      */
     [[nodiscard]] bool getIsBoss() const;
 
+    void die() override;
+
     void addItem(Item buff) override;
 };
 #endif //ENEMY_HPP
