@@ -44,6 +44,8 @@ public:
      */
     Player();
 
+    Player(int primaryAttack, int secondaryAttack, int tertiaryAttack);
+
     void die() override;
 
     ~Player() override = default;
