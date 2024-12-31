@@ -179,6 +179,18 @@ int GameController::getNumberOfItem(int id, int itemId) {
     return game_.getNumberOfItem(id, itemId);
 }
 
+int GameController::getPrimaryPlayerAttack() const {
+    return game_.getPrimaryPlayerAttack();
+}
+
+int GameController::getSecondaryPlayerAttack() const {
+    return game_.getSecondaryPlayerAttack();
+}
+
+int GameController::getTertiaryPlayerAttack() const {
+    return game_.getTertiaryPlayerAttack();
+}
+
 GameController* newGame(int primaryAttack, int secondaryAttack, int tertiaryAttack) {
     return new GameController(primaryAttack, secondaryAttack, tertiaryAttack);
 }
@@ -371,4 +383,16 @@ int openChest(GameController* game_controller, int areaX, int areaY, int chestId
 
 int getNumberOfItem(GameController* game_controller, int id, int itemId) {
     return game_controller->getNumberOfItem(id, itemId);
+}
+
+int getPrimaryPlayerAttack(const GameController* game_controller) {
+    return game_controller->getPrimaryPlayerAttack();
+}
+
+int getSecondaryPlayerAttack(const GameController* game_controller) {
+    return game_controller->getSecondaryPlayerAttack();
+}
+
+int getTertiaryPlayerAttack(const GameController* game_controller) {
+    return game_controller->getTertiaryPlayerAttack();
 }

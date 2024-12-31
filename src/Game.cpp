@@ -504,3 +504,15 @@ double Game::getDifficulty() const {
 bool Game::isOver() const {
     return over;
 }
+
+int Game::getPrimaryPlayerAttack() const {
+    return DefinedAttacks::getAttackValue(player.getAttackAt(0).getName());
+}
+
+int Game::getSecondaryPlayerAttack() const {
+    return DefinedAttacks::getAttackValue(player.getAttackAt(1).getName());
+}
+
+int Game::getTertiaryPlayerAttack() const {
+    return DefinedAttacks::getAttackValue(player.getAttackAt(2).getName());
+}

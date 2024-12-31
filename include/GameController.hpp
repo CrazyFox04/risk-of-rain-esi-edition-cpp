@@ -290,6 +290,12 @@ public:
     bool isChestEmpty(int, int, int) const;
 
     int getNumberOfItem(int, int);
+
+    int getPrimaryPlayerAttack() const;
+
+    int getSecondaryPlayerAttack() const;
+
+    int getTertiaryPlayerAttack() const;
 };
 
 MY_API GameController* newGame(int primaryAttack, int secondaryAttack, int tertiaryAttack);
@@ -377,5 +383,11 @@ MY_API bool isChestEmpty(const GameController*, int, int, int);
 MY_API int openChest(GameController*, int, int, int);
 
 MY_API int getNumberOfItem(GameController*, int, int);
+
+MY_API int getPrimaryPlayerAttack(const GameController*);
+
+MY_API int getSecondaryPlayerAttack(const GameController*);
+
+MY_API int getTertiaryPlayerAttack(const GameController*);
 
 #endif

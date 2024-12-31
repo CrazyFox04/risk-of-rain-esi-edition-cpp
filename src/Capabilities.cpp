@@ -7,10 +7,10 @@
 #include "pch.h"
 #include "Capabilities.hpp"
 
-Capabilities::Capabilities(std::set<Attack> attacks, std::set<std::shared_ptr<Movement>> movements,
+Capabilities::Capabilities(std::vector<Attack> attacks, std::set<std::shared_ptr<Movement>> movements,
                            bool hasJetPack): jetPack(0, 0, 0, 0) {
     for (const auto&attack: attacks) {
-        this->attacks.emplace(attack.getName(), attack);
+        this->attacks.emplace_back(attack);
     }
     for (const auto&movement: movements) {
         this->movements.emplace(movement->getName(), movement);
@@ -23,7 +23,7 @@ Capabilities::Capabilities(std::set<Attack> attacks, std::set<std::shared_ptr<Mo
 
 std::chrono::time_point<std::chrono::steady_clock> Capabilities::getLastAttackTime() const {
     std::chrono::time_point<std::chrono::steady_clock> lastAttackTime = std::chrono::steady_clock::now();
-    for (const auto&[name, attack]: attacks) {
+    for (Attack attack : attacks) {
         if (attack.getLastUsageTime() > lastAttackTime) {
             lastAttackTime = attack.getLastUsageTime();
         }
@@ -32,7 +32,12 @@ std::chrono::time_point<std::chrono::steady_clock> Capabilities::getLastAttackTi
 }
 
 bool Capabilities::hasThisAttack(std::string name) const {
-    return attacks.contains(name);
+    for (const auto & attack : attacks) {
+        if (attack.getName() == name) {
+            return true;
+        }
+    }
+    return false;
 }
 
 bool Capabilities::hasThisMovement(std::string name) const {
@@ -44,7 +49,7 @@ bool Capabilities::canUse(std::string name) const {
         return jetPack.canActivate();
     }
     if (hasThisAttack(name)) {
-        return attacks.at(name).canUse();
+        return getCopyAttack(name).canUse();
     }
     if (hasThisMovement(name)) {
         return movements.at(name)->canUse();
@@ -52,11 +57,15 @@ bool Capabilities::canUse(std::string name) const {
     return false; // doesn't have this capability
 }
 
-Attack Capabilities::getAttack(std::string name) const {
+Attack Capabilities::getCopyAttack(std::string& name) const {
     if (!hasThisAttack(name)) {
         throw std::invalid_argument("This attack does not exist");
     }
-    return attacks.at(name);
+    for (const auto attack : attacks) {
+        if (attack.getName() == name) {
+            return attack;
+        }
+    }
 }
 
 std::shared_ptr<Movement> Capabilities::getMovement(std::string name) const {
@@ -79,8 +88,8 @@ int Capabilities::use(std::string name) {
         return 0;
     }
     if (hasThisAttack(name)) {
-        attacks.at(name).use();
-        return attacks.at(name).getDamage();
+        getAttack(name).use();
+        return getAttack(name).getDamage();
     }
     if (hasThisMovement(name)) {
         movements.at(name)->use();
@@ -89,7 +98,7 @@ int Capabilities::use(std::string name) {
 }
 
 bool Capabilities::isBusy() const {
-    for (const auto&[name, attack]: attacks) {
+    for (Attack attack : attacks) {
         if (attack.isUsing()) {
             return true;
         }
@@ -121,9 +130,9 @@ int Capabilities::isMoving() const {
     return -1;
 }
 
-void Capabilities::increaseAttackDamage(double amount, const std::string& attacksName...) {
+void Capabilities::increaseAttackDamage(double amount, std::string&attacksName) {
     if (hasThisAttack(attacksName)) {
-        attacks.at(attacksName).increaseDamage(amount);
+        getAttack(attacksName).increaseDamage(amount);
     }
 }
 
@@ -135,8 +144,8 @@ void Capabilities::increaseMovementForce(const std::string&string, double amount
 
 std::vector<std::string> Capabilities::getCharacterAttacksName() {
     std::vector<std::string> attacksName;
-    for (const auto&[name, attack]: attacks) {
-        attacksName.emplace_back(name);
+    for (Attack attack : attacks) {
+        attacksName.emplace_back(attack.getName());
     }
     return attacksName;
 }
@@ -149,4 +158,17 @@ void Capabilities::stop(std::string name) {
     if (hasThisMovement(name)) {
         movements.at(name)->stop();
     }
+}
+
+Attack Capabilities::getAttackAt(int attack_index) const {
+    return attacks.at(attack_index);
+}
+
+Attack& Capabilities::getAttack(std::string& name) {
+    for (Attack& attack : attacks) {
+        if (attack.getName() == name) {
+            return attack;
+        }
+    }
+    throw std::invalid_argument("This attack does not exist");
 }

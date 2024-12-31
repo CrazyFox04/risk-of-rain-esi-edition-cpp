@@ -108,6 +108,15 @@ struct DefinedAttacks {
         return getCharacterAttacksName().contains(attackName);
     }
 
+    static int getAttackValue(const std::string&attackName) {
+        for (int i = 0; i < size(); ++i) {
+            if (get(static_cast<Attacks>(i)).attack.getName() == attackName) {
+                return i;
+            }
+        }
+        throw std::invalid_argument("Invalid attack name");
+    }
+    
     /**
      * @brief Retrieves the number of predefined Attacks.
      * @return The number of elements in the Attacks enum.
