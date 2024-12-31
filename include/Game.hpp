@@ -33,6 +33,8 @@ class Game {
     double difficulty = 1.0;
     std::chrono::time_point<std::chrono::steady_clock> timeSinceDifficultyUpdate;
 
+    static constexpr auto DIFFICULTY_INTERVAL = std::chrono::seconds(60);
+
     /**
      * @brief Adds a new level to the game.
      * @param level The level to add.

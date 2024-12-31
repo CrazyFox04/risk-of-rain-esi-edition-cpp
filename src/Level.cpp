@@ -242,6 +242,9 @@ int Level::attackEnemy(int id, std::string attackName) {
 }
 
 Enemy Level::getARandomEnemy(double difficulty_coefficient) {
+    if (difficulty_coefficient < 1.0) {
+        throw std::invalid_argument("Difficulty coefficient must be greater than or equal to 1.0");
+    }
     Enemy enemy = DefinedEnemies::getRandomEnemy(false);
     enemy.increaseMaxHealth(enemy.getHealth().max * difficulty_coefficient - enemy.getHealth().max);
     for (auto attack_name: enemy.getAllAttackName()) {
