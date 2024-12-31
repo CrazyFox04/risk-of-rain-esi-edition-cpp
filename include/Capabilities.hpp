@@ -23,10 +23,11 @@
  * @brief Represents a collection of abilities (attacks, movements, and tools) for a character.
  */
 class Capabilities {
-    std::map<std::string, Attack> attacks; ///< Map of attacks identified by their names.
+    std::vector<Attack> attacks; ///< Map of attacks identified by their names.
     std::map<std::string, std::shared_ptr<Movement>> movements; ///< Map of movements identified by their names.
     JetPack jetPack; ///< JetPack capability, if available.
 
+    Attack& getAttack(std::string& name);
 public:
     /**
      * @brief Constructs a Capabilities object with the specified attacks, movements, and JetPack.
@@ -34,7 +35,7 @@ public:
      * @param movements A set of available movements.
      * @param hasJetPack Whether the JetPack capability is available.
      */
-    Capabilities(std::set<Attack> attacks, std::set<std::shared_ptr<Movement>> movements, bool hasJetPack);
+    Capabilities(std::vector<Attack> attacks, std::set<std::shared_ptr<Movement>> movements, bool hasJetPack);
 
     /**
      * @brief Checks if a capability (attack, movement, or JetPack) can be used.
@@ -50,7 +51,7 @@ public:
      * @return The corresponding Attack object.
      * @throws std::invalid_argument If the attack does not exist.
      */
-    [[nodiscard]] Attack getAttack(std::string) const;
+    [[nodiscard]] Attack getCopyAttack(std::string&) const;
 
     /**
      * @brief Retrieves a movement by its name.
@@ -104,10 +105,12 @@ public:
 
     void increaseMovementForce(const std::string& string, double amount);
 
-    void increaseAttackDamage(double amount, const std::string& attacksName...);
+    void increaseAttackDamage(double amount, std::string&attacksName);
 
     std::vector<std::string> getCharacterAttacksName();
 
     void stop(std::string name);
+
+    Attack getAttackAt(int attack_index) const;
 };
 #endif //CAPABILITIES_HPP

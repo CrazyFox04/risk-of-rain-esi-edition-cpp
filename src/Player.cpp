@@ -44,7 +44,7 @@ Player::Player(int primaryAttack, int secondaryAttack, int tertiaryAttack) : Cha
 }
 
 
-const std::set<Attack> Player::DEF_ATTACKS_PLAYER = {
+const std::vector<Attack> Player::DEF_ATTACKS_PLAYER = {
     DefinedAttacks::get(ATTACK1).attack, DefinedAttacks::get(ATTACK2).attack, DefinedAttacks::get(ATTACK3).attack
 };
 

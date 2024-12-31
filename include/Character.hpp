@@ -78,6 +78,8 @@ public:
      */
     [[nodiscard]] Attack getAttack(std::string) const;
 
+    Attack getAttackAt(int attackIndex) const;
+
     /**
      * @brief Retrieves a specific movement by its name.
      * @param name The name of the movement.

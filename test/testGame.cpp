@@ -430,7 +430,7 @@ TEST(GameTest, ennemiesCanAttack) {
 TEST(GameTest, playerAttackMonster) {
     Game game = Game();
     int id = game.getPlayerId();
-    int enemyId = game.ifCanSpawnCurrentLevelSpawnAt(1,1,1);
+    int enemyId = game.ifCanSpawnCurrentLevelSpawnAt(1, 1, 1);
     EXPECT_NO_THROW(game.attack(id, "ATTACK1", enemyId));
     EXPECT_NO_THROW(game.attack(id, "ATTACK1", enemyId));
     EXPECT_NO_THROW(game.attack(id, "ATTACK1", enemyId));
@@ -473,4 +473,55 @@ TEST(GameTest, playerAttackCtor3) {
     int enemyHealth = game.getCharacterHealth(enemyId);
     EXPECT_NO_THROW(game.attack(id, "ATTACK5", enemyId));
     EXPECT_LT(game.getCharacterHealth(enemyId),enemyHealth);
+}
+
+TEST(GameTest, playerAttackJumpDash) {
+    Game game = Game(0, 1, 2);
+    int id = game.getPlayerId();
+    for (int i = 0; i < 1000000; ++i) {
+        if (game.canCharacterAttack(id, "ATTACK1")) {
+            EXPECT_NO_THROW(game.attack(id, "ATTACK1", -1));
+        }
+        if (game.canCharacterMove(id, "JUMP")) {
+            EXPECT_NO_THROW(game.move(id, "JUMP"));
+        }
+        if (game.canCharacterMove(id, "DASH")) {
+            EXPECT_NO_THROW(game.move(id, "DASH"));
+        }
+        if (game.canCharacterAttack(id, "ATTACK2")) {
+            EXPECT_NO_THROW(game.attack(id, "ATTACK2", -1));
+        }
+        if (game.canCharacterAttack(id, "ATTACK3")) {
+            EXPECT_NO_THROW(game.attack(id, "ATTACK3", -1));
+        }
+        if (game.canCharacterMove(id, "RUN")) {
+            EXPECT_NO_THROW(game.move(id, "RUN"));
+        }
+    }
+}
+
+TEST(GameTest, playerSpamAttack3) {
+    Game game = Game(0, 1, 2);
+    int id = game.getPlayerId();
+    for (int i = 0; i < 1000000; ++i) {
+        if (game.canCharacterAttack(id, "ATTACK3")) {
+            EXPECT_NO_THROW(game.attack(id, "ATTACK3", -1));
+        }
+    }
+}
+
+TEST(GameTest, getPlayerAttack) {
+    Game game = Game();
+    int id = game.getPlayerId();
+    EXPECT_EQ(0, game.getPrimaryPlayerAttack());
+    EXPECT_EQ(1, game.getSecondaryPlayerAttack());
+    EXPECT_EQ(2, game.getTertiaryPlayerAttack());
+}
+
+TEST(GameTest, getPlayerAttack2) {
+    Game game = Game(4, 2, 3);
+    int id = game.getPlayerId();
+    EXPECT_EQ(4, game.getPrimaryPlayerAttack());
+    EXPECT_EQ(2, game.getSecondaryPlayerAttack());
+    EXPECT_EQ(3, game.getTertiaryPlayerAttack());
 }

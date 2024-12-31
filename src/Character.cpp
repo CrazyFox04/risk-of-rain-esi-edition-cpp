@@ -44,7 +44,7 @@ Health Character::getHealth() const {
 }
 
 Attack Character::getAttack(std::string name) const {
-    return capabilities.getAttack(name);
+    return capabilities.getCopyAttack(name);
 }
 
 std::shared_ptr<Movement> Character::getMovement(std::string name) const {
@@ -229,4 +229,8 @@ std::vector<std::string> Character::getAllAttackName() {
 
 int Character::getNumberOfItem(int item_id) const {
     return items.at(DefinedItems::getItemName(static_cast<Items>(item_id)));
+}
+
+Attack Character::getAttackAt(int attackIndex) const {
+    return capabilities.getAttackAt(attackIndex);
 }

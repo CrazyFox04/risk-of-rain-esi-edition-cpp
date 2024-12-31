@@ -413,5 +413,8 @@ public:
      * @return True if the game is over, otherwise false.
      */
     [[nodiscard]] bool isOver() const;
+    int getPrimaryPlayerAttack() const;
+    int getSecondaryPlayerAttack() const;
+    int getTertiaryPlayerAttack() const;
 };
 #endif //GAME_HPP
