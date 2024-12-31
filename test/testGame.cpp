@@ -43,10 +43,9 @@ TEST(GameTest, IfCanSpawnCurrentLevelSpawnAtReturnsTrueWhenSpawned) {
     std::tuple<std::tuple<int, int>, int> existingSpawn = game.getExistingSpawn();
     int areaX = std::get<0>(std::get<0>(existingSpawn));
     int areaY = std::get<1>(std::get<0>(existingSpawn));
-    double difficulty = game.getDifficulty();
     int spawnId = std::get<1>(existingSpawn);
-    EXPECT_NE(-1, game.ifCanSpawnCurrentLevelSpawnAt(areaX, areaY, spawnId, difficulty));
-    EXPECT_EQ(-1, game.ifCanSpawnCurrentLevelSpawnAt(areaX, areaY, spawnId, difficulty));
+    EXPECT_NE(-1, game.ifCanSpawnCurrentLevelSpawnAt(areaX, areaY, spawnId));
+    EXPECT_EQ(-1, game.ifCanSpawnCurrentLevelSpawnAt(areaX, areaY, spawnId));
 }
 
 TEST(GameTest, IfCanSpawnCurrentLevelSpawnAtReturnsFalseWhenNotSpawned) {
@@ -54,10 +53,9 @@ TEST(GameTest, IfCanSpawnCurrentLevelSpawnAtReturnsFalseWhenNotSpawned) {
     std::tuple<std::tuple<int, int>, int> existingSpawn = game.getExistingSpawn();
     int areaX = std::get<0>(std::get<0>(existingSpawn));
     int areaY = std::get<1>(std::get<0>(existingSpawn));
-    double difficulty = game.getDifficulty();
     int spawnId = std::get<1>(existingSpawn);
-    EXPECT_NE(-1, game.ifCanSpawnCurrentLevelSpawnAt(areaX, areaY, spawnId, difficulty));
-    EXPECT_EQ(-1, game.ifCanSpawnCurrentLevelSpawnAt(areaX, areaY, spawnId, difficulty));
+    EXPECT_NE(-1, game.ifCanSpawnCurrentLevelSpawnAt(areaX, areaY, spawnId));
+    EXPECT_EQ(-1, game.ifCanSpawnCurrentLevelSpawnAt(areaX, areaY, spawnId));
 }
 
 TEST(GameTest, IfSpawnReturnId_isInThisLevel) {
@@ -65,9 +63,8 @@ TEST(GameTest, IfSpawnReturnId_isInThisLevel) {
     std::tuple<std::tuple<int, int>, int> existingSpawn = game.getExistingSpawn();
     int areaX = std::get<0>(std::get<0>(existingSpawn));
     int areaY = std::get<1>(std::get<0>(existingSpawn));
-    double difficulty = game.getDifficulty();
     int spawnId = std::get<1>(existingSpawn);
-    int id = game.ifCanSpawnCurrentLevelSpawnAt(areaX, areaY, spawnId, difficulty);
+    int id = game.ifCanSpawnCurrentLevelSpawnAt(areaX, areaY, spawnId);
     EXPECT_NO_THROW(game.getCharacterType(98765678987));
     EXPECT_EQ(-1, game.getCharacterType(98765678987));
     EXPECT_NO_THROW(game.getCharacterType(id));
@@ -92,9 +89,8 @@ TEST(GameTest, noThrowWhenGetEnemyFollowRange) {
     std::tuple<std::tuple<int, int>, int> existingSpawn = game.getExistingSpawn();
     int areaX = std::get<0>(std::get<0>(existingSpawn));
     int areaY = std::get<1>(std::get<0>(existingSpawn));
-    double difficulty = game.getDifficulty();
     int spawnId = std::get<1>(existingSpawn);
-    int id = game.ifCanSpawnCurrentLevelSpawnAt(areaX, areaY, spawnId, difficulty);
+    int id = game.ifCanSpawnCurrentLevelSpawnAt(areaX, areaY, spawnId);
     EXPECT_NO_THROW(game.getEnemyFollowRange(id));
     EXPECT_NO_THROW(game.getEnemyFollowRange(9898989));
 }
@@ -104,9 +100,8 @@ TEST(GameTest, noThrowWhenGetEnemyAttackRange) {
     std::tuple<std::tuple<int, int>, int> existingSpawn = game.getExistingSpawn();
     int areaX = std::get<0>(std::get<0>(existingSpawn));
     int areaY = std::get<1>(std::get<0>(existingSpawn));
-    double difficulty = game.getDifficulty();
     int spawnId = std::get<1>(existingSpawn);
-    int id = game.ifCanSpawnCurrentLevelSpawnAt(areaX, areaY, spawnId, difficulty);
+    int id = game.ifCanSpawnCurrentLevelSpawnAt(areaX, areaY, spawnId);
     EXPECT_NO_THROW(game.getEnemyAttackRange(id));
     EXPECT_NO_THROW(game.getEnemyAttackRange(9898989));
 }
@@ -232,9 +227,8 @@ TEST(GameTest, noThrowWhenIfCanSpawnCurrentLevelSpawnAt) {
     std::tuple<std::tuple<int, int>, int> existingSpawn = game.getExistingSpawn();
     int areaX = std::get<0>(std::get<0>(existingSpawn));
     int areaY = std::get<1>(std::get<0>(existingSpawn));
-    double difficulty = game.getDifficulty();
     int spawnId = std::get<1>(existingSpawn);
-    EXPECT_NO_THROW(game.ifCanSpawnCurrentLevelSpawnAt(areaX, areaY, spawnId, difficulty));
+    EXPECT_NO_THROW(game.ifCanSpawnCurrentLevelSpawnAt(areaX, areaY, spawnId));
 }
 
 TEST(GameTest, noThrowWhenGetType) {
@@ -302,11 +296,10 @@ TEST(GameTest, playerIsHurtBusy) {
     std::tuple<std::tuple<int, int>, int> existingSpawn = game.getExistingSpawn();
     int areaX = std::get<0>(std::get<0>(existingSpawn));
     int areaY = std::get<1>(std::get<0>(existingSpawn));
-    double difficulty = game.getDifficulty();
     int spawnId = std::get<1>(existingSpawn);
     int enemyId = 0;
     do {
-        enemyId = game.ifCanSpawnCurrentLevelSpawnAt(areaX, areaY, spawnId, difficulty);
+        enemyId = game.ifCanSpawnCurrentLevelSpawnAt(areaX, areaY, spawnId);
     }
     while (game.getCharacterType(enemyId) != 1);
     EXPECT_FALSE(game.isCharacterBusy(id));
@@ -424,10 +417,9 @@ TEST(GameTest, ennemiesCanAttack) {
     int areaX = std::get<0>(std::get<0>(existingSpawn));
     int areaY = std::get<1>(std::get<0>(existingSpawn));
     int spawnId = std::get<1>(existingSpawn);
-    double difficulty = game.getDifficulty();
     int enemyId = 0;
     do {
-        enemyId = game.ifCanSpawnCurrentLevelSpawnAt(areaX, areaY, spawnId, difficulty);
+        enemyId = game.ifCanSpawnCurrentLevelSpawnAt(areaX, areaY, spawnId);
     } while (game.getCharacterType(enemyId) != 1);
     int id = game.getPlayerId();
     EXPECT_TRUE(game.canCharacterAttack(enemyId, "ATTACK_SPECTRUM"));
@@ -438,7 +430,7 @@ TEST(GameTest, ennemiesCanAttack) {
 TEST(GameTest, playerAttackMonster) {
     Game game = Game();
     int id = game.getPlayerId();
-    int enemyId = game.ifCanSpawnCurrentLevelSpawnAt(1,1,1, 1.0);
+    int enemyId = game.ifCanSpawnCurrentLevelSpawnAt(1,1,1);
     EXPECT_NO_THROW(game.attack(id, "ATTACK1", enemyId));
     EXPECT_NO_THROW(game.attack(id, "ATTACK1", enemyId));
     EXPECT_NO_THROW(game.attack(id, "ATTACK1", enemyId));

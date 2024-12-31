@@ -73,7 +73,7 @@ public:
      * @param spawnId The ID of the spawn point.
      * @return The spawn result, or -1 if spawning is not possible.
      */
-    int ifCanSpawnCurrentLevelSpawnAt(int, int, int, double);
+    int ifCanSpawnCurrentLevelSpawnAt(int, int, int);
 
     /**
      * @brief Gets the type of a character by ID.

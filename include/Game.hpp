@@ -92,10 +92,9 @@ public:
      * @param areaX The x-coordinate of the area.
      * @param areaY The y-coordinate of the area.
      * @param spawdId The ID of the spawn point.
-     * @param difficultyCoefficient The coefficient to adjust the difficulty.
      * @return The spawn result, or -1 if unsuccessful.
      */
-    int ifCanSpawnCurrentLevelSpawnAt(int areaX, int areaY, int spawdId, double difficultyCoefficient);
+    int ifCanSpawnCurrentLevelSpawnAt(int areaX, int areaY, int spawdId);
 
     /**
      * @brief Retrieves the type of a character by ID.
