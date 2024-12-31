@@ -29,11 +29,11 @@ class Game {
     int activeLevel; ///< The index of the currently active level.
     std::vector<Level> levels; ///< A list of levels in the game.
     Player player; ///< The player character.
-    bool over;
-    double difficulty = 1.0;
-    std::chrono::time_point<std::chrono::steady_clock> timeSinceDifficultyUpdate;
+    bool over; ///< Flag indicating if the game is over.
+    double difficulty = 1.0; ///< Coefficient to adjust the difficulty of the game.
+    std::chrono::time_point<std::chrono::steady_clock> timeSinceDifficultyUpdate; ///< Record of Difficulty Update
 
-    static constexpr auto DIFFICULTY_INTERVAL = std::chrono::seconds(60);
+    static constexpr auto DIFFICULTY_INTERVAL = std::chrono::seconds(300); ///< Interval for difficulty updates.
 
     /**
      * @brief Adds a new level to the game.
@@ -90,6 +90,7 @@ public:
      * @param areaX The x-coordinate of the area.
      * @param areaY The y-coordinate of the area.
      * @param spawdId The ID of the spawn point.
+     * @param difficultyCoefficient The coefficient to adjust the difficulty.
      * @return The spawn result, or -1 if unsuccessful.
      */
     int ifCanSpawnCurrentLevelSpawnAt(int areaX, int areaY, int spawdId, double difficultyCoefficient);
@@ -266,16 +267,50 @@ public:
      */
     [[nodiscard]] std::tuple<std::tuple<int, int>, int> getExistingSpawn() const;
 
+    /**
+     * @brief Activates a boss spawn in the current level.
+     * @return Boss id
+     */
     int activateBossSpawn(int area_x, int area_y, int area_id);
 
+    /**
+     * @brief Checks if a boss spawn can be activated in the current level.
+     * @return True if the boss spawn can be activated, otherwise false.
+     */
     bool canActivateBossSpawn(int areaX, int areaY, int spawnId);
 
+    /**
+     * @brief Retrieves the time a character has to wait to use a movement again.
+     * @param id The ID of the character.
+     * @param movementName The name of the movement.
+     * @return The cooldown of the movement.
+     */
     double getCharacterCoolDownMovementTime(int id, const std::string& string) const;
 
+    /**
+     * Checks if a chest in a specific area has been opened.
+     * @param area_x The x-coordinate of the area.
+     * @param area_y The y-coordinate of the area.
+     * @param chest_id The ID of the chest to check.
+     * @return True if the chest is empty, otherwise false.
+     */
     bool isChestEmpty(int area_x, int area_y, int chest_id) const;
 
+    /**
+     * @brief Opens a chest in a specific area.
+     * @param area_x The x-coordinate of the area.
+     * @param area_y The y-coordinate of the area.
+     * @param chest_id The ID of the chest to open.
+     * @return The ID of the item found in the chest.
+     */
     int openChest(int area_x, int area_y, int chest_id);
 
+    /**
+     * @brief Retrieves the number of a specific item in the player's inventory.
+     * @param id The ID of the player.
+     * @param item_id The ID of the item to check.
+     * @return The number of the item in the player's inventory.
+     */
     int getNumberOfItem(int id, int item_id);
 
     /**
@@ -291,6 +326,11 @@ public:
      */
     static bool isAValidAttackName(const std::string&attackName);
 
+    /**
+     * @brief Checks if a given movement name is valid.
+     * @param string The name of the movement.
+     * @return True if the movement name is valid, otherwise false.
+     */
     static bool isAValidMovementName(const std::string&string);
 
     /**
@@ -329,18 +369,48 @@ public:
      */
     void takeOffCharacter(int id);
 
+    /**
+     * @brief Retrieves th movement type of a character by ID.
+     * @param id The ID of the character moving
+     * @return The index value of the movement in the enum.
+     */
     int getMovingType(int id) const;
 
+    /**
+     * @brief Checks if a character is moving.
+     * @param id The ID of the character.
+     * @return The index value of the movement in the enum if moving, -1 otherwise.
+     */
     int isMoving(int id) const;
 
+    /**
+     * @brief Manually stops a movement. Designed for the JetPack.
+     * @param id The ID of the character who needs to stop moving.
+     * @param type The movement type to stop.
+     */
     void stopMoving(int id, std::string type);
 
+    /**
+     * @brief Updates the difficulty coefficient of the game.
+     * @param increment The amount to increase the difficulty coefficient by.
+     */
     void increaseDifficulty(double increment);
 
+    /**
+     * @brief Updates the game difficulty based on a predefined interval.
+     */
     void updateGameDifficulty();
 
+    /**
+     * @brief Retrieves the current difficulty coefficient of the game.
+     * @return The difficulty coefficient.
+     */
     double getDifficulty() const;
 
-    bool isOver() const;
+    /**
+     * @brief Checks if the game is over.
+     * @return True if the game is over, otherwise false.
+     */
+    [[nodiscard]] bool isOver() const;
 };
 #endif //GAME_HPP

@@ -81,6 +81,7 @@ void Character::increaseMaxHealth(int amount) {
         throw std::invalid_argument("Amount must be positive");
     }
     health.max += amount;
+    health.current = health.max;
 }
 
 bool Character::hasJetPack() const {

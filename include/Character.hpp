@@ -202,18 +202,50 @@ public:
      */
     void takeOff();
 
+    /**
+     * @brief Checks if the character is doing a movement.
+     * @return The movement index
+     */
     int isMoving() const;
 
+    /**
+     * @brief Manually stops a movement. Designed for the JetPack.
+     * @param movementName The name of the movement to stop.
+     */
     void stopMoving(std::string movementName);
 
+    /**
+     * @brief Increases the character's Maximum health
+     * by a specified amount and sets the current health to the new maximum.
+     * @param amount The amount to increase the health by.
+     */
     void increaseMaxHealth(int amount);
 
+    /**
+     * @brief Increases a character's movement force by a specified amount.
+     * @param movementName The movement to increase the force of.
+     * @param amount The amount to increase the force by.
+     */
     void increaseMovementForce(const std::string&movementName, double amount);
 
+    /**
+     * @brief Increases the damage of a character's attacks by a specified amount.
+     * @param amount The amount to increase the damage by.
+     * @param attackName The list of attacks to increase the damage of.
+     */
     void increaseAttackDamage(double amount, std::vector<std::string> attackName);
 
+    /**
+     * @brief Retrieves the names of all character attacks.
+     * @return A vector of attack names.
+     */
     std::vector<std::string> getAllAttackName();
 
+    /**
+     * @brief Retrieves the number of a specific item in the character's inventory.
+     * @param item_id The ID of the item to check.
+     * @return The number of the item in the inventory.
+     */
     int getNumberOfItem(int item_id) const;
 };
 #endif //CHARACTER_HPP
