@@ -52,6 +52,8 @@ public:
      */
     Game();
 
+    Game(int primaryAttack, int secondaryAttack, int tertiaryAttack);
+
     /**
      * @brief Retrieves the currently active level.
      * @return The active Level object.

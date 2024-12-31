@@ -447,3 +447,38 @@ TEST(GameTest, playerAttackMonster) {
     EXPECT_NO_THROW(game.attack(id, "ATTACK1", enemyId));
     EXPECT_NO_THROW(game.attack(id, "ATTACK1", enemyId));
 }
+
+TEST(GameTest, enemyDieDontThrow) {
+    Game game = Game();
+    int id = game.getPlayerId();
+    int enemyId = game.ifCanSpawnCurrentLevelSpawnAt(1,1,1);
+    do {
+        EXPECT_NO_THROW(game.attack(id, "ATTACK1", enemyId));
+    } while (game.getCharacterHealth(enemyId) > 0);
+    EXPECT_EQ(0, game.getCharacterHealth(enemyId));
+}
+
+TEST(GameTest, playerAttackCtor) {
+    Game game = Game(1, 2, 3);
+    int id = game.getPlayerId();
+    int enemyId = game.ifCanSpawnCurrentLevelSpawnAt(1,1,1);
+    EXPECT_NO_THROW(game.attack(id, "ATTACK2", enemyId));
+}
+
+TEST(GameTest, playerAttackCtor2) {
+    Game game = Game(3, 2, 1);
+    int id = game.getPlayerId();
+    int enemyId = game.ifCanSpawnCurrentLevelSpawnAt(1,1,1);
+    int enemyHealth = game.getCharacterHealth(enemyId);
+    EXPECT_NO_THROW(game.attack(id, "ATTACK4", enemyId));
+    EXPECT_LT(game.getCharacterHealth(enemyId),enemyHealth);
+}
+
+TEST(GameTest, playerAttackCtor3) {
+    Game game = Game(4, 1, 1);
+    int id = game.getPlayerId();
+    int enemyId = game.ifCanSpawnCurrentLevelSpawnAt(1,1,1);
+    int enemyHealth = game.getCharacterHealth(enemyId);
+    EXPECT_NO_THROW(game.attack(id, "ATTACK5", enemyId));
+    EXPECT_LT(game.getCharacterHealth(enemyId),enemyHealth);
+}

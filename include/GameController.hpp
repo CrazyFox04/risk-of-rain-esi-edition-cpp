@@ -36,6 +36,10 @@ class GameController {
     static std::string getMovementName(int movementIndex);
 
 public:
+    GameController(int, int, int);
+
+    GameController() = default;
+
     /**
      * @brief Gets the player's maximum health.
      * @return The maximum health of the player.
@@ -288,7 +292,7 @@ public:
     int getNumberOfItem(int, int);
 };
 
-MY_API GameController* newGame();
+MY_API GameController* newGame(int primaryAttack, int secondaryAttack, int tertiaryAttack);
 
 MY_API void destroyGame(const GameController*);
 

@@ -9,6 +9,10 @@
 #include "Game.hpp"
 
 #include "GameOverException.hpp"
+Game::Game(int primaryAttack, int secondaryAttack, int tertiaryAttack) : player(primaryAttack, secondaryAttack, tertiaryAttack), activeLevel(-1) {
+    next_level();
+}
+
 
 double Game::getCharacterSpeed(int id) const {
     if (!isAValidId(id)) {
@@ -131,9 +135,7 @@ double Game::getCharacterCoolDownAttack(int id, std::string attackName) const {
     return levels.at(activeLevel).getEnemy(id).getAttack(attackName).getCooldown();
 }
 
-Game::Game() : activeLevel(-1) {
-    next_level();
-}
+Game::Game() : Game(0,1,2) {}
 
 void Game::add_level(const Level&level) {
     levels.push_back(level);

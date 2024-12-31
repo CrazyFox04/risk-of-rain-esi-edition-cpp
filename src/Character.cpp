@@ -170,18 +170,11 @@ void Character::hurt(int damage) {
         throw std::invalid_argument("Damage must be positive");
     }
     if (health.current - damage <= 0) {
-        if (items.contains("TEDDY_BEAR")) {
-            items.at("TEDDY_BEAR") -= 1;
-            std::random_device rd;
-            std::mt19937 gen(rd());
-            std::uniform_int_distribution<> dis(0, 100);
-            if (dis(gen) < 5) {
-                health.current = 0.1 * health.max;
-            }
-        }
-        throw GameOverException("Game over : Player is dead");
+        health.current = 0;
+        die();
+    } else {
+        health.current -= damage; 
     }
-    health.current -= damage;
     if (!hurtAnimation.isPlaying()) {
         hurtAnimation.start();
     }
