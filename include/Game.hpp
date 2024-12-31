@@ -36,6 +36,17 @@ class Game {
     static constexpr auto DIFFICULTY_INTERVAL = std::chrono::seconds(300); ///< Interval for difficulty updates.
 
     /**
+     * @brief Updates the difficulty coefficient of the game.
+     * @param increment The amount to increase the difficulty coefficient by.
+     */
+    void increaseDifficulty(double increment);
+
+    /**
+     * @brief Updates the game difficulty based on a predefined interval.
+     */
+    void updateGameDifficulty();
+
+    /**
      * @brief Adds a new level to the game.
      * @param level The level to add.
      */
@@ -390,17 +401,6 @@ public:
      * @param type The movement type to stop.
      */
     void stopMoving(int id, std::string type);
-
-    /**
-     * @brief Updates the difficulty coefficient of the game.
-     * @param increment The amount to increase the difficulty coefficient by.
-     */
-    void increaseDifficulty(double increment);
-
-    /**
-     * @brief Updates the game difficulty based on a predefined interval.
-     */
-    void updateGameDifficulty();
 
     /**
      * @brief Retrieves the current difficulty coefficient of the game.

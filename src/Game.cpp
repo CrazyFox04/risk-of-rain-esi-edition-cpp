@@ -491,6 +491,9 @@ void Game::updateGameDifficulty() {
 }
 
 void Game::increaseDifficulty(double increment) {
+    if (increment < 0) {
+        throw std::invalid_argument("Increment must be positive");
+    }
     difficulty += increment;
 }
 
