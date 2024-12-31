@@ -48,6 +48,8 @@ public:
      */
     Game();
 
+    Game(int primaryAttack, int secondaryAttack, int tertiaryAttack);
+
     /**
      * @brief Retrieves the currently active level.
      * @return The active Level object.
@@ -266,7 +268,7 @@ public:
 
     bool canActivateBossSpawn(int areaX, int areaY, int spawnId);
 
-    double getCharacterCoolDownMovementTime(int id, const std::string& string) const;
+    double getCharacterCoolDownMovementTime(int id, const std::string&string) const;
 
     bool isChestEmpty(int area_x, int area_y, int chest_id) const;
 

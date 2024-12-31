@@ -7,6 +7,9 @@
 #include "pch.h"
 #include "GameController.hpp"
 #include "Movements.hpp"
+GameController::GameController(int primaryAttack, int secondaryAttack, int tertiaryAttack) : game_(primaryAttack, secondaryAttack, tertiaryAttack) {
+    
+}
 
 int GameController::getPlayerMaxHealth() const {
     return game_.getPlayerMaxHealth();
@@ -176,8 +179,8 @@ int GameController::getNumberOfItem(int id, int itemId) {
     return game_.getNumberOfItem(id, itemId);
 }
 
-GameController* newGame() {
-    return new GameController();
+GameController* newGame(int primaryAttack, int secondaryAttack, int tertiaryAttack) {
+    return new GameController(primaryAttack, secondaryAttack, tertiaryAttack);
 }
 
 void destroyGame(const GameController* game_controller) {

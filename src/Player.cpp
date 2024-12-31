@@ -25,6 +25,25 @@ Player::Player(): Character("PLAYER", DEF_MAX_HEALTH, DEF_HURT_TIME,
                             }) {
 }
 
+Player::Player(int primaryAttack, int secondaryAttack, int tertiaryAttack) : Character(
+    "PLAYER", DEF_MAX_HEALTH, DEF_HURT_TIME,
+    {
+        {
+            DefinedAttacks::get(static_cast<Attacks>(primaryAttack)).attack,
+            DefinedAttacks::get(static_cast<Attacks>(secondaryAttack)).attack,
+            DefinedAttacks::get(static_cast<Attacks>(tertiaryAttack)).attack
+        },
+        {
+            std::make_shared<Run>(DEF_RUN_FORCE),
+            std::make_shared<Jump>(DEF_JUMP_FORCE, 1),
+            std::make_shared<Dash>(),
+            std::make_shared<Climb>(DEF_CLIMB_FORCE)
+        },
+        true
+    }) {
+}
+
+
 const std::set<Attack> Player::DEF_ATTACKS_PLAYER = {
     DefinedAttacks::get(ATTACK1).attack, DefinedAttacks::get(ATTACK2).attack, DefinedAttacks::get(ATTACK3).attack
 };
