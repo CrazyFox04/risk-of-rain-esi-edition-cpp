@@ -24,6 +24,7 @@ class Level {
      * @param areas 2D vector of areas to load into the level.
      */
     void loadFromAreas(const std::vector<std::vector<Area>>& areas);
+    Enemy getARandomEnemy(double difficulty_coefficient);
 
 public:
     static constexpr int HEIGHT = 3; ///< Height of the level grid.
@@ -117,7 +118,7 @@ public:
      * @param spawd_id Spawn ID.
      * @return The ID of the spawned enemy.
      */
-    int spawn_at(int area_x, int area_y, int spawd_id);
+    int spawn_at(int area_x, int area_y, int spawd_id, double difficultyCoefficient);
 
     /**
      * @brief Gets the enemy with the given ID.

@@ -157,14 +157,14 @@ bool Level::can_spawn_at(int area_x, int area_y, int spawd_id) {
     return areas.at(area_x).at(area_y).can_spawn(spawd_id);
 }
 
-int Level::spawn_at(int area_x, int area_y, int spawd_id) {
+int Level::spawn_at(int area_x, int area_y, int spawd_id, double difficultyCoefficient) {
     if (!can_spawn_at(area_x, area_y, spawd_id)) {
         throw std::invalid_argument(
             "Cannot spawn at area (" + std::to_string(area_x) + ", " + std::to_string(area_y) + ") with spawn id " +
             std::to_string(spawd_id));
     }
     areas.at(area_x).at(area_y).spawn(spawd_id);
-    Enemy enemy = DefinedEnemies::getRandomEnemy(false);
+    auto enemy = getARandomEnemy(difficultyCoefficient);
     enemies.emplace(enemy.getId(), enemy);
     return enemy.getId();
 }
@@ -197,13 +197,17 @@ std::tuple<std::tuple<int, int>, int> Level::getAnExistingSpawn() const {
 
 int Level::activateBossSpawn(int area_x, int area_y, int area_id) {
     if (!isValidCoordinates(area_x, area_y)) {
-        throw std::invalid_argument("Invalid area coordinates (" + std::to_string(area_x) + ", " + std::to_string(area_y) + ")");
+        throw std::invalid_argument(
+            "Invalid area coordinates (" + std::to_string(area_x) + ", " + std::to_string(area_y) + ")");
     }
     if (!areas.at(area_x).at(area_y).can_spawn(area_id)) {
-        throw std::invalid_argument("Cannot spawn at area (" + std::to_string(area_x) + ", " + std::to_string(area_y) + ") with spawn id " + std::to_string(area_id));
+        throw std::invalid_argument(
+            "Cannot spawn at area (" + std::to_string(area_x) + ", " + std::to_string(area_y) + ") with spawn id " +
+            std::to_string(area_id));
     }
     if (!areas.at(area_x).at(area_y).canSpawnBoss()) {
-        throw std::runtime_error("Cannot spawn boss at area (" + std::to_string(area_x) + ", " + std::to_string(area_y) + ")");
+        throw std::runtime_error(
+            "Cannot spawn boss at area (" + std::to_string(area_x) + ", " + std::to_string(area_y) + ")");
     }
     areas.at(area_x).at(area_y).spawnBoss(area_id);
     Enemy enemy = DefinedEnemies::getRandomEnemy(true);
@@ -235,4 +239,20 @@ int Level::attackEnemy(int id, std::string attackName) {
         throw std::invalid_argument("No enemy with id " + std::to_string(id));
     }
     return enemies.at(id).attack(std::move(attackName));
+}
+
+Enemy Level::getARandomEnemy(double difficulty_coefficient) {
+    if (difficulty_coefficient < 1.0) {
+        throw std::invalid_argument("Difficulty coefficient must be greater than or equal to 1.0");
+    }
+    Enemy enemy = DefinedEnemies::getRandomEnemy(false);
+    enemy.increaseMaxHealth(enemy.getHealth().max * difficulty_coefficient - enemy.getHealth().max);
+    for (auto attack_name: enemy.getAllAttackName()) {
+        auto amount = enemy.getAttack(attack_name).getDamage() * difficulty_coefficient - enemy.getAttack(attack_name).
+                      getDamage();
+        enemy.increaseAttackDamage(amount, {attack_name});
+    }
+    enemy.increaseMovementForce(
+        "RUN", enemy.getMovement("RUN")->getForce() * difficulty_coefficient - enemy.getMovement("RUN")->getForce());
+    return enemy;
 }

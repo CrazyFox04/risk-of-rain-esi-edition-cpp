@@ -181,7 +181,7 @@ void Game::takePlayerDamage(int damage) {
 
 int Game::ifCanSpawnCurrentLevelSpawnAt(int areaX, int areaY, int spawdId) {
     if (levels.at(activeLevel).can_spawn_at(areaX, areaY, spawdId)) {
-        return levels.at(activeLevel).spawn_at(areaX, areaY, spawdId);
+        return levels.at(activeLevel).spawn_at(areaX, areaY, spawdId, getDifficulty());
     }
     return -1; // can't spawn
 }
@@ -480,4 +480,27 @@ int Game::getNumberOfItem(int id, int item_id) {
         return player.getNumberOfItem(item_id);
     }
     return levels.at(activeLevel).getEnemy(id).getNumberOfItem(item_id);
+}
+
+void Game::updateGameDifficulty() {
+    auto now = std::chrono::steady_clock::now();
+    if (now - timeSinceDifficultyUpdate > DIFFICULTY_INTERVAL) {
+        increaseDifficulty(0.1);
+        timeSinceDifficultyUpdate = now;
+    }
+}
+
+void Game::increaseDifficulty(double increment) {
+    if (increment < 0) {
+        throw std::invalid_argument("Increment must be positive");
+    }
+    difficulty += increment;
+}
+
+double Game::getDifficulty() const {
+    return difficulty;
+}
+
+bool Game::isOver() const {
+    return over;
 }
