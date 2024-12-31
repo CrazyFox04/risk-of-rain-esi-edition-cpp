@@ -46,7 +46,7 @@ struct DefinedAttacks {
             case ATTACK1:
                 return DefinedAttacks{Attack("ATTACK1", 20, 0.42, 0.05, 0.42)};
             case ATTACK2:
-                return DefinedAttacks{Attack("ATTACK2", 50, 1.5, 0.2, 0.4)};
+                return DefinedAttacks{Attack("ATTACK2", 50, 0.75, 0.2, 0.4)};
             case ATTACK3:
                 return DefinedAttacks{Attack("ATTACK3", 100, 5.0, 0.4, 1.0)};
             case ATTACK4:
