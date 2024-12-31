@@ -304,7 +304,7 @@ MY_API void takePlayerDamage(GameController*, int);
 
 MY_API int getAreaGuidCurrentLevel(const GameController*, int, int);
 
-MY_API int ifCanSpawnCurrentLevelSpawnAt(GameController*, int, int, int, double);
+MY_API int ifCanSpawnCurrentLevelSpawnAt(GameController*, int, int, int);
 
 MY_API int getCharacterType(const GameController*, int);
 
