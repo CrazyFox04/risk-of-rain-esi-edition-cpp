@@ -58,7 +58,7 @@ struct DefinedAttacks {
             case ATTACK_MONSTER:
                 return DefinedAttacks{Attack("ATTACK_MONSTER", 25, 1.0, 0.3, 0.8)};
             case ATTACK_DROID:
-                return DefinedAttacks{Attack("ATTACK_DROID", 50, 1.5, 0.2, 1.0)};
+                return DefinedAttacks{Attack("ATTACK_DROID", 50, 1.5, 0.6, 1.55)};
         }
     }
 
