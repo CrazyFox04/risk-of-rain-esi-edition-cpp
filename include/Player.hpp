@@ -44,10 +44,29 @@ public:
      */
     Player();
 
+    /**
+     * @brief Constructs a Player object with custom primary, secondary, and tertiary attacks.
+     *
+     * This constructor allows specifying custom attacks for the player, alongside default health
+     * and movements.
+     *
+     * @param primaryAttack The index of the primary attack from the predefined list of attacks.
+     * @param secondaryAttack The index of the secondary attack from the predefined list of attacks.
+     * @param tertiaryAttack The index of the tertiary attack from the predefined list of attacks.
+     */
     Player(int primaryAttack, int secondaryAttack, int tertiaryAttack);
 
+    /**
+     * @brief Handles the player's death.
+     * If the player has a teddy bear item, there is a small chance
+     * of retrieving a portion of health upon death. Otherwise, the game ends.
+     * @throws GameOverException if the player dies and cannot be revived.
+     */
     void die() override;
 
+    /**
+     * @brief Destroys the Player object.
+     */
     ~Player() override = default;
 };
 

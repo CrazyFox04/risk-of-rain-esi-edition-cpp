@@ -33,6 +33,11 @@ protected:
 public:
     virtual ~Movement() = default;
 
+    /**
+     * @brief Increases the force of the movement by a specified amount.
+     * @param amount The amount to increase the force by.
+     * @throws std::invalid_argument If the amount is negative.
+     */
     void increaseForce(double amount);
 
     /**
@@ -61,6 +66,11 @@ public:
      * @throws std::invalid_argument If the movement cannot be used due to cooldown or other constraints.
      */
     virtual void use();
+
+    /**
+     * @brief Stops the movement if it is currently active.
+     * This method is intended to be overridden by derived class JetPack
+     */
     virtual void stop();
 
     /**
