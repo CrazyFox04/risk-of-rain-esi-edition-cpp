@@ -24,3 +24,7 @@ bool Jump::canUse() const {
 void Jump::reset() {
     currentUsage = 0;
 }
+
+void Jump::increaseForce(double amount) {
+    maxUsage += amount;
+}

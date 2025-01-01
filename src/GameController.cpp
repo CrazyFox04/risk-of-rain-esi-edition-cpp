@@ -199,6 +199,9 @@ void GameController::nextLevel(int bossId) {
     return game_.nextLevel(bossId);
 }
 
+void GameController::useHealthPotionIfAvailable() {
+    game_.useHealthPotionIfAvailable();   
+}
 
 GameController* newGame(int primaryAttack, int secondaryAttack, int tertiaryAttack) {
     return new GameController(primaryAttack, secondaryAttack, tertiaryAttack);
@@ -412,4 +415,8 @@ bool canEndCurrentLevel(const GameController* game_controller, int bossId) {
 
 void nextLevel(GameController* game_controller, int bossId) {
     game_controller->nextLevel(bossId);
+}
+
+void useHealthPotionIfAvailable(GameController* game_controller) {
+    game_controller->useHealthPotionIfAvailable();
 }

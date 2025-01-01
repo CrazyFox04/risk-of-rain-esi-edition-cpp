@@ -49,5 +49,7 @@ public:
      * @brief Resets the jump counter, typically called when the character touches the ground.
      */
     void reset();
+
+    void increaseForce(double amount) override;
 };
 #endif //JUMP_HPP
