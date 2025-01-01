@@ -128,7 +128,18 @@ public:
      */
     [[nodiscard]] std::vector<int> get_spawn_ids() const;
 
+    /**
+     * @brief Open a chest to retrieve the item inside
+     * @param chest_id The chest to open
+     * @return The item inside the chest
+     */
     Item openChest(int chest_id);
+
+    /**
+     * @brief Check if a chest is empty
+     * @param chest_id The chest to check
+     * @return True if the chest has been opened, otherwise false
+     */
     bool isChestEmpty(int chest_id) const;
 };
 #endif //AREA_HPP

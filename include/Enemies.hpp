@@ -40,7 +40,8 @@ struct DefinedEnemies {
      */
     static DefinedEnemies get(const Enemies enemies);
 
-    static int getId(const std::string&enemies);
+
+    static int getId(const std::string&enemies); // TODO bug chez moi? il apparait à moitié en commentaire
 
     /**
      * @brief Retrieves the number of predefined enemy types.

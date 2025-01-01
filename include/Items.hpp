@@ -42,6 +42,10 @@ struct DefinedItems {
         }
     }
 
+    /**
+     * @brief Retrieves all predefined Item objects.
+     * @return A set of all predefined Item objects.
+     */
     static std::set<Item> getAllItems() {
         std::set<Item> items;
         for (auto buff : magic_enum::enum_values<Items>()) {
@@ -50,6 +54,11 @@ struct DefinedItems {
         return items;
     }
 
+    /**
+     * @brief Retrieves the name of a specific item.
+     * @param items The items enum.
+     * @return The name of the item.
+     */
     static std::string getItemName(Items items) {
         if (items < 0 || items >= size()) {
             throw std::out_of_range("Invalid buff enum value.");
@@ -57,6 +66,10 @@ struct DefinedItems {
         return magic_enum::enum_name(static_cast<Items>(items)).data();
     }
 
+    /**
+     * @brief Retrieves the names of all predefined character items.
+     * @return A set of strings representing the names of all character items.
+     */
     static std::set<std::string> getCharacterBuffsName() {
         std::set<std::string> buffNames;
         for (auto buff : magic_enum::enum_values<Items>()) {
@@ -65,14 +78,28 @@ struct DefinedItems {
         return buffNames;
     }
 
+    /**
+     * @brief Checks if a given item name is valid.
+     * @param buffName The name of the item.
+     * @return True if the item name is valid, otherwise false.
+     */
     static bool isValidBuffName(const std::string& buffName) {
         return getCharacterBuffsName().contains(buffName);
     }
 
+    /**
+     * @brief Gets the Enum size
+     * @return The size of the enum.
+     */
     static int size() {
         return magic_enum::enum_count<Items>();
     }
 
+    /**
+     * @brief Gets the ID of a specific item.
+     * @param string The name of the item.
+     * @return The ID of the item, or -1 if the item does not exist.
+     */
     static int getId(const std::string& string) {
         for (int i = 0; i < size(); ++i) {
             if (getItemName(static_cast<Items>(i)) == string) {

@@ -75,8 +75,15 @@ public:
      */
     [[nodiscard]] double getMaxTime() const;
 
+    /**
+     * @brief Stops the jetpack, changing its inUse status to false.
+     */
     void stop();
 
+    /**
+     * @brief Retrieves the cooldown time of the jetpack.
+     * @return The cooldown time as a double.
+     */
     double getCoolDown() const;
 };
 #endif //JETPACK_HPP

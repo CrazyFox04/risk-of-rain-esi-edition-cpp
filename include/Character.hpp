@@ -35,6 +35,10 @@ protected:
     bool onGround; ///< Indicates whether the character is on the ground.
     Animation hurtAnimation; ///< Animation triggered when the character is hurt.
 
+    /**
+     * @brief Virtual method to handle character death. Must be implemented by derived classes.
+     * @see Player::die()
+     */
     virtual void die() = 0;
 
     /**
@@ -79,6 +83,11 @@ public:
      */
     [[nodiscard]] Attack getAttack(std::string) const;
 
+    /**
+     * @brief Retrieves a specific attack by its index.
+     * @param attackIndex The index of the attack.
+     * @return The corresponding Attack object.
+     */
     Attack getAttackAt(int attackIndex) const;
 
     /**
@@ -108,12 +117,6 @@ public:
     [[nodiscard]] bool hasJetPack() const;
 
     /**
-     * @brief Retrieves the items (buffs) assigned to the character.
-     * @return A vector of shared pointers to Buff objects.
-     */
-    [[nodiscard]] const std::vector<std::shared_ptr<Items>>& getItems() const;
-
-    /**
      * @brief Executes an attack by its name.
      * @param attackName The name of the attack.
      * @return The damage dealt by the attack.
@@ -138,7 +141,7 @@ public:
      * @brief Activates the JetPack.
      * @throws std::invalid_argument If the JetPack cannot be used.
      */
-    void useJetpack();
+    void useJetpack(); // TODO why never used?
 
     /**
      * @brief Checks if an attack can be used by its name.
@@ -166,31 +169,35 @@ public:
     [[nodiscard]] bool isLanded() const;
 
     /**
-     * @brief Adds a buff to the character's inventory.
-     * @param buff The buff to add.
+     * @brief Checks if an item is in the character's inventory.
+     * if it is, we increment the number of this item in the inventory.
+     * if it is not, we add the item to the inventory.
+     * @param buff The item to add.
      */
-    virtual void addItem(Item buff);
+    virtual void addItem(Item item);
 
     /**
      * @brief Uses a specific item (buff).
      * @param item The buff to use.
      */
-    void useItem(const std::shared_ptr<Items>&item);
+    void useItem(const std::shared_ptr<Items>&item); // TODO bad attribute but really unnecessary?
 
     /**
-     * @brief Checks if the character is currently busy.
+     * @brief Checks if the character is currently using a blocking movement,
+     * making him busy
      * @return True if the character is busy, otherwise false.
      */
-    [[nodiscard]] bool isBusy() const;
+    [[nodiscard]] bool isBusy() const; // TODO The attacks are not involved in this method ?
 
     /**
      * @brief Applies damage to the character.
      * @param damage The amount of damage to apply.
+     * @throws std::invalid_argument If the damage is negative.
      */
     void hurt(int damage);
 
     /**
-     * @brief Retrieves the type or class of the character.
+     * @brief Retrieves the type of the character.
      * @return The type as a string.
      */
     [[nodiscard]] std::string getType() const;
@@ -222,6 +229,7 @@ public:
      * @brief Increases the character's Maximum health
      * by a specified amount and sets the current health to the new maximum.
      * @param amount The amount to increase the health by.
+     * @throws std::invalid_argument If the amount is negative.
      */
     void increaseMaxHealth(int amount);
 
@@ -235,7 +243,7 @@ public:
     /**
      * @brief Increases the damage of a character's attacks by a specified amount.
      * @param amount The amount to increase the damage by.
-     * @param attackName The list of attacks to increase the damage of.
+     * @param attackName The list of the character's attacks to increase the damage of.
      */
     void increaseAttackDamage(double amount, std::vector<std::string> attackName);
 
@@ -246,9 +254,9 @@ public:
     std::vector<std::string> getAllAttackName();
 
     /**
-     * @brief Retrieves the number of a specific item in the character's inventory.
+     * @brief Retrieves the amount of a specific item in the character's inventory.
      * @param item_id The ID of the item to check.
-     * @return The number of the item in the inventory.
+     * @return The amount of the item in the inventory.
      */
     int getNumberOfItem(int item_id) const;
 };

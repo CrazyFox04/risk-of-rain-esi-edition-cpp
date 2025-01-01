@@ -24,6 +24,13 @@ class Level {
      * @param areas 2D vector of areas to load into the level.
      */
     void loadFromAreas(const std::vector<std::vector<Area>>& areas);
+
+    /**
+     * @brief Gets a spawned enemy and applies a difficulty coefficient to its stats.
+     * @param difficulty_coefficient The coefficient to apply to the enemy's stats.
+     * @return The buffed enemy.
+     * @throws std::invalid_argument If the difficulty coefficient is less than 1.0.
+     */
     Enemy getARandomEnemy(double difficulty_coefficient);
 
 public:
@@ -140,18 +147,67 @@ public:
      */
     [[nodiscard]] std::tuple<std::tuple<int, int>, int> getAnExistingSpawn() const;
 
+    /**
+     * @brief Activates the boss spawn at a specific area and spawns a boss enemy.
+     *
+     * Checks the validity of the provided coordinates and spawn ID,
+     * ensures that a boss can be spawned in the specified area, and then spawns a boss enemy.
+     * @param area_x The x-coordinate of the area.
+     * @param area_y The y-coordinate of the area.
+     * @param area_id The ID of the spawn point within the area.
+     * @return The ID of the spawned boss enemy.
+     * @throws std::invalid_argument If the coordinates or spawn ID are invalid.
+     * @throws std::runtime_error If a boss cannot be spawned in the specified area.
+     */
     int activateBossSpawn(int area_x, int area_y, int area_id);
 
+    /**
+     * @brief Checks if a boss can be spawned at a specific area.
+     * @param area_x The x-coordinate of the area.
+     * @param area_y The y-coordinate of the area.
+     * @param area_id The ID of the spawn point within the area.
+     * @return True if a boss can be spawned, false otherwise.
+     */
     bool canActivateBossSpawn(int area_x, int area_y, int area_id);
 
+    /**
+     * @brief Opens a chest at a specific area and retrieves the item inside.
+     * @param area_x The x-coordinate of the area.
+     * @param area_y The y-coordinate of the area.
+     * @param chest_id The ID of the chest to open.
+     * @return The item inside the chest.
+     */
     Item openChest(int area_x, int area_y, int chest_id);
 
+    /**
+     * @brief Checks if a chest is empty at a specific area.
+     * @param area_x The x-coordinate of the area.
+     * @param area_y The y-coordinate of the area.
+     * @param chest_id The ID of the chest to check.
+     * @return True if the chest is empty, false otherwise.
+     */
     bool isChestEmpty(int area_x, int area_y, int chest_id) const;
 
+    /**
+     * @brief Applies damage to an enemy identified by its ID.
+     * @param id The ID of the enemy to damage.
+     * @param damage The amount of damage to apply.
+     * @Throws std::invalid_argument If the enemy ID is invalid.
+     * @see Character::hurt(int damage)
+     */
     void hurtEnemy(int id, int damage);
 
+    /**
+     * @brief Performs an attack on an enemy identified by its ID.
+     * @param id The ID of the enemy to attack.
+     * @param attackName The Name of the attack to perform.
+     * @return The damage dealt to the enemy.
+     */
     int attackEnemy(int id, std::string attackName);
 
+    /**
+     * @brief Unloads the level, removing all areas and enemies.
+     */
     void unload();
 };
 

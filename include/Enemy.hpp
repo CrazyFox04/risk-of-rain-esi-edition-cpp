@@ -58,8 +58,18 @@ public:
      */
     [[nodiscard]] bool getIsBoss() const;
 
+    /**
+     * @brief Deals with the enemy's death.
+     * @note Not implemented for enemies.
+     */
     void die() override;
 
-    void addItem(Item buff) override;
+    /**
+     * @brief Overrides the Character's addItem method to prevent adding items to enemies.
+     * @note Enemies cannot have items.
+     * @param item The item to add.
+     * @throws std::invalid_argument As enemies cannot have items.
+     */
+    void addItem(Item item) override;
 };
 #endif //ENEMY_HPP
