@@ -28,6 +28,11 @@ struct Direction {
     static const Direction2D LEFT; ///< Direction vector representing movement to the left.
     static const Direction2D UP; ///< Direction vector representing upward movement.
 
+    /**
+     * @brief Gets the opposite direction of the given direction.
+     * @param direction The direction to get the opposite of.
+     * @return The opposite direction of the given direction.
+     */
     static Direction2D getOppositeDirection(Direction2D direction);
 };
 #endif //DIRECTION_HPP

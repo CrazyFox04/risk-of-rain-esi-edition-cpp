@@ -38,6 +38,7 @@ class Game {
     /**
      * @brief Updates the difficulty coefficient of the game.
      * @param increment The amount to increase the difficulty coefficient by.
+     * @throws std::invalid_argument If the increment is negative.
      */
     void increaseDifficulty(double increment);
 
@@ -63,6 +64,12 @@ public:
      */
     Game();
 
+    /**
+     * @brief Constructs a new Game object with chosen attacks for the player.
+     * @param primaryAttack The enum index of primary attack for the player.
+     * @param secondaryAttack The enum index of the secondary attack for the player.
+     * @param tertiaryAttack The enum index of the tertiary attack for the player.
+     */
     Game(int primaryAttack, int secondaryAttack, int tertiaryAttack);
 
     /**
@@ -281,12 +288,18 @@ public:
 
     /**
      * @brief Activates a boss spawn in the current level.
-     * @return Boss id
+     * @param areaX The x-coordinate of the area.
+     * @param areaY The y-coordinate of the area.
+     * @param area_id The ID of the spawn point.
+     * @return The ID of the spawned boss, or -1 if the spawn is not possible.
      */
     int activateBossSpawn(int area_x, int area_y, int area_id);
 
     /**
      * @brief Checks if a boss spawn can be activated in the current level.
+     * @param areaX The x-coordinate of the area.
+     * @param areaY The y-coordinate of the area.
+     * @param spawnId The ID of the spawn point.
      * @return True if the boss spawn can be activated, otherwise false.
      */
     bool canActivateBossSpawn(int areaX, int areaY, int spawnId);
@@ -415,12 +428,29 @@ public:
      * @return True if the game is over, otherwise false.
      */
     [[nodiscard]] bool isOver() const;
+
+    /**
+     * @brief Retrieves the primary attack of the player.
+     * @return The primary attack enum index.
+     */
     int getPrimaryPlayerAttack() const;
+
+    /**
+     * @brief Retrieves the secondary attack of the player.
+     * @return The secondary attack enum index.
+     */
     int getSecondaryPlayerAttack() const;
+
+    /**
+     * @brief Retrieves the tertiary attack of the player.
+     * @return The tertiary attack enum index.
+     */
     int getTertiaryPlayerAttack() const;
 
     /**
      * @brief Progresses the game to the next level.
+     * @param bossIdd The ID of the current level's boss.
+     * @throws std::runtime_error If the level cannot be ended.
      */
     void nextLevel(int bossIdd);
 };

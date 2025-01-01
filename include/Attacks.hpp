@@ -108,6 +108,11 @@ struct DefinedAttacks {
         return getCharacterAttacksName().contains(attackName);
     }
 
+    /**
+     * @brief Retrieves the index of a specific attack.
+     * @param attackName The name of the attack.
+     * @return The index of the attack.
+     */
     static int getAttackValue(const std::string&attackName) {
         for (int i = 0; i < size(); ++i) {
             if (get(static_cast<Attacks>(i)).attack.getName() == attackName) {

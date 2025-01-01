@@ -27,6 +27,11 @@ class Capabilities {
     std::map<std::string, std::shared_ptr<Movement>> movements; ///< Map of movements identified by their names.
     JetPack jetPack; ///< JetPack capability, if available.
 
+    /**
+     * @brief Retrieves an attack by its name.
+     * @param name The name of the attack.
+     * @return The corresponding Attack object reference.
+     */
     Attack& getAttack(std::string& name);
 public:
     /**
@@ -48,7 +53,7 @@ public:
     /**
      * @brief Retrieves an attack by its name.
      * @param name The name of the attack.
-     * @return The corresponding Attack object.
+     * @return The corresponding Attack object copy.
      * @throws std::invalid_argument If the attack does not exist.
      */
     [[nodiscard]] Attack getCopyAttack(std::string&) const;
@@ -87,6 +92,10 @@ public:
      */
     [[nodiscard]] bool isBusy() const;
 
+    /**
+     * @brief Checks if any movement is currently in use and gets it's index.
+     * @return The index of the movement that is currently in use, -1 if no movement is in use.
+     */
     int isMoving() const;
 
     /**
@@ -103,14 +112,37 @@ public:
      */
     bool hasThisMovement(std::string name) const;
 
+    /**
+     * @brief Increases the force of a specific movement by a given amount.
+     * @param string The movement to increase the force of.
+     * @param amount The amount to increase the force by.
+     */
     void increaseMovementForce(const std::string& string, double amount);
 
+    /**
+     * @brief Increases the damage of a specific attack by a given amount.
+     * @param amount The amount to increase the damage by.
+     * @param attacksName The attack to increase the damage of.
+     */
     void increaseAttackDamage(double amount, std::string&attacksName);
 
+    /**
+     * @brief Retrieves all of character's attacks names.
+     * @return A vector of all the character's attacks names.
+     */
     std::vector<std::string> getCharacterAttacksName();
 
+    /**
+     * @brief Manually stops a specific movement. Designed for jetpack.
+     * @param name The movement to stop.
+     */
     void stop(std::string name);
 
+    /**
+     * @brief Retreives an attack at a specific index.
+     * @param attack_index The index of the attack to retrieve.
+     * @return The attack object at the specified index.
+     */
     Attack getAttackAt(int attack_index) const;
 };
 #endif //CAPABILITIES_HPP

@@ -100,6 +100,11 @@ public:
         return name < rhs.name;
     }
 
+    /**
+     * @brief Increases the damage dealt by the attack by a specified amount.
+     * @param amount The amount by which to increase the damage.
+     * @throws std::invalid_argument If the amount is negative.
+     */
     void increaseDamage(double amount);
 };
 #endif //ATTACK_HPP

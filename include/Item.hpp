@@ -47,8 +47,16 @@ public:
      */
     [[nodiscard]] std::string getName() const;
 
+    /**
+     * @brief Retrieves the probability of the item being generated.
+     * @return The Probability.
+     */
     double getProbability() const;
 
+    /**
+     * @brief Custom comparison operator for Item objects.
+     * @param other The other Item object to compare.
+     */
     bool operator<(const Item& other) const {
         return name < other.name;
     }

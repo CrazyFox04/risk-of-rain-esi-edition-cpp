@@ -31,13 +31,32 @@
 class GameController {
     Game game_; ///< The core game instance managing levels, players, and enemies.
 
+    /**
+     * @brief Retrieves the name of an attack from it's index.
+     * @param attackIndex The index of the attack.
+     * @return The name of the attack.
+     */
     static std::string getAttackName(int attackIndex);
 
+    /**
+     * @brief Retrieves the name of a movement from it's index.
+     * @param movementIndex The index of the movement.
+     * @return The name of the movement.
+     */
     static std::string getMovementName(int movementIndex);
 
 public:
+    /**
+     * @brief Constructs a GameController object with the specified attack IDs.
+     * @param primaryAttack The ID of the primary attack.
+     * @param secondaryAttack The ID of the secondary attack.
+     * @param tertiaryAttack The ID of the tertiary attack.
+     */
     GameController(int, int, int);
 
+    /**
+     * @brief Default constructor for the GameController class.
+     */
     GameController() = default;
 
     /**
@@ -275,30 +294,101 @@ public:
      */
     void takeOffCharacter(int id);
 
+    /**
+     * @brief Checks if a character is moving.
+     * @param id The ID of the character.
+     * @return The movement index the character is performing.
+     */
     int isMoving(int id) const;
 
+    /**
+     * @brief Stops a character from moving.
+     * @param id The character's ID.
+     * @param type The movement index
+     */
     void stopMoving(int id, int type);
 
+    /**
+     * @brief Activates a boss spawn in the current level.
+     * @param areaX The x-coordinate of the area.
+     * @param areaY The y-coordinate of the area.
+     * @param areaId The ID of the spawn point.
+     * @return The Id of the boss or -1 if the spawn is not possible.
+     */
     int activateBossSpawn(int, int, int);
 
+    /**
+     * @brief Checks if a boss spawn can be activated in the current level.
+     * @param areaX The x-coordinate of the area.
+     * @param areaY The y-coordinate of the area.
+     * @param spawnId The ID of the spawn point.
+     * @return True if the boss spawn can be activated, otherwise false.
+     */
     bool canActivateBossSpawn(int, int, int);
 
+    /**
+     * @brief Gets the cooldown time of a character's movement.
+     * @param id The unique ID of the character.
+     * @param movementIndex The index of the movement.
+     * @return The cooldown time of the movement.
+     */
     double getCharacterCoolDownMovementTime(int, int) const;
 
+    /**
+     * @brief Opens a chest in a specific area.
+     * @param areaX The x-coordinate of the area.
+     * @param areaY The y-coordinate of the area.
+     * @param chestId The ID of the chest.
+     * @return The id of the item in the chest.
+     */
     int openChest(int, int, int);
 
+    /**
+     * @brief Checks if a chest in a specific area has been opened.
+     * @param areaX The x-coordinate of the area.
+     * @param areaY The y-coordinate of the area.
+     * @param chestId The ID of the chest.
+     * @return True if the chest is empty, otherwise false.
+     */
     bool isChestEmpty(int, int, int) const;
 
+    /**
+     * @brief Gets the amount of a specific item in a character's inventory.
+     * @param id The unique ID of the character.
+     * @param itemId The ID of the item.
+     * @return The amount of the item in the character's inventory.
+     */
     int getNumberOfItem(int, int);
 
+    /**
+     * @brief Gets the primary attack of the player.
+     * @return The index of the primary attack.
+     */
     int getPrimaryPlayerAttack() const;
 
+    /**
+     * @brief Gets the secondary attack of the player.
+     * @return The index of the secondary attack.
+     */
     int getSecondaryPlayerAttack() const;
 
+    /**
+     * @brief Gets the tertiary attack of the player.
+     * @return The index of the tertiary attack.
+     */
     int getTertiaryPlayerAttack() const;
 
+    /**
+     * @brief Checks if the current level can be ended.
+     * @param bossId The ID of the boss in the current level.
+     * @return True if the level can be ended, otherwise false.
+     */
     bool canEndCurrentLevel(int) const;
 
+    /**
+     * @brief Progresses the game to the next level.
+     * @param bossId The ID of the boss in the current level.
+     */
     void nextLevel(int);
 };
 
