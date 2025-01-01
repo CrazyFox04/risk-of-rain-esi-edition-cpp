@@ -525,3 +525,16 @@ TEST(GameTest, getPlayerAttack2) {
     EXPECT_EQ(2, game.getSecondaryPlayerAttack());
     EXPECT_EQ(3, game.getTertiaryPlayerAttack());
 }
+
+TEST(GameTest, nextLevel) {
+    Game game = Game();
+    int id = game.getPlayerId();
+    int bossId = game.activateBossSpawn(1, 1, 3);
+    do {
+        EXPECT_NO_THROW(game.attack(id, "ATTACK1", bossId));
+    } while (game.getCharacterHealth(bossId) > 0);
+    EXPECT_EQ(0, game.getCharacterHealth(bossId));
+    EXPECT_TRUE(game.canEndCurrentLevel(bossId));
+    EXPECT_NO_THROW(game.nextLevel(bossId));
+    EXPECT_EQ(1, game.getActiveLevel().getId());
+}

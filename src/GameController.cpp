@@ -410,6 +410,6 @@ bool canEndCurrentLevel(const GameController* game_controller, int bossId) {
     return game_controller->canEndCurrentLevel(bossId);
 }
 
-void nextLevel(GameController* game_controller) {
-    game_controller->nextLevel();
+void nextLevel(GameController* game_controller, int bossId) {
+    game_controller->nextLevel(bossId);
 }
