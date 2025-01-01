@@ -116,12 +116,6 @@ public:
     [[nodiscard]] bool hasJetPack() const;
 
     /**
-     * @brief Retrieves the items (buffs) assigned to the character.
-     * @return A vector of shared pointers to Buff objects.
-     */
-    [[nodiscard]] const std::vector<std::shared_ptr<Items>>& getItems() const; // TODO delete?
-
-    /**
      * @brief Executes an attack by its name.
      * @param attackName The name of the attack.
      * @return The damage dealt by the attack.
