@@ -191,6 +191,15 @@ int GameController::getTertiaryPlayerAttack() const {
     return game_.getTertiaryPlayerAttack();
 }
 
+bool GameController::canEndCurrentLevel(int bossId) const {
+    return game_.canEndCurrentLevel(bossId);
+}
+
+void GameController::nextLevel(int bossId) {
+    return game_.nextLevel(bossId);
+}
+
+
 GameController* newGame(int primaryAttack, int secondaryAttack, int tertiaryAttack) {
     return new GameController(primaryAttack, secondaryAttack, tertiaryAttack);
 }
@@ -395,4 +404,12 @@ int getSecondaryPlayerAttack(const GameController* game_controller) {
 
 int getTertiaryPlayerAttack(const GameController* game_controller) {
     return game_controller->getTertiaryPlayerAttack();
+}
+
+bool canEndCurrentLevel(const GameController* game_controller, int bossId) {
+    return game_controller->canEndCurrentLevel(bossId);
+}
+
+void nextLevel(GameController* game_controller) {
+    game_controller->nextLevel();
 }

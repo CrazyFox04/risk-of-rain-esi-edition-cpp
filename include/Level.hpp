@@ -151,6 +151,8 @@ public:
     void hurtEnemy(int id, int damage);
 
     int attackEnemy(int id, std::string attackName);
+
+    void unload();
 };
 
 #endif // LEVEL_HPP

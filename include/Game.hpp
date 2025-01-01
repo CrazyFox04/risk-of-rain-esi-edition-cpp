@@ -297,7 +297,7 @@ public:
      * @param movementName The name of the movement.
      * @return The cooldown of the movement.
      */
-    double getCharacterCoolDownMovementTime(int id, const std::string& string) const;
+    double getCharacterCoolDownMovementTime(int id, const std::string&string) const;
 
     /**
      * Checks if a chest in a specific area has been opened.
@@ -324,6 +324,8 @@ public:
      * @return The number of the item in the player's inventory.
      */
     int getNumberOfItem(int id, int item_id);
+
+    bool canEndCurrentLevel(int bossId) const;
 
     /**
      * @brief Retrieves the names of all character attacks.
@@ -416,5 +418,10 @@ public:
     int getPrimaryPlayerAttack() const;
     int getSecondaryPlayerAttack() const;
     int getTertiaryPlayerAttack() const;
+
+    /**
+     * @brief Progresses the game to the next level.
+     */
+    void nextLevel(int bossIdd);
 };
 #endif //GAME_HPP

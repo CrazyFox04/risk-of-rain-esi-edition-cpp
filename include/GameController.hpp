@@ -296,6 +296,10 @@ public:
     int getSecondaryPlayerAttack() const;
 
     int getTertiaryPlayerAttack() const;
+
+    bool canEndCurrentLevel(int) const;
+
+    void nextLevel(int);
 };
 
 MY_API GameController* newGame(int primaryAttack, int secondaryAttack, int tertiaryAttack);
@@ -389,5 +393,9 @@ MY_API int getPrimaryPlayerAttack(const GameController*);
 MY_API int getSecondaryPlayerAttack(const GameController*);
 
 MY_API int getTertiaryPlayerAttack(const GameController*);
+
+MY_API bool canEndCurrentLevel(const GameController*,int);
+
+MY_API void nextLevel(GameController*, int);
 
 #endif

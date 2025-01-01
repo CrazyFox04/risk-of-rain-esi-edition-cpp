@@ -144,6 +144,9 @@ void Game::add_level(const Level&level) {
 void Game::next_level() {
     auto level = Level(++activeLevel);
     levels.push_back(level.generate());
+    if (activeLevel != 0) {
+        levels.at(activeLevel - 1).unload();
+    }
 }
 
 Level Game::getActiveLevel() {
@@ -515,4 +518,22 @@ int Game::getSecondaryPlayerAttack() const {
 
 int Game::getTertiaryPlayerAttack() const {
     return DefinedAttacks::getAttackValue(player.getAttackAt(2).getName());
+}
+
+bool Game::canEndCurrentLevel(int bossId) const {
+    if (!isAValidId(bossId)) {
+        return false;
+    }
+    auto boss = levels.at(activeLevel).getEnemy(bossId);
+    if (!boss.getIsBoss()) {
+        return false;
+    }
+    return boss.getHealth().current == 0;
+}
+
+void Game::nextLevel(int bossId) {
+    if (!canEndCurrentLevel(bossId)) {
+        throw std::runtime_error("Can't end the level");
+    }
+    next_level();
 }

@@ -256,3 +256,8 @@ Enemy Level::getARandomEnemy(double difficulty_coefficient) {
         "RUN", enemy.getMovement("RUN")->getForce() * difficulty_coefficient - enemy.getMovement("RUN")->getForce());
     return enemy;
 }
+
+void Level::unload() {
+    enemies = {};
+    areas = {};
+}
