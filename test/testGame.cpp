@@ -528,6 +528,7 @@ TEST(GameTest, getPlayerAttack2) {
 
 TEST(GameTest, nextLevel) {
     Game game = Game();
+    EXPECT_EQ(0, game.getActiveLevel().getId());
     int id = game.getPlayerId();
     int bossId = game.activateBossSpawn(1, 1, 3);
     do {
