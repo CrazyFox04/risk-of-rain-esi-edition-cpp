@@ -73,6 +73,10 @@ void Character::increaseHealth(int amount) {
     if (amount < 0) {
         throw std::invalid_argument("Amount must be positive");
     }
+    if (health.current + amount >= health.max) {
+        health.current = health.max;
+        return;
+    }
     health.current += amount;
 }
 
@@ -214,6 +218,10 @@ void Character::addItem(Item item) {
 }
 
 void Character::increaseMovementForce(const std::string& movementName, const double amount) {
+    if (movementName == "JUMP") {
+        const std::shared_ptr<Jump> jump = std::dynamic_pointer_cast<Jump>(capabilities.getMovement(movementName));
+        jump->increaseForce(amount);
+    }
     capabilities.increaseMovementForce(movementName, amount);
 }
 

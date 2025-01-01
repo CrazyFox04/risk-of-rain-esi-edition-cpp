@@ -538,3 +538,10 @@ void Game::nextLevel(int bossId) {
     }
     next_level();
 }
+
+void Game::useHealthPotionIfAvailable() {
+    if (player.getNumberOfItem(0) > 0) {
+        player.useHealthPotion();
+    }
+}
+

@@ -49,6 +49,8 @@ public:
     void die() override;
 
     ~Player() override = default;
+
+    void useHealthPotion();
 };
 
 #endif //PLAYER_HPP

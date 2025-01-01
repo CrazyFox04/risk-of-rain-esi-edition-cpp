@@ -327,6 +327,8 @@ public:
 
     bool canEndCurrentLevel(int bossId) const;
 
+    void useHealthPotionIfAvailable();
+
     /**
      * @brief Retrieves the names of all character attacks.
      * @return A set of attack names.
