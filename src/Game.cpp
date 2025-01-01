@@ -448,7 +448,7 @@ int Game::openChest(int area_x, int area_y, int chest_id) {
     Item item = levels.at(activeLevel).openChest(area_x, area_y, chest_id);
     switch (DefinedItems::getId(item.getName())) {
         case HEALTH_POTION:
-            player.addItem(item);
+            // nop
             break;
         case HEALTH_BOOST:
             player.increaseMaxHealth(item.use());
@@ -463,11 +463,12 @@ int Game::openChest(int area_x, int area_y, int chest_id) {
             player.increaseMovementForce("JUMP", item.use());
             break;
         case TEDDY_BEAR:
-            player.addItem(item);
+            // nop
             break;
         default:
             throw std::invalid_argument("Invalid item");
     }
+    player.addItem(item);
     return DefinedItems::getId(item.getName());
 }
 
