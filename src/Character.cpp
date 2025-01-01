@@ -228,7 +228,14 @@ std::vector<std::string> Character::getAllAttackName() {
 }
 
 int Character::getNumberOfItem(int item_id) const {
-    return items.at(DefinedItems::getItemName(static_cast<Items>(item_id)));
+    auto item = DefinedItems::getItemName(static_cast<Items>(item_id));
+    if (item.empty()) {
+        return 0;
+    }
+    if (!items.contains(item)) {
+        return 0;
+    }
+    return items.at(item);
 }
 
 Attack Character::getAttackAt(int attackIndex) const {

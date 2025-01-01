@@ -18,3 +18,9 @@ TEST(GameControllerTest, getType) {
     EXPECT_EQ(0, game_controller.getCharacterType(id));
     EXPECT_NO_THROW(game_controller.getCharacterType(9898989));
 }
+
+TEST(GameControllerTest, getNumberOfItem) {
+    GameController game_controller = GameController();
+    int id = game_controller.getPlayerId();
+    EXPECT_NO_THROW(game_controller.getNumberOfItem(id, 0));
+}
