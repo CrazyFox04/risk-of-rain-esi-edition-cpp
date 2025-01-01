@@ -390,6 +390,8 @@ public:
      * @param bossId The ID of the boss in the current level.
      */
     void nextLevel(int);
+
+    void useHealthPotionIfAvailable();
 };
 
 MY_API GameController* newGame(int primaryAttack, int secondaryAttack, int tertiaryAttack);
@@ -487,5 +489,7 @@ MY_API int getTertiaryPlayerAttack(const GameController*);
 MY_API bool canEndCurrentLevel(const GameController*,int);
 
 MY_API void nextLevel(GameController*, int);
+
+MY_API void useHealthPotionIfAvailable(GameController*);
 
 #endif

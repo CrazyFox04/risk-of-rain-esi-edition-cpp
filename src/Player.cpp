@@ -60,3 +60,13 @@ void Player::die() {
     }
     throw GameOverException("Game over : Player is dead");
 }
+
+void Player::useHealthPotion() {
+    auto healthPotion = DefinedItems::getItemName(static_cast<Items>(0));
+    if (items.contains(healthPotion) && items.at(healthPotion) > 0) {
+        items.at(healthPotion)--;
+        increaseHealth(DefinedItems::get(static_cast<Items>(0)).item.use());
+        return;
+    }
+    throw std::runtime_error("Player doesn't have HealthPotion");
+}

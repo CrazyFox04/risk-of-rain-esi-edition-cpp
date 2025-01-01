@@ -38,7 +38,7 @@ public:
      * @param amount The amount to increase the force by.
      * @throws std::invalid_argument If the amount is negative.
      */
-    void increaseForce(double amount);
+    virtual void increaseForce(double amount);
 
     /**
      * @brief Constructs a Movement object with specified parameters.

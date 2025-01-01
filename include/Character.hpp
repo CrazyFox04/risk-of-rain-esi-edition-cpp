@@ -25,12 +25,6 @@
  * @brief Represents a character in the game, with health, capabilities, and items.
  */
 class Character {
-    /**
-     * @brief Increases the character's current health.
-     * @param amount The amount to increase the health by.
-     */
-    void increaseHealth(int amount);
-
 protected:
     static int nextId; ///< Static counter to generate unique IDs for characters.
     std::string type; ///< The type or class of the character.
@@ -46,6 +40,13 @@ protected:
      * @see Player::die()
      */
     virtual void die() = 0;
+
+    /**
+ * @brief Increases the character's current health.
+ * @param amount The amount to increase the health by.
+ */
+    void increaseHealth(int amount);
+
 public:
     static constexpr double DEF_HURT_TIME = 0.5; ///< Default duration of the hurt animation.
     static constexpr double DEF_RUN_FORCE = 4.0; ///< Default force for running movements.

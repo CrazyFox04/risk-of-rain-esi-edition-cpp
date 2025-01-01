@@ -68,6 +68,8 @@ public:
      * @brief Destroys the Player object.
      */
     ~Player() override = default;
+
+    void useHealthPotion();
 };
 
 #endif //PLAYER_HPP

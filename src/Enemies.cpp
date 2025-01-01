@@ -48,7 +48,7 @@ DefinedEnemies DefinedEnemies::get(const Enemies enemies) {
         case SHIELD_DROID: {
             return DefinedEnemies{
                 {
-                    "SHIELD_DROID",750, 15, 3.5, 0.5, {
+                    "SHIELD_DROID",750, 15, 4.0, 0.5, {
                         {DefinedAttacks::get(ATTACK_DROID).attack},
                         {
                             std::make_shared<Run>(2), std::make_shared<Jump>(5.0, 1)
