@@ -542,7 +542,7 @@ void Game::nextLevel(const int bossId) {
 }
 
 void Game::useHealthPotionIfAvailable() {
-    if (player.getNumberOfItem(0) > 0) {
+    if (player.getNumberOfItem(0) > 0 && player.getHealth().current < player.getHealth().max) {
         player.useHealthPotion();
     }
 }
