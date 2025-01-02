@@ -7,7 +7,7 @@
 #include "pch.h"
 #include "GameController.hpp"
 #include "Movements.hpp"
-GameController::GameController(int primaryAttack, int secondaryAttack, int tertiaryAttack) : game_(primaryAttack, secondaryAttack, tertiaryAttack) {
+GameController::GameController(const int primaryAttack, const int secondaryAttack, const int tertiaryAttack) : game_(primaryAttack, secondaryAttack, tertiaryAttack) {
     
 }
 
@@ -19,59 +19,59 @@ int GameController::getPlayerCurrentHealth() const {
     return game_.getPlayerCurrentHealth();
 }
 
-void GameController::takePlayerDamage(int damage) {
+void GameController::takePlayerDamage(const int damage) {
     game_.takePlayerDamage(damage);
 }
 
-int GameController::getAreaGuidCurrentLevel(int x, int y) const {
+int GameController::getAreaGuidCurrentLevel(const int x, const int y) const {
     return game_.get_area_guid_current_level(x, y);
 }
 
-int GameController::ifCanSpawnCurrentLevelSpawnAt(int x, int y, int id) {
+int GameController::ifCanSpawnCurrentLevelSpawnAt(const int x, const int y, const int id) {
     return game_.ifCanSpawnCurrentLevelSpawnAt(x, y, id);
 }
 
-int GameController::getCharacterType(int id) const {
+int GameController::getCharacterType(const int id) const {
     return game_.getCharacterType(id);
 }
 
-double GameController::getCharacterSpeed(int id) const {
+double GameController::getCharacterSpeed(const int id) const {
     return game_.getCharacterSpeed(id);
 }
 
-double GameController::getCharacterJumpForce(int id) const {
+double GameController::getCharacterJumpForce(const int id) const {
     return game_.getCharacterJumpForce(id);
 }
 
-double GameController::getEnemyFollowRange(int id) const {
+double GameController::getEnemyFollowRange(const int id) const {
     return game_.getEnemyFollowRange(id);
 }
 
-double GameController::getEnemyAttackRange(int id) const {
+double GameController::getEnemyAttackRange(const int id) const {
     return game_.getEnemyAttackRange(id);
 }
 
-bool GameController::canCharacterAttack(int id, int attackIndex) const {
+bool GameController::canCharacterAttack(const int id, const int attackIndex) const {
     return game_.canCharacterAttack(id, getAttackName(attackIndex));
 }
 
-int GameController::getDamage(int id, int attackIndex) const {
+int GameController::getDamage(const int id, const int attackIndex) const {
     return game_.getDamage(id, getAttackName(attackIndex));
 }
 
-double GameController::getChargeTime(int id, int attackIndex) const {
+double GameController::getChargeTime(const int id, const int attackIndex) const {
     return game_.getChargeTime(id, getAttackName(attackIndex));
 }
 
-double GameController::getCharacterHurtTime(int id) const {
+double GameController::getCharacterHurtTime(const int id) const {
     return game_.getCharacterHurtTime(id);
 }
 
-int GameController::getCharacterHealth(int id) const {
+int GameController::getCharacterHealth(const int id) const {
     return game_.getCharacterHealth(id);
 }
 
-int GameController::getCharacterMaxHealth(int id) const {
+int GameController::getCharacterMaxHealth(const int id) const {
     return game_.getCharacterMaxHealth(id);
 }
 
@@ -95,7 +95,7 @@ double GameController::getPlayerDashTime() const {
     return game_.getPlayerDashTime();
 }
 
-double GameController::getCharacterAttackTime(int id, int attackIndex) const {
+double GameController::getCharacterAttackTime(const int id, const int attackIndex) const {
     return game_.getCharacterAttackTime(id, getAttackName(attackIndex));
 }
 
@@ -107,23 +107,23 @@ bool GameController::isPlayerUsingJetpack() const {
     return game_.isPlayerUsingJetpack();
 }
 
-bool GameController::canCharacterMove(int id, int movementIndex) const {
+bool GameController::canCharacterMove(const int id, const int movementIndex) const {
     return game_.canCharacterMove(id, getMovementName(movementIndex));
 }
 
-double GameController::getCharacterCoolDownAttackTime(int id, int attackIndex) const {
+double GameController::getCharacterCoolDownAttackTime(const int id, const int attackIndex) const {
     return game_.getCharacterCoolDownAttack(id, getAttackName(attackIndex));
 }
 
-bool GameController::isAValidId(int id) const {
+bool GameController::isAValidId(const int id) const {
     return game_.isAValidId(id);
 }
 
-void GameController::attack(int id, int attackIndex, int targetId) {
+void GameController::attack(const int id, const int attackIndex, int targetId) {
     game_.attack(id, getAttackName(attackIndex), targetId);
 }
 
-void GameController::move(int id, int attackIndex) {
+void GameController::move(const int id, const int attackIndex) {
     game_.move(id, getMovementName(attackIndex));
 }
 
@@ -131,51 +131,51 @@ int GameController::getPlayerId() const {
     return game_.getPlayerId();
 }
 
-bool GameController::isCharacterBusy(int id) const {
+bool GameController::isCharacterBusy(const int id) const {
     return game_.isCharacterBusy(id);
 }
 
-bool GameController::isCharacterOnGround(int id) const {
+bool GameController::isCharacterOnGround(const int id) const {
     return game_.isCharacterOnGround(id);
 }
 
-void GameController::landCharacter(int id) {
+void GameController::landCharacter(const int id) {
     game_.landCharacter(id);
 }
 
-void GameController::takeOffCharacter(int id) {
+void GameController::takeOffCharacter(const int id) {
     game_.takeOffCharacter(id);
 }
 
-int GameController::activateBossSpawn(int areaX, int areaY, int spawnId) {
+int GameController::activateBossSpawn(const int areaX, const int areaY, const int spawnId) {
     return game_.activateBossSpawn(areaX, areaY, spawnId);
 }
 
-int GameController::isMoving(int id) const {
+int GameController::isMoving(const int id) const {
     return game_.isMoving(id);
 }
 
-void GameController::stopMoving(int id, int type) {
+void GameController::stopMoving(const int id, const int type) {
     game_.stopMoving(id, getMovementName(type));
 }
 
-bool GameController::canActivateBossSpawn(int areaX, int areaY, int spawnId) {
+bool GameController::canActivateBossSpawn(const int areaX, const int areaY, const int spawnId) {
     return game_.canActivateBossSpawn(areaX, areaY, spawnId);
 }
 
-double GameController::getCharacterCoolDownMovementTime(int id, int movementIndex) const {
+double GameController::getCharacterCoolDownMovementTime(const int id, const int movementIndex) const {
     return game_.getCharacterCoolDownMovementTime(id, getMovementName(movementIndex));
 }
 
-bool GameController::isChestEmpty(int areaX, int areaY, int chestId) const {
+bool GameController::isChestEmpty(const int areaX, const int areaY, const int chestId) const {
     return game_.isChestEmpty(areaX, areaY, chestId);
 }
 
-int GameController::openChest(int areaX, int areaY, int chestId) {
+int GameController::openChest(const int areaX, const int areaY, const int chestId) {
     return game_.openChest(areaX, areaY, chestId);
 }
 
-int GameController::getNumberOfItem(int id, int itemId) {
+int GameController::getNumberOfItem(const int id, const int itemId) const {
     return game_.getNumberOfItem(id, itemId);
 }
 
@@ -191,11 +191,11 @@ int GameController::getTertiaryPlayerAttack() const {
     return game_.getTertiaryPlayerAttack();
 }
 
-bool GameController::canEndCurrentLevel(int bossId) const {
+bool GameController::canEndCurrentLevel(const int bossId) const {
     return game_.canEndCurrentLevel(bossId);
 }
 
-void GameController::nextLevel(int bossId) {
+void GameController::nextLevel(const int bossId) {
     return game_.nextLevel(bossId);
 }
 
@@ -335,20 +335,20 @@ bool isCharacterBusy(GameController* game_controller, int id) {
     return game_controller->isCharacterBusy(id);
 }
 
-std::string GameController::getAttackName(int attackIndex) {
+std::string GameController::getAttackName(const int attackIndex) {
     try {
         return DefinedAttacks::getAttackName(attackIndex);
     }
-    catch (std::out_of_range&e) {
+    catch (std::out_of_range&) {
         return {};
     }
 }
 
-std::string GameController::getMovementName(int movementIndex) {
+std::string GameController::getMovementName(const int movementIndex) {
     try {
         return DefinedMovements::getMovementName(movementIndex);
     }
-    catch (std::out_of_range&e) {
+    catch (std::out_of_range&) {
         return {};
     }
 }

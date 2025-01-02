@@ -7,7 +7,7 @@
 #include "pch.h"
 #include "Movement.hpp"
 
-Movement::Movement(std::string name, double force, double animationTime, double cooldown) : name(std::move(name)),
+Movement::Movement(std::string name, const double force, const double animationTime, const double cooldown) : name(std::move(name)),
     force(force), animationTime(animationTime), cooldown(cooldown) {
 }
 
@@ -57,7 +57,7 @@ void Movement::stop() {
     // nop
 }
 
-void Movement::increaseForce(double amount) {
+void Movement::increaseForce(const double amount) {
     if (amount < 0) {
         throw std::invalid_argument("Amount must be positive");
     }

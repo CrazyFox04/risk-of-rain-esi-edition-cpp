@@ -33,6 +33,6 @@ struct Direction {
      * @param direction The direction to get the opposite of.
      * @return The opposite direction of the given direction.
      */
-    static Direction2D getOppositeDirection(Direction2D direction);
+    static Direction2D getOppositeDirection(const Direction2D&direction);
 };
 #endif //DIRECTION_HPP

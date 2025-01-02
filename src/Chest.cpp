@@ -38,6 +38,6 @@ Item Chest::generate() {
     return items[dis(gen)];
 }
 
-int Chest::getId() {
+int Chest::getId() const {
     return id;
 }

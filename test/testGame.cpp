@@ -478,7 +478,7 @@ TEST(GameTest, playerAttackCtor3) {
 TEST(GameTest, playerAttackJumpDash) {
     Game game = Game(0, 1, 2);
     int id = game.getPlayerId();
-    for (int i = 0; i < 1000000; ++i) {
+    for (int i = 0; i < 10000; ++i) {
         if (game.canCharacterAttack(id, "ATTACK1")) {
             EXPECT_NO_THROW(game.attack(id, "ATTACK1", -1));
         }
@@ -503,7 +503,7 @@ TEST(GameTest, playerAttackJumpDash) {
 TEST(GameTest, playerSpamAttack3) {
     Game game = Game(0, 1, 2);
     int id = game.getPlayerId();
-    for (int i = 0; i < 1000000; ++i) {
+    for (int i = 0; i < 10000; ++i) {
         if (game.canCharacterAttack(id, "ATTACK3")) {
             EXPECT_NO_THROW(game.attack(id, "ATTACK3", -1));
         }

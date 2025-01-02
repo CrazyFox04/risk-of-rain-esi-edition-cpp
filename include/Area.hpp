@@ -72,7 +72,7 @@ public:
      * @param otherArea The other area to compare compatibility with.
      * @return True if the areas are compatible, otherwise false.
      */
-    bool isCompatible(Direction2D sourceDirection, const Area&otherArea);
+    bool isCompatible(const Direction2D&sourceDirection, const Area&otherArea) const;
 
     /**
      * @brief Retrieves the type of the area.

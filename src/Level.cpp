@@ -15,10 +15,10 @@
 #include <functional>
 #include <utility>
 
-Level::Level(int id): id(id) {
+Level::Level(const int id): id(id) {
 }
 
-Level::Level(int id, const std::vector<std::vector<Area>>&areas): id(id) {
+Level::Level(const int id, const std::vector<std::vector<Area>>&areas): id(id) {
     loadFromAreas(areas);
 }
 
@@ -131,15 +131,15 @@ int Level::getId() const {
     return this->id;
 }
 
-int Level::get_area_type(int x, int y) const {
+int Level::get_area_type(const int x, const int y) const {
     return areas.at(x).at(y).get_type();
 }
 
-int Level::get_area_id(int x, int y) const {
+int Level::get_area_id(const int x, const int y) const {
     return areas.at(x).at(y).get_id();
 }
 
-int Level::get_area_guid(int x, int y) const {
+int Level::get_area_guid(const int x, const int y) const {
     if (!isLoaded()) {
         throw std::runtime_error("Cannot get guid of an unloaded level");
     }
@@ -149,39 +149,39 @@ int Level::get_area_guid(int x, int y) const {
     return areas.at(x).at(y).get_guid();
 }
 
-std::set<Direction2D> Level::get_gateway_positions(int x, int y) const {
+std::set<Direction2D> Level::get_gateway_positions(const int x, const int y) const {
     return areas.at(x).at(y).get_gateway_positions();
 }
 
-bool Level::can_spawn_at(int area_x, int area_y, int spawd_id) {
-    return areas.at(area_x).at(area_y).can_spawn(spawd_id);
+bool Level::can_spawn_at(const int area_x, const int area_y, const int spawnId) {
+    return areas.at(area_x).at(area_y).can_spawn(spawnId);
 }
 
-int Level::spawn_at(int area_x, int area_y, int spawd_id, double difficultyCoefficient) {
-    if (!can_spawn_at(area_x, area_y, spawd_id)) {
+int Level::spawn_at(const int area_x, const int area_y, const int spawnId, const double difficultyCoefficient) {
+    if (!can_spawn_at(area_x, area_y, spawnId)) {
         throw std::invalid_argument(
             "Cannot spawn at area (" + std::to_string(area_x) + ", " + std::to_string(area_y) + ") with spawn id " +
-            std::to_string(spawd_id));
+            std::to_string(spawnId));
     }
-    areas.at(area_x).at(area_y).spawn(spawd_id);
+    areas.at(area_x).at(area_y).spawn(spawnId);
     auto enemy = getARandomEnemy(difficultyCoefficient);
     enemies.emplace(enemy.getId(), enemy);
     return enemy.getId();
 }
 
-Enemy Level::getEnemy(int enemyId) const {
+Enemy Level::getEnemy(const int enemyId) const {
     if (!enemies.contains(enemyId)) {
         throw std::invalid_argument("No enemy with id " + std::to_string(enemyId));
     }
     return enemies.at(enemyId);
 }
 
-bool Level::isAValidEnemyId(int id) const {
+bool Level::isAValidEnemyId(const int id) const {
     return enemies.contains(id);
 }
 
-bool Level::isValidCoordinates(int x, int y) const {
-    return x >= 0 && x < LENGTH && y >= 0 && y < HEIGHT;
+bool Level::isValidCoordinates(const int x, const int y) {
+    return x >= 0 && x < LENGTH && y >= 0 && y < HEIGHT; 
 }
 
 std::tuple<std::tuple<int, int>, int> Level::getAnExistingSpawn() const {
@@ -195,7 +195,7 @@ std::tuple<std::tuple<int, int>, int> Level::getAnExistingSpawn() const {
     return std::make_tuple(std::make_tuple(-1, -1), -1);
 }
 
-int Level::activateBossSpawn(int area_x, int area_y, int area_id) {
+int Level::activateBossSpawn(const int area_x, const int area_y, const int area_id) {
     if (!isValidCoordinates(area_x, area_y)) {
         throw std::invalid_argument(
             "Invalid area coordinates (" + std::to_string(area_x) + ", " + std::to_string(area_y) + ")");
@@ -215,30 +215,30 @@ int Level::activateBossSpawn(int area_x, int area_y, int area_id) {
     return enemy.getId();
 }
 
-bool Level::canActivateBossSpawn(int area_x, int area_y, int area_id) {
+bool Level::canActivateBossSpawn(const int area_x, const int area_y) const {
     return areas.at(area_x).at(area_y).canSpawnBoss();
 }
 
-bool Level::isChestEmpty(int area_x, int area_y, int chest_id) const {
+bool Level::isChestEmpty(const int area_x, const int area_y, const int chest_id) const {
     return areas.at(area_x).at(area_y).isChestEmpty(chest_id);
 }
 
-Item Level::openChest(int area_x, int area_y, int chest_id) {
+Item Level::openChest(const int area_x, const int area_y, const int chest_id) {
     return areas.at(area_x).at(area_y).openChest(chest_id);
 }
 
-void Level::hurtEnemy(int id, int damage) {
+void Level::hurtEnemy(const int id, const int damage) {
     if (!enemies.contains(id)) {
         throw std::invalid_argument("No enemy with id " + std::to_string(id));
     }
     enemies.at(id).hurt(damage);
 }
 
-int Level::attackEnemy(int id, std::string attackName) {
+int Level::attackEnemy(const int id, const std::string& attackName) {
     if (!enemies.contains(id)) {
         throw std::invalid_argument("No enemy with id " + std::to_string(id));
     }
-    return enemies.at(id).attack(std::move(attackName));
+    return enemies.at(id).attack(attackName);
 }
 
 Enemy Level::getARandomEnemy(double difficulty_coefficient) {
@@ -247,8 +247,8 @@ Enemy Level::getARandomEnemy(double difficulty_coefficient) {
     }
     Enemy enemy = DefinedEnemies::getRandomEnemy(false);
     enemy.increaseMaxHealth(enemy.getHealth().max * difficulty_coefficient - enemy.getHealth().max);
-    for (auto attack_name: enemy.getAllAttackName()) {
-        auto amount = enemy.getAttack(attack_name).getDamage() * difficulty_coefficient - enemy.getAttack(attack_name).
+    for (const auto& attack_name: enemy.getAllAttackName()) {
+        const auto amount = enemy.getAttack(attack_name).getDamage() * difficulty_coefficient - enemy.getAttack(attack_name).
                       getDamage();
         enemy.increaseAttackDamage(amount, {attack_name});
     }

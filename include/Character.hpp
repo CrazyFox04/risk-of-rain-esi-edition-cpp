@@ -59,7 +59,7 @@ public:
      * @param hurtTime The duration of the hurt animation.
      * @param capabilities The capabilities assigned to the character.
      */
-    Character(const std::string&type, int max_health, double hurtTime, Capabilities capabilities);
+    Character(std::string type, int max_health, double hurtTime, Capabilities capabilities);
 
     /**
      * @brief Constructs a Character with default capabilities and hurt animation time.
@@ -95,7 +95,7 @@ public:
      * @param name The name of the movement.
      * @return The corresponding Movement object.
      */
-    [[nodiscard]] std::shared_ptr<Movement> getMovement(std::string) const;
+    [[nodiscard]] std::shared_ptr<Movement> getMovement(const std::string&) const;
 
     /**
      * @brief Retrieves the JetPack assigned to the character.
@@ -122,14 +122,14 @@ public:
      * @return The damage dealt by the attack.
      * @throws std::invalid_argument If the attack cannot be used.
      */
-    int attack(std::string attackName);
+    int attack(const std::string& attackName);
 
     /**
      * @brief Executes a movement by its name.
      * @param movementName The name of the movement.
      * @throws std::invalid_argument If the movement cannot be used.
      */
-    void move(std::string movementName);
+    void move(const std::string& movementName);
 
     /**
      * @brief Checks if the JetPack can be used.
@@ -141,21 +141,21 @@ public:
      * @brief Activates the JetPack.
      * @throws std::invalid_argument If the JetPack cannot be used.
      */
-    void useJetpack(); // TODO why never used?
+    void useJetpack() const; // TODO why never used?
 
     /**
      * @brief Checks if an attack can be used by its name.
      * @param attackName The name of the attack.
      * @return True if the attack can be used, otherwise false.
      */
-    [[nodiscard]] bool canUse(std::string attackName) const;
+    [[nodiscard]] bool canUse(const std::string&attackName) const;
 
     /**
      * @brief Checks if a movement can be used by its name.
      * @param movementName The name of the movement.
      * @return True if the movement can be used, otherwise false.
      */
-    [[nodiscard]] bool canMove(std::string movementName) const;
+    [[nodiscard]] bool canMove(const std::string& movementName) const;
 
     /**
      * @brief Marks the character as landed.
@@ -174,13 +174,9 @@ public:
      * if it is not, we add the item to the inventory.
      * @param buff The item to add.
      */
-    virtual void addItem(Item item);
+    virtual void addItem(const Item&item);
 
-    /**
-     * @brief Uses a specific item (buff).
-     * @param item The buff to use.
-     */
-    void useItem(const std::shared_ptr<Items>&item); // TODO bad attribute but really unnecessary?
+
 
     /**
      * @brief Checks if the character is currently using a blocking movement,
@@ -223,7 +219,7 @@ public:
      * @brief Manually stops a movement. Designed for the JetPack.
      * @param movementName The name of the movement to stop.
      */
-    void stopMoving(std::string movementName);
+    void stopMoving(const std::string& movementName);
 
     /**
      * @brief Increases the character's Maximum health
@@ -245,13 +241,13 @@ public:
      * @param amount The amount to increase the damage by.
      * @param attackName The list of the character's attacks to increase the damage of.
      */
-    void increaseAttackDamage(double amount, std::vector<std::string> attackName);
+    void increaseAttackDamage(double amount, const std::vector<std::string>& attackName);
 
     /**
      * @brief Retrieves the names of all character attacks.
      * @return A vector of attack names.
      */
-    std::vector<std::string> getAllAttackName();
+    std::vector<std::string> getAllAttackName() const;
 
     /**
      * @brief Retrieves the amount of a specific item in the character's inventory.

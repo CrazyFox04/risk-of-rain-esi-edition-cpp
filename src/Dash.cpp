@@ -11,5 +11,5 @@
 Dash::Dash() : Movement("DASH", DEF_FORCE, DEF_ANIMATION_TIME, DEF_COOLDOWN) {
 }
 
-Dash::Dash(double force, double animationTime, double cooldown) : Movement("DASH", force, animationTime, cooldown) {
+Dash::Dash(const double force, const double animationTime, const double cooldown) : Movement("DASH", force, animationTime, cooldown) {
 }

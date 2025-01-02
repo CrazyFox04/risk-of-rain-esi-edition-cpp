@@ -7,7 +7,7 @@
 #include "pch.h"
 #include "Run.hpp"
 
-Run::Run(double force) : Movement("RUN", force, 0, 0) {
+Run::Run(const double force) : Movement("RUN", force, 0, 0) {
 }
 
 void Run::use() {

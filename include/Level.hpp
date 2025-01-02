@@ -31,7 +31,7 @@ class Level {
      * @return The buffed enemy.
      * @throws std::invalid_argument If the difficulty coefficient is less than 1.0.
      */
-    Enemy getARandomEnemy(double difficulty_coefficient);
+    static Enemy getARandomEnemy(double difficulty_coefficient);
 
 public:
     static constexpr int HEIGHT = 3; ///< Height of the level grid.
@@ -50,14 +50,6 @@ public:
      * @param areas 2D vector of areas to initialize the level with.
      */
     Level(int id, const std::vector<std::vector<Area>>& areas);
-
-    /**
-     * @brief Checks if the given coordinates are valid within the level grid.
-     * @param x X-coordinate.
-     * @param y Y-coordinate.
-     * @return True if the coordinates are valid, false otherwise.
-     */
-    [[nodiscard]] bool isValidCoordinates(int x, int y) const;
 
     /**
      * @brief Gets the unique identifier of the level.
@@ -113,19 +105,19 @@ public:
      * @brief Checks if an enemy can spawn at the given area coordinates with the given spawn ID.
      * @param area_x X-coordinate of the area.
      * @param area_y Y-coordinate of the area.
-     * @param spawd_id Spawn ID.
+     * @param spawnId Spawn ID.
      * @return True if the enemy can spawn, false otherwise.
      */
-    bool can_spawn_at(int area_x, int area_y, int spawd_id);
+    bool can_spawn_at(int area_x, int area_y, int spawnId);
 
     /**
      * @brief Spawns an enemy at the given area coordinates with the given spawn ID.
      * @param area_x X-coordinate of the area.
      * @param area_y Y-coordinate of the area.
-     * @param spawd_id Spawn ID.
+     * @param spawnId Spawn ID.
      * @return The ID of the spawned enemy.
      */
-    int spawn_at(int area_x, int area_y, int spawd_id, double difficultyCoefficient);
+    int spawn_at(int area_x, int area_y, int spawnId, double difficultyCoefficient);
 
     /**
      * @brief Gets the enemy with the given ID.
@@ -140,6 +132,14 @@ public:
      * @return True if the ID is valid, false otherwise.
      */
     [[nodiscard]] bool isAValidEnemyId(int id) const;
+
+    /**
+     * @brief Checks if the given coordinates are valid within the level grid.
+     * @param x X-coordinate.
+     * @param y Y-coordinate.
+     * @return True if the coordinates are valid, false otherwise.
+     */
+    static bool isValidCoordinates(int x, int y);
 
     /**
      * @brief Gets an existing spawn point in the level.
@@ -165,10 +165,9 @@ public:
      * @brief Checks if a boss can be spawned at a specific area.
      * @param area_x The x-coordinate of the area.
      * @param area_y The y-coordinate of the area.
-     * @param area_id The ID of the spawn point within the area.
      * @return True if a boss can be spawned, false otherwise.
      */
-    bool canActivateBossSpawn(int area_x, int area_y, int area_id);
+    bool canActivateBossSpawn(int area_x, int area_y) const;
 
     /**
      * @brief Opens a chest at a specific area and retrieves the item inside.
@@ -203,7 +202,7 @@ public:
      * @param attackName The Name of the attack to perform.
      * @return The damage dealt to the enemy.
      */
-    int attackEnemy(int id, std::string attackName);
+    int attackEnemy(int id, const std::string& attackName);
 
     /**
      * @brief Unloads the level, removing all areas and enemies.

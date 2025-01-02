@@ -32,8 +32,8 @@ public:
      * @param capabilities The capabilities (attacks, movements, etc.) of the enemy.
      * @param isBoss Indicates if the enemy is a boss.
      */
-    Enemy(std::string type, int maxHealth, double followRange, double attackRange, double hurtTime,
-          Capabilities capabilities, bool isBoss);
+    Enemy(const std::string& type, int maxHealth, double followRange, double attackRange, double hurtTime,
+          const Capabilities&capabilities, bool isBoss);
 
     /**
      * @brief Default destructor for the Enemy class.
@@ -70,6 +70,6 @@ public:
      * @param item The item to add.
      * @throws std::invalid_argument As enemies cannot have items.
      */
-    void addItem(Item item) override;
+    void addItem(const Item&item) override;
 };
 #endif //ENEMY_HPP

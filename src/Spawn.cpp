@@ -10,12 +10,11 @@
 #include <chrono>
 #include <stdexcept>
 
-Spawn::Spawn(int id, int min_spawn_cool_down, int max_spawn_cool_down): Spawn(
+Spawn::Spawn(const int id, const int min_spawn_cool_down, const int max_spawn_cool_down): Spawn(
     id, min_spawn_cool_down, max_spawn_cool_down, false) {
 }
 
-Spawn::Spawn(int id, int min_spawn_cool_down, int max_spawn_cool_down, bool canSpawBoss) : id(id), boss(canSpawBoss) {
-    // randomise the spawn cool down
+Spawn::Spawn(const int id, const int min_spawn_cool_down, const int max_spawn_cool_down, const bool canSpawBoss) : id(id), boss(canSpawBoss) {
     if (min_spawn_cool_down > max_spawn_cool_down) {
         throw std::invalid_argument("min_spawn_cool_down must be less than or equal to max_spawn_cool_down");
     }

@@ -7,7 +7,9 @@
 #include "pch.h"
 #include "GameOverException.hpp"
 
-GameOverException::GameOverException(const std::string&message) : message(message) {
+#include <utility>
+
+GameOverException::GameOverException(std::string message) : message(std::move(message)) {
 }
 
 const char* GameOverException::what() const noexcept {

@@ -7,8 +7,10 @@
 #include "pch.h"
 #include "Attack.hpp"
 
-Attack::Attack(const std::string&name, int damage, double cooldown, double chargeTime,
-               double animationTime) : name(name), damage(damage), cooldown(cooldown), chargeTime(chargeTime),
+#include <utility>
+
+Attack::Attack(std::string name, const int damage, const double cooldown, const double chargeTime,
+               const double animationTime) : name(std::move(name)), damage(damage), cooldown(cooldown), chargeTime(chargeTime),
                                        animationTime(animationTime) {
 }
 

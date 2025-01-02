@@ -53,8 +53,7 @@ void Player::die() {
         items.at("TEDDY_BEAR") -= 1;
         std::random_device rd;
         std::mt19937 gen(rd());
-        std::uniform_int_distribution<> dis(0, 100);
-        if (dis(gen) < 5) {
+        if (std::uniform_int_distribution<> dis(0, 100); dis(gen) < 5) {
             health.current = 0.1 * health.max;
         }
     }
@@ -62,8 +61,7 @@ void Player::die() {
 }
 
 void Player::useHealthPotion() {
-    auto healthPotion = DefinedItems::getItemName(static_cast<Items>(0));
-    if (items.contains(healthPotion) && items.at(healthPotion) > 0) {
+    if (const auto healthPotion = DefinedItems::getItemName(static_cast<Items>(0)); items.contains(healthPotion) && items.at(healthPotion) > 0) {
         items.at(healthPotion)--;
         increaseHealth(DefinedItems::get(static_cast<Items>(0)).item.use());
         return;
