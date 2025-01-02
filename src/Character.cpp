@@ -217,6 +217,7 @@ void Character::increaseMovementForce(const std::string& movementName, const dou
     if (movementName == "JUMP") {
         const std::shared_ptr<Jump> jump = std::dynamic_pointer_cast<Jump>(capabilities.getMovement(movementName));
         jump->increaseForce(amount);
+        return;
     }
     capabilities.increaseMovementForce(movementName, amount);
 }
