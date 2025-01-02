@@ -161,7 +161,7 @@ Level Game::getActiveLevel() {
 }
 
 int Game::get_area_guid_current_level(int x, int y) const {
-    if (!levels.at(activeLevel).isValidCoordinates(x, y)) {
+    if (!Level::isValidCoordinates(x, y)) {
         return -1;
     }
     if (!levels.at(activeLevel).isLoaded()) {
@@ -183,6 +183,9 @@ void Game::takePlayerDamage(int damage) {
 }
 
 int Game::ifCanSpawnCurrentLevelSpawnAt(const int areaX, const int areaY, const int spawnId) {
+    if (!Level::isValidCoordinates(areaX, areaY)) {
+        return -1;
+    }
     if (levels.at(activeLevel).can_spawn_at(areaX, areaY, spawnId)) {
         return levels.at(activeLevel).spawn_at(areaX, areaY, spawnId, getDifficulty());
     }

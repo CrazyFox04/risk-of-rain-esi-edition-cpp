@@ -87,7 +87,11 @@ Spawn& Area::get_spawn(int spawn_id) {
 }
 
 bool Area::can_spawn(int spawd_id) {
-    return get_spawn(spawd_id).canSpawn();
+    try {
+        return get_spawn(spawd_id).canSpawn(); 
+    } catch (std::invalid_argument&) {
+        return false;
+    }
 }
 
 void Area::spawn(int spawd_id) {
