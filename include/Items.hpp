@@ -32,7 +32,7 @@ struct DefinedItems {
             case HEALTH_BOOST:
                 return DefinedItems{Item(getItemName(HEALTH_BOOST), 20.0, 0.5)};
             case SPEED_BOOST:
-                return DefinedItems{Item(getItemName(SPEED_BOOST), 1.0, 0.3)};
+                return DefinedItems{Item(getItemName(SPEED_BOOST), 0.5, 0.3)};
             case DAMAGE_BOOST:
                 return DefinedItems{Item(getItemName(DAMAGE_BOOST), 15.0, 0.5)};
             case EXTRA_JUMP:
