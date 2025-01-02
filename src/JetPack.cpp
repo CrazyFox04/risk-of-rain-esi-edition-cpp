@@ -7,7 +7,7 @@
 #include "pch.h"
 #include "JetPack.hpp"
 
-JetPack::JetPack(double force, double maxTime, double cooldown, double landingAnimationTime) : force(force),
+JetPack::JetPack(const double force, const double maxTime, const double cooldown, const double landingAnimationTime) : force(force),
     maxTime(maxTime), cooldown(cooldown), landingAnimationTime(landingAnimationTime) {
 }
 

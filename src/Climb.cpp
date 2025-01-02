@@ -7,7 +7,7 @@
 #include "pch.h"
 #include "Climb.hpp"
 
-Climb::Climb(double force) : Movement("CLIMB", force, 0, 0) {
+Climb::Climb(const double force) : Movement("CLIMB", force, 0, 0) {
 }
 
 void Climb::use() {

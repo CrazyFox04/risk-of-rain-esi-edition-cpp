@@ -43,7 +43,7 @@ public:
      * @brief Gets the unique identifier of the chest.
      * @return The ID of the chest.
      */
-    int getId();
+    int getId() const;
 
     /**
      * @brief Generates a random item to be placed in the chest.

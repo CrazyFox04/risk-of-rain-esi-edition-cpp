@@ -20,7 +20,7 @@ class Spawn {
     bool boss; ///< Flag indicating if the spawn point can spawn bosses.
 
 
-    double get_random_spawn_cool_down(int min_spawn_cool_down, int max_spawn_cool_down);
+    static double get_random_spawn_cool_down(int min_spawn_cool_down, int max_spawn_cool_down);
 
 public:
     Spawn(int id, int min_spawn_cool_down, int max_spawn_cool_down); 

@@ -34,7 +34,7 @@ public:
      * @param chargeTime The time required to charge the attack.
      * @param animationTime The duration of the attack's animation.
      */
-    Attack(const std::string&name, int damage, double cooldown, double chargeTime, double animationTime);
+    Attack(std::string name, int damage, double cooldown, double chargeTime, double animationTime);
 
     /**
      * @brief Executes the attack and returns the damage dealt.

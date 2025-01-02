@@ -7,7 +7,7 @@
 #include "pch.h"
 #include "Animation.hpp"
 
-Animation::Animation(double duration) : duration(duration) {
+Animation::Animation(const double duration) : duration(duration) {
 }
 
 void Animation::start() {

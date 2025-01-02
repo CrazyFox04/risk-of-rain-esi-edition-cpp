@@ -24,7 +24,7 @@ public:
      * @brief Constructs a GameOverException with the specified message.
      * @param message The message to include in the exception.
      */
-    explicit GameOverException(const std::string&message);
+    explicit GameOverException(std::string message);
 
     /**
      * @brief Retrieves the message associated with the exception.

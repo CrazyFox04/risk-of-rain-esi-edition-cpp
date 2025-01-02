@@ -13,6 +13,7 @@
 #include <set>
 #include <memory>
 #include <map>
+#include <algorithm>
 #include "Attacks.hpp"
 #include "Attack.hpp"
 #include "Movement.hpp"
@@ -32,7 +33,7 @@ class Capabilities {
      * @param name The name of the attack.
      * @return The corresponding Attack object reference.
      */
-    Attack& getAttack(std::string& name);
+    Attack& getAttack(const std::string&name);
 public:
     /**
      * @brief Constructs a Capabilities object with the specified attacks, movements, and JetPack.
@@ -130,7 +131,7 @@ public:
      * @brief Retrieves all of character's attacks names.
      * @return A vector of all the character's attacks names.
      */
-    std::vector<std::string> getCharacterAttacksName();
+    std::vector<std::string> getCharacterAttacksName() const;
 
     /**
      * @brief Manually stops a specific movement. Designed for jetpack.
@@ -143,6 +144,6 @@ public:
      * @param attack_index The index of the attack to retrieve.
      * @return The attack object at the specified index.
      */
-    Attack getAttackAt(int attack_index) const;
+    const Attack& getAttackAt(int attack_index) const;
 };
 #endif //CAPABILITIES_HPP

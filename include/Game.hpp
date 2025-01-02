@@ -237,7 +237,7 @@ public:
      * @param attackName The name of the attack.
      * @return The time of the attack.
      */
-    [[nodiscard]] double getCharacterAttackTime(int id, std::string attackName) const;
+    [[nodiscard]] double getCharacterAttackTime(int id, const std::string& attackName) const;
 
     /**
      * @brief Checks if the player is currently dashing.
@@ -265,7 +265,7 @@ public:
      * @param attackName The name of the attack.
      * @return The cooldown time of the attack.
      */
-    [[nodiscard]] double getCharacterCoolDownAttack(int id, std::string attackName) const;
+    [[nodiscard]] double getCharacterCoolDownAttack(int id, const std::string& attackName) const;
 
     /**
      * @brief Checks if a given ID is valid.
@@ -336,7 +336,7 @@ public:
      * @param item_id The ID of the item to check.
      * @return The number of the item in the player's inventory.
      */
-    int getNumberOfItem(int id, int item_id);
+    int getNumberOfItem(int id, int item_id) const;
 
     bool canEndCurrentLevel(int bossId) const;
 
@@ -369,7 +369,7 @@ public:
      * @param targetId The ID of the target character.
      * @throws std::invalid_argument If the attack is invalid or the ids are not valid.
      */
-    void attack(int id, std::string attackName, int targetId);
+    void attack(int id, const std::string& attackName, int targetId);
 
     /**
      * @brief Moves a character using a specific movement.
@@ -417,7 +417,7 @@ public:
      * @param id The ID of the character who needs to stop moving.
      * @param type The movement type to stop.
      */
-    void stopMoving(int id, std::string type);
+    void stopMoving(int id, const std::string& type);
 
     /**
      * @brief Retrieves the current difficulty coefficient of the game.
@@ -451,9 +451,9 @@ public:
 
     /**
      * @brief Progresses the game to the next level.
-     * @param bossIdd The ID of the current level's boss.
+     * @param bossId The ID of the current level's boss.
      * @throws std::runtime_error If the level cannot be ended.
      */
-    void nextLevel(int bossIdd);
+    void nextLevel(int bossId);
 };
 #endif //GAME_HPP

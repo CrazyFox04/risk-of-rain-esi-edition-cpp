@@ -9,12 +9,12 @@
 #include "Game.hpp"
 
 #include "GameOverException.hpp"
-Game::Game(int primaryAttack, int secondaryAttack, int tertiaryAttack) : player(primaryAttack, secondaryAttack, tertiaryAttack), activeLevel(-1) {
+Game::Game(const int primaryAttack, const int secondaryAttack, const int tertiaryAttack) : activeLevel(-1), player(primaryAttack, secondaryAttack, tertiaryAttack), over(false) {
     next_level();
 }
 
 
-double Game::getCharacterSpeed(int id) const {
+double Game::getCharacterSpeed(const int id) const {
     if (!isAValidId(id)) {
         return -1;
     }
@@ -24,7 +24,7 @@ double Game::getCharacterSpeed(int id) const {
     return levels.at(activeLevel).getEnemy(id).getMovement("RUN")->getForce();
 }
 
-double Game::getCharacterJumpForce(int id) const {
+double Game::getCharacterJumpForce(const int id) const {
     if (!isAValidId(id)) {
         return -1;
     }
@@ -34,21 +34,21 @@ double Game::getCharacterJumpForce(int id) const {
     return levels.at(activeLevel).getEnemy(id).getMovement("JUMP")->getForce();
 }
 
-double Game::getEnemyFollowRange(int id) const {
+double Game::getEnemyFollowRange(const int id) const {
     if (!isAValidId(id)) {
         return -1;
     }
     return levels.at(activeLevel).getEnemy(id).getFollowRange();
 }
 
-double Game::getEnemyAttackRange(int id) const {
+double Game::getEnemyAttackRange(const int id) const {
     if (!isAValidId(id)) {
         return -1;
     }
     return levels.at(activeLevel).getEnemy(id).getAttackRange();
 }
 
-int Game::getDamage(int id, const std::string&attackName) const {
+int Game::getDamage(const int id, const std::string&attackName) const {
     if (!isAValidId(id)) {
         return -1;
     }
@@ -61,7 +61,7 @@ int Game::getDamage(int id, const std::string&attackName) const {
     return levels.at(activeLevel).getEnemy(id).getAttack(attackName).getDamage();
 }
 
-double Game::getChargeTime(int id, const std::string&attackName) const {
+double Game::getChargeTime(const int id, const std::string&attackName) const {
     if (!isAValidId(id)) {
         return -1;
     }
@@ -74,7 +74,7 @@ double Game::getChargeTime(int id, const std::string&attackName) const {
     return levels.at(activeLevel).getEnemy(id).getAttack(attackName).getChargeTime();
 }
 
-double Game::getCharacterHurtTime(int id) const {
+double Game::getCharacterHurtTime(const int id) const {
     if (!isAValidId(id)) {
         return -1;
     }
@@ -84,7 +84,7 @@ double Game::getCharacterHurtTime(int id) const {
     return levels.at(activeLevel).getEnemy(id).getHurtAnimation().getDuration();
 }
 
-int Game::getCharacterHealth(int id) const {
+int Game::getCharacterHealth(const int id) const {
     if (!isAValidId(id)) {
         return -1;
     }
@@ -94,7 +94,7 @@ int Game::getCharacterHealth(int id) const {
     return levels.at(activeLevel).getEnemy(id).getHealth().current;
 }
 
-int Game::getCharacterMaxHealth(int id) const {
+int Game::getCharacterMaxHealth(const int id) const {
     if (!isAValidId(id)) {
         return -1;
     }
@@ -104,7 +104,7 @@ int Game::getCharacterMaxHealth(int id) const {
     return levels.at(activeLevel).getEnemy(id).getHealth().max;
 }
 
-double Game::getCharacterAttackTime(int id, std::string attackName) const {
+double Game::getCharacterAttackTime(const int id, const std::string& attackName) const {
     if (!isAValidId(id)) {
         return -1;
     }
@@ -117,12 +117,12 @@ double Game::getCharacterAttackTime(int id, std::string attackName) const {
         }
         return levels.at(activeLevel).getEnemy(id).getAttack(attackName).getAnimationTime();
     }
-    catch (std::invalid_argument&e) {
+    catch (std::invalid_argument&) {
         return -1;
     }
 }
 
-double Game::getCharacterCoolDownAttack(int id, std::string attackName) const {
+double Game::getCharacterCoolDownAttack(const int id, const std::string& attackName) const {
     if (!isAValidId(id)) {
         return -1;
     }
@@ -161,7 +161,7 @@ Level Game::getActiveLevel() {
 }
 
 int Game::get_area_guid_current_level(int x, int y) const {
-    if (!levels.at(activeLevel).isValidCoordinates(x, y)) {
+    if (!Level::isValidCoordinates(x, y)) {
         return -1;
     }
     if (!levels.at(activeLevel).isLoaded()) {
@@ -182,14 +182,17 @@ void Game::takePlayerDamage(int damage) {
     player.hurt(damage);
 }
 
-int Game::ifCanSpawnCurrentLevelSpawnAt(int areaX, int areaY, int spawdId) {
-    if (levels.at(activeLevel).can_spawn_at(areaX, areaY, spawdId)) {
-        return levels.at(activeLevel).spawn_at(areaX, areaY, spawdId, getDifficulty());
+int Game::ifCanSpawnCurrentLevelSpawnAt(const int areaX, const int areaY, const int spawnId) {
+    if (!Level::isValidCoordinates(areaX, areaY)) {
+        return -1;
+    }
+    if (levels.at(activeLevel).can_spawn_at(areaX, areaY, spawnId)) {
+        return levels.at(activeLevel).spawn_at(areaX, areaY, spawnId, getDifficulty());
     }
     return -1; // can't spawn
 }
 
-int Game::getCharacterType(int id) const {
+int Game::getCharacterType(const int id) const {
     if (!isAValidId(id)) {
         return -1;
     }
@@ -199,12 +202,12 @@ int Game::getCharacterType(int id) const {
     try {
         return DefinedEnemies::getId(levels.at(activeLevel).getEnemy(id).getType()) + 1;
     }
-    catch (std::invalid_argument&e) {
+    catch (std::invalid_argument&) {
         return -1;
     }
 }
 
-bool Game::canCharacterAttack(int id, const std::string&attackName) const {
+bool Game::canCharacterAttack(const int id, const std::string&attackName) const {
     if (!isAValidId(id)) {
         return false;
     }
@@ -217,7 +220,7 @@ bool Game::canCharacterAttack(int id, const std::string&attackName) const {
     return levels.at(activeLevel).getEnemy(id).canUse(attackName);
 }
 
-bool Game::isCharacterBusy(int id) const {
+bool Game::isCharacterBusy(const int id) const {
     if (!isAValidId(id)) {
         return false;
     }
@@ -255,7 +258,7 @@ bool Game::isPlayerUsingJetpack() const {
     return player.getJetPack().isUsing();
 }
 
-bool Game::canCharacterMove(int id, const std::string&movementName) const {
+bool Game::canCharacterMove(const int id, const std::string&movementName) const {
     if (!isAValidId(id)) {
         return false;
     }
@@ -268,7 +271,7 @@ bool Game::canCharacterMove(int id, const std::string&movementName) const {
     return levels.at(activeLevel).getEnemy(id).canMove(movementName);
 }
 
-bool Game::isAValidId(int id) const {
+bool Game::isAValidId(const int id) const {
     if (player.getId() == id) {
         return true;
     }
@@ -291,11 +294,11 @@ bool Game::isAValidAttackName(const std::string&attackName) {
     return DefinedAttacks::isAValidAttackName(attackName);
 }
 
-bool Game::isAValidMovementName(const std::string&movementName) {
-    return DefinedMovements::isAValidMovementName(movementName);
+bool Game::isAValidMovementName(const std::string&string) {
+    return DefinedMovements::isAValidMovementName(string);
 }
 
-void Game::attack(int id, std::string attackName, int targetId) {
+void Game::attack(const int id, const std::string& attackName, const int targetId) {
     if (!isAValidId(id)) {
         throw std::invalid_argument("Invalid id");
     }
@@ -315,23 +318,23 @@ void Game::attack(int id, std::string attackName, int targetId) {
     }
     if (player.getId() == id) {
         if (player.canUse(attackName)) {
-            int damage = player.attack(attackName);
+            const int damage = player.attack(attackName);
             levels.at(activeLevel).hurtEnemy(targetId, damage);
         }
     }
     else {
         if (levels.at(activeLevel).getEnemy(id).canUse(attackName)) {
-            int damage = levels.at(activeLevel).attackEnemy(id, attackName);
+            const int damage = levels.at(activeLevel).attackEnemy(id, attackName);
             try {
                 player.hurt(damage);
-            } catch (GameOverException&e) {
+            } catch (GameOverException&) {
                 over = true;
             }
         }
     }
 }
 
-void Game::move(int id, const std::string&movementName) {
+void Game::move(const int id, const std::string&movementName) {
     if (!isAValidId(id)) {
         throw std::invalid_argument("Invalid id");
     }
@@ -350,7 +353,7 @@ void Game::move(int id, const std::string&movementName) {
     }
 }
 
-bool Game::isCharacterOnGround(int id) const {
+bool Game::isCharacterOnGround(const int id) const {
     if (!isAValidId(id)) {
         return false;
     }
@@ -360,7 +363,7 @@ bool Game::isCharacterOnGround(int id) const {
     return levels.at(activeLevel).getEnemy(id).isLanded();
 }
 
-void Game::landCharacter(int id) {
+void Game::landCharacter(const int id) {
     if (isAValidId(id)) {
         if (player.getId() == id) {
             player.land();
@@ -371,7 +374,7 @@ void Game::landCharacter(int id) {
     }
 }
 
-void Game::takeOffCharacter(int id) {
+void Game::takeOffCharacter(const int id) {
     if (isAValidId(id)) {
         if (player.getId() == id) {
             player.takeOff();
@@ -382,7 +385,7 @@ void Game::takeOffCharacter(int id) {
     }
 }
 
-int Game::getMovingType(int id) const {
+int Game::getMovingType(const int id) const {
     if (!isAValidId(id)) {
         return -1;
     }
@@ -392,7 +395,7 @@ int Game::getMovingType(int id) const {
     return levels.at(activeLevel).getEnemy(id).isMoving();
 }
 
-int Game::isMoving(int id) const {
+int Game::isMoving(const int id) const {
     if (!isAValidId(id)) {
         return -1;
     }
@@ -402,7 +405,7 @@ int Game::isMoving(int id) const {
     return levels.at(activeLevel).getEnemy(id).isMoving();
 }
 
-void Game::stopMoving(int id, std::string type) {
+void Game::stopMoving(const int id, const std::string& type) {
     if (!isAValidId(id)) {
         return;
     }
@@ -414,37 +417,37 @@ void Game::stopMoving(int id, std::string type) {
     }
 }
 
-int Game::activateBossSpawn(int areaX, int areaY, int areaId) {
-    if (levels.at(activeLevel).canActivateBossSpawn(areaX, areaY, areaId)) {
-        return levels.at(activeLevel).activateBossSpawn(areaX, areaY, areaId);
+int Game::activateBossSpawn(const int area_x, const int area_y, const int area_id) {
+    if (levels.at(activeLevel).canActivateBossSpawn(area_x, area_y)) {
+        return levels.at(activeLevel).activateBossSpawn(area_x, area_y, area_id);
     }
     return -1;
 }
 
-bool Game::canActivateBossSpawn(int areaX, int areaY, int spawnId) {
-    return levels.at(activeLevel).canActivateBossSpawn(areaX, areaY, spawnId);
+bool Game::canActivateBossSpawn(const int areaX, const int areaY, const int spawnId) {
+    return levels.at(activeLevel).canActivateBossSpawn(areaX, areaY);
 }
 
-double Game::getCharacterCoolDownMovementTime(int id, const std::string&movementName) const {
+double Game::getCharacterCoolDownMovementTime(const int id, const std::string&string) const {
     if (!isAValidId(id)) {
         throw std::invalid_argument("Invalid id");
     }
-    if (!isAValidMovementName(movementName)) {
+    if (!isAValidMovementName(string)) {
         throw std::invalid_argument("Invalid movement name");
     }
     if (player.getId() == id) {
-        if (movementName == "JETPACK") {
+        if (string == "JETPACK") {
             return player.getJetPack().getCoolDown();
         }
-        return player.getMovement(movementName)->getCooldown();
+        return player.getMovement(string)->getCooldown();
     }
-    if (movementName == "JETPACK") {
+    if (string == "JETPACK") {
         return levels.at(activeLevel).getEnemy(id).getJetPack().getCoolDown();
     }
-    return levels.at(activeLevel).getEnemy(id).getMovement(movementName)->getCooldown();
+    return levels.at(activeLevel).getEnemy(id).getMovement(string)->getCooldown();
 }
 
-int Game::openChest(int area_x, int area_y, int chest_id) {
+int Game::openChest(const int area_x, const int area_y, const int chest_id) {
     Item item = levels.at(activeLevel).openChest(area_x, area_y, chest_id);
     switch (DefinedItems::getId(item.getName())) {
         case HEALTH_POTION:
@@ -472,11 +475,11 @@ int Game::openChest(int area_x, int area_y, int chest_id) {
     return DefinedItems::getId(item.getName());
 }
 
-bool Game::isChestEmpty(int area_x, int area_y, int chest_id) const {
+bool Game::isChestEmpty(const int area_x, const int area_y, const int chest_id) const {
     return levels.at(activeLevel).isChestEmpty(area_x, area_y, chest_id);
 }
 
-int Game::getNumberOfItem(int id, int item_id) {
+int Game::getNumberOfItem(const int id, const int item_id) const {
     if (!isAValidId(id)) {
         return -1;
     }
@@ -487,14 +490,13 @@ int Game::getNumberOfItem(int id, int item_id) {
 }
 
 void Game::updateGameDifficulty() {
-    auto now = std::chrono::steady_clock::now();
-    if (now - timeSinceDifficultyUpdate > DIFFICULTY_INTERVAL) {
+    if (const auto now = std::chrono::steady_clock::now(); std::chrono::steady_clock::now() - timeSinceDifficultyUpdate > DIFFICULTY_INTERVAL) {
         increaseDifficulty(0.1);
         timeSinceDifficultyUpdate = now;
     }
 }
 
-void Game::increaseDifficulty(double increment) {
+void Game::increaseDifficulty(const double increment) {
     if (increment < 0) {
         throw std::invalid_argument("Increment must be positive");
     }
@@ -521,18 +523,18 @@ int Game::getTertiaryPlayerAttack() const {
     return DefinedAttacks::getAttackValue(player.getAttackAt(2).getName());
 }
 
-bool Game::canEndCurrentLevel(int bossId) const {
+bool Game::canEndCurrentLevel(const int bossId) const {
     if (!isAValidId(bossId)) {
         return false;
     }
-    auto boss = levels.at(activeLevel).getEnemy(bossId);
+    const auto boss = levels.at(activeLevel).getEnemy(bossId);
     if (!boss.getIsBoss()) {
         return false;
     }
     return boss.getHealth().current == 0;
 }
 
-void Game::nextLevel(int bossId) {
+void Game::nextLevel(const int bossId) {
     if (!canEndCurrentLevel(bossId)) {
         throw std::runtime_error("Can't end the level");
     }

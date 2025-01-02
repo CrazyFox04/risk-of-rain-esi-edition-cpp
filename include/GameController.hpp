@@ -358,7 +358,7 @@ public:
      * @param itemId The ID of the item.
      * @return The amount of the item in the character's inventory.
      */
-    int getNumberOfItem(int, int);
+    int getNumberOfItem(int, int) const;
 
     /**
      * @brief Gets the primary attack of the player.

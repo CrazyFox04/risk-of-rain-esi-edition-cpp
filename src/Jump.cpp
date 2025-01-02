@@ -7,7 +7,7 @@
 #include "pch.h"
 #include "Jump.hpp"
 
-Jump::Jump(double force, int maxUsage) : Movement("JUMP", force, 0.0, 0.0), maxUsage(maxUsage), currentUsage(0) {
+Jump::Jump(const double force, const int maxUsage) : Movement("JUMP", force, 0.0, 0.0), maxUsage(maxUsage), currentUsage(0) {
 }
 
 void Jump::use() {
@@ -25,6 +25,6 @@ void Jump::reset() {
     currentUsage = 0;
 }
 
-void Jump::increaseForce(double amount) {
+void Jump::increaseForce(const double amount) {
     maxUsage += amount;
 }

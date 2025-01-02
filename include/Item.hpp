@@ -32,14 +32,14 @@ public:
      * @param effect The effect value of the item.
      * @param effectDuration The duration of the item's effect.
      */
-    Item(const std::string&name, double effect, double probability);
+    Item(std::string name, double effect, double probability);
 
     /**
      * @brief Executes the item's effect and returns the effect value.
      * @throws std::runtime_error If the item cannot be used.
      * @return The effect value of the item.
      */
-    double use();
+    double use() const;
 
     /**
      * @brief Retrieves the name of the item.

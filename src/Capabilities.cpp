@@ -7,23 +7,21 @@
 #include "pch.h"
 #include "Capabilities.hpp"
 
-Capabilities::Capabilities(std::vector<Attack> attacks, std::set<std::shared_ptr<Movement>> movements,
-                           bool hasJetPack): jetPack(0, 0, 0, 0) {
-    for (const auto&attack: attacks) {
-        this->attacks.emplace_back(attack);
-    }
-    for (const auto&movement: movements) {
+Capabilities::Capabilities(std::vector<Attack> attacks, std::set<std::shared_ptr<Movement>> movements, bool hasJetPack)
+    : attacks(std::move(attacks)),
+      movements(),
+      jetPack(hasJetPack
+                  ? JetPack(JetPack::DEF_FORCE, JetPack::DEF_TIME, JetPack::DEF_COOLDOWN,
+                            JetPack::DEF_LANDING_ANIMATION_TIME)
+                  : JetPack(0, 0, 0, 0)) {
+    std::ranges::for_each(movements, [this](const std::shared_ptr<Movement>&movement) {
         this->movements.emplace(movement->getName(), movement);
-    }
-    if (hasJetPack) {
-        jetPack = JetPack(JetPack::DEF_FORCE, JetPack::DEF_TIME, JetPack::DEF_COOLDOWN,
-                          JetPack::DEF_LANDING_ANIMATION_TIME);
-    }
+    });
 }
 
 std::chrono::time_point<std::chrono::steady_clock> Capabilities::getLastAttackTime() const {
     std::chrono::time_point<std::chrono::steady_clock> lastAttackTime = std::chrono::steady_clock::now();
-    for (Attack attack : attacks) {
+    for (const Attack& attack: attacks) {
         if (attack.getLastUsageTime() > lastAttackTime) {
             lastAttackTime = attack.getLastUsageTime();
         }
@@ -32,12 +30,9 @@ std::chrono::time_point<std::chrono::steady_clock> Capabilities::getLastAttackTi
 }
 
 bool Capabilities::hasThisAttack(std::string name) const {
-    for (const auto & attack : attacks) {
-        if (attack.getName() == name) {
-            return true;
-        }
-    }
-    return false;
+    return std::ranges::find_if(attacks, [&name](const Attack&attack) {
+        return attack.getName() == name;
+    }) != attacks.end();
 }
 
 bool Capabilities::hasThisMovement(std::string name) const {
@@ -57,15 +52,14 @@ bool Capabilities::canUse(std::string name) const {
     return false; // doesn't have this capability
 }
 
-Attack Capabilities::getCopyAttack(std::string& name) const {
-    if (!hasThisAttack(name)) {
+Attack Capabilities::getCopyAttack(std::string&name) const {
+    const auto it = std::ranges::find_if(attacks, [&name](const Attack&attack) {
+        return attack.getName() == name;
+    });
+    if (it == attacks.end()) {
         throw std::invalid_argument("This attack does not exist");
     }
-    for (const auto attack : attacks) {
-        if (attack.getName() == name) {
-            return attack;
-        }
-    }
+    return *it;
 }
 
 std::shared_ptr<Movement> Capabilities::getMovement(std::string name) const {
@@ -95,34 +89,22 @@ int Capabilities::use(std::string name) {
         movements.at(name)->use();
         return 0;
     }
+    return -1;
 }
 
 bool Capabilities::isBusy() const {
-    for (Attack attack : attacks) {
-        if (attack.isUsing()) {
-            return true;
-        }
-    }
-    for (const auto&[name, movement]: movements) {
-        if (movement->isUsing()) {
-            return true;
-        }
-    }
-    return jetPack.isUsing();
+    return
+        std::ranges::any_of(attacks, [](const Attack&attack) {return attack.isUsing();})
+    || std::ranges::any_of(movements, [](const auto&pair) {return pair.second->isUsing();})
+    || jetPack.isUsing();
 }
 
 int Capabilities::isMoving() const {
-    if (movements.at("RUN")->isUsing()) {
-        return DefinedMovements::getMovementIndex("RUN");
-    }
-    if (movements.at("JUMP")->isUsing()) {
-        return DefinedMovements::getMovementIndex("JUMP");
-    }
-    if (movements.at("DASH")->isUsing()) {
-        return DefinedMovements::getMovementIndex("DASH");
-    }
-    if (movements.at("CLIMB")->isUsing()) {
-        return DefinedMovements::getMovementIndex("CLIMB");
+    static const std::vector<std::string> movementNames = {"RUN", "JUMP", "DASH", "CLIMB"};
+    for (const auto& name : movementNames) {
+        if (movements.at(name)->isUsing()) {
+            return DefinedMovements::getMovementIndex(name);
+        }
     }
     if (jetPack.isUsing()) {
         return DefinedMovements::getMovementIndex("JETPACK");
@@ -131,21 +113,25 @@ int Capabilities::isMoving() const {
 }
 
 void Capabilities::increaseAttackDamage(double amount, std::string&attacksName) {
-    if (hasThisAttack(attacksName)) {
-        getAttack(attacksName).increaseDamage(amount);
+    const auto it = std::ranges::find_if(attacks, [&attacksName](const Attack& attack) {
+        return attack.getName() == attacksName;
+    });
+    if (it != attacks.end()) {
+        it->increaseDamage(amount);
     }
 }
 
-void Capabilities::increaseMovementForce(const std::string&string, double amount) {
-    if (hasThisMovement(string)) {
-        movements.at(string)->increaseForce(amount);
+void Capabilities::increaseMovementForce(const std::string& movementName, double amount) {
+    if (const auto it = movements.find(movementName); it != movements.end()) {
+        it->second->increaseForce(amount);
     }
 }
 
-std::vector<std::string> Capabilities::getCharacterAttacksName() {
+std::vector<std::string> Capabilities::getCharacterAttacksName() const {
     std::vector<std::string> attacksName;
-    for (Attack attack : attacks) {
-        attacksName.emplace_back(attack.getName());
+    attacksName.reserve(attacks.size());  
+    for (const Attack& attack : attacks) { 
+        attacksName.push_back(attack.getName()); 
     }
     return attacksName;
 }
@@ -153,22 +139,23 @@ std::vector<std::string> Capabilities::getCharacterAttacksName() {
 void Capabilities::stop(std::string name) {
     if (name == "JETPACK") {
         jetPack.stop();
-        return;
-    }
-    if (hasThisMovement(name)) {
-        movements.at(name)->stop();
-    }
-}
-
-Attack Capabilities::getAttackAt(int attack_index) const {
-    return attacks.at(attack_index);
-}
-
-Attack& Capabilities::getAttack(std::string& name) {
-    for (Attack& attack : attacks) {
-        if (attack.getName() == name) {
-            return attack;
+    } else {
+        if (const auto it = movements.find(name); it != movements.end()) {
+            it->second->stop();
         }
+    }
+}
+
+const Attack& Capabilities::getAttackAt(int attack_index) const {
+    return attacks[attack_index];
+}
+
+
+Attack& Capabilities::getAttack(const std::string& name) {
+    const auto it = std::ranges::find_if(attacks, 
+                                         [&name](const Attack& attack) { return attack.getName() == name; });
+    if (it != attacks.end()) {
+        return *it;
     }
     throw std::invalid_argument("This attack does not exist");
 }

@@ -21,14 +21,13 @@
 
 int Character::nextId = 0;
 
-Character::Character(const std::string&type, int max_health, double hurtTime,
-                     Capabilities capabilities) : hurtAnimation(hurtTime), type(type),
-                                                  id(nextId++),
-                                                  health(max_health, max_health), capabilities(capabilities) {
-    onGround = true;
+Character::Character(std::string type, const int max_health, const double hurtTime,
+                     Capabilities capabilities) : type(std::move(type)), id(nextId++),
+                                                  health(max_health, max_health),
+                                                  capabilities(std::move(capabilities)), onGround(true), hurtAnimation(hurtTime) {
 }
 
-Character::Character(const std::string&type, int max_health) : Character(type, max_health, DEF_HURT_TIME, {
+Character::Character(const std::string&type, const int max_health) : Character(type, max_health, DEF_HURT_TIME, {
                                                                              {},
                                                                              {
                                                                                  std::make_shared<Run>(DEF_RUN_FORCE),
@@ -47,7 +46,7 @@ Attack Character::getAttack(std::string name) const {
     return capabilities.getCopyAttack(name);
 }
 
-std::shared_ptr<Movement> Character::getMovement(std::string name) const {
+std::shared_ptr<Movement> Character::getMovement(const std::string&name) const {
     return capabilities.getMovement(name);
 }
 
@@ -61,7 +60,7 @@ int Character::getId() const {
 
 void Character::land() {
     onGround = true;
-    auto jump = std::dynamic_pointer_cast<Jump>(capabilities.getMovement("JUMP"));
+    const auto jump = std::dynamic_pointer_cast<Jump>(capabilities.getMovement("JUMP"));
     jump->reset();
 }
 
@@ -69,7 +68,7 @@ bool Character::isLanded() const {
     return onGround;
 }
 
-void Character::increaseHealth(int amount) {
+void Character::increaseHealth(const int amount) {
     if (amount < 0) {
         throw std::invalid_argument("Amount must be positive");
     }
@@ -80,7 +79,7 @@ void Character::increaseHealth(int amount) {
     health.current += amount;
 }
 
-void Character::increaseMaxHealth(int amount) {
+void Character::increaseMaxHealth(const int amount) {
     if (amount < 0) {
         throw std::invalid_argument("Amount must be positive");
     }
@@ -92,14 +91,14 @@ bool Character::hasJetPack() const {
     return capabilities.getJetPack().getForce() > 0;
 }
 
-int Character::attack(std::string attackName) {
+int Character::attack(const std::string& attackName) {
     if (!canUse(attackName)) {
         throw std::invalid_argument("This attack cannot be used");
     }
     return capabilities.use(attackName);
 }
 
-void Character::move(std::string movementName) {
+void Character::move(const std::string& movementName) {
     if (!canMove(movementName)) {
         throw std::invalid_argument("This movement cannot be used");
     }
@@ -113,21 +112,21 @@ bool Character::canUseJetpack() const {
     return capabilities.getJetPack().canActivate();
 }
 
-void Character::useJetpack() {
+void Character::useJetpack() const {
     if (!canUseJetpack()) {
         throw std::invalid_argument("Jetpack cannot be used");
     }
     capabilities.getJetPack().activate();
 }
 
-bool Character::canUse(std::string attackName) const {
+bool Character::canUse(const std::string&attackName) const {
     if (isBusy()) {
         return false;
     }
     return capabilities.canUse(attackName);
 }
 
-bool Character::canMove(std::string movementName) const {
+bool Character::canMove(const std::string& movementName) const {
     if (isBusy()) {
         return false;
     }
@@ -153,13 +152,10 @@ bool Character::canMove(std::string movementName) const {
             return climb->canUse();
         }
     }
-    catch (std::invalid_argument&e) {
+    catch (std::invalid_argument&) {
         return false;
     }
-}
-
-void Character::useItem(const std::shared_ptr<Items>&item) {
-    // todo
+    return false;
 }
 
 bool Character::isBusy() const {
@@ -169,7 +165,7 @@ bool Character::isBusy() const {
     return hurtAnimation.isPlaying();
 }
 
-void Character::hurt(int damage) {
+void Character::hurt(const int damage) {
     if (damage < 0) {
         throw std::invalid_argument("Damage must be positive");
     }
@@ -200,7 +196,7 @@ int Character::isMoving() const {
     return capabilities.isMoving();
 }
 
-void Character::stopMoving(std::string movementName) {
+void Character::stopMoving(const std::string& movementName) {
     if (movementName == "JETPACK") {
         capabilities.stop(movementName);
         return;
@@ -208,7 +204,7 @@ void Character::stopMoving(std::string movementName) {
     capabilities.stop(movementName);
 }
 
-void Character::addItem(Item item) {
+void Character::addItem(const Item& item) {
     if (items.contains(item.getName())) {
         items.at(item.getName()) += 1;
     }
@@ -225,18 +221,18 @@ void Character::increaseMovementForce(const std::string& movementName, const dou
     capabilities.increaseMovementForce(movementName, amount);
 }
 
-void Character::increaseAttackDamage(double amount, std::vector<std::string> attackName) {
+void Character::increaseAttackDamage(const double amount, const std::vector<std::string>& attackName) {
     for (auto attack_name : attackName) {
         capabilities.increaseAttackDamage(amount, attack_name);
     }
 }
 
-std::vector<std::string> Character::getAllAttackName() {
+std::vector<std::string> Character::getAllAttackName() const {
     return capabilities.getCharacterAttacksName();
 }
 
 int Character::getNumberOfItem(int item_id) const {
-    auto item = DefinedItems::getItemName(static_cast<Items>(item_id));
+    const auto item = DefinedItems::getItemName(static_cast<Items>(item_id));
     if (item.empty()) {
         return 0;
     }
@@ -246,6 +242,6 @@ int Character::getNumberOfItem(int item_id) const {
     return items.at(item);
 }
 
-Attack Character::getAttackAt(int attackIndex) const {
+Attack Character::getAttackAt(const int attackIndex) const {
     return capabilities.getAttackAt(attackIndex);
 }

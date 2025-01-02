@@ -8,13 +8,13 @@
 #include "Enemies.hpp"
 #include "Enemy.hpp"
 
-Enemy::Enemy(std::string type, int maxHealth, double followRange, double attackRange, double hurtTime,
-             Capabilities capabilities,
-             bool isBoss) : Character(type,maxHealth, hurtTime, capabilities), isBoss(isBoss),
+Enemy::Enemy(const std::string&type, const int maxHealth, const double followRange, const double attackRange, const double hurtTime,
+             const Capabilities&capabilities,
+             const bool isBoss) : Character(type,maxHealth, hurtTime, capabilities), isBoss(isBoss),
                             followRange(followRange), attackRange(attackRange) {
 }
 
-void Enemy::addItem(Item buff) {
+void Enemy::addItem(const Item&item) {
     throw std::invalid_argument("Cannot add items to an enemy");
 }
 

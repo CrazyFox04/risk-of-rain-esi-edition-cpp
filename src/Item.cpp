@@ -7,10 +7,12 @@
 #include "pch.h"
 #include "Item.hpp"
 
-Item::Item(const std::string&name, double effect, double probability) : name(name), effect(effect), probability(probability) {
+#include <utility>
+
+Item::Item(std::string name, const double effect, const double probability) : name(std::move(name)), effect(effect), probability(probability) {
 }
 
-double Item::use() {
+double Item::use() const {
     return effect;
 }
 
