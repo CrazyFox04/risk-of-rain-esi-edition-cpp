@@ -13,6 +13,7 @@
 #include <set>
 #include <memory>
 #include <map>
+#include <algorithm>
 #include "Attacks.hpp"
 #include "Attack.hpp"
 #include "Movement.hpp"
